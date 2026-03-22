@@ -1318,33 +1318,60 @@ function showQ(){
   document.getElementById('qnext-btn').style.display='none';
   const area=document.getElementById('qopts-area');
   if(q.type==='mc'){
-    area.innerHTML=`<div class="qopts">${q.options.map(o=>`<button class="qopt" onclick="checkMC(this,${JSON.stringify(o)},${JSON.stringify(q.correct)})">${o}</button>`).join('')}</div>`;
+    // Store options on window to avoid escaping issues in onclick
+    window._qOpts = q.options;
+    window._qCorrect = q.correct;
+    area.innerHTML=`<div class="qopts">${q.options.map((o,i)=>`<button class="qopt" onclick="checkMC(this,${i})">${o}</button>`).join('')}</div>`;
   } else {
+    window._qCorrect = q.correct;
     area.innerHTML=`<input class="qfill" id="qfill-inp" placeholder="Escribe la respuesta…"><button class="qsubmit" id="qsub-btn">Comprobar</button>`;
     const inp=document.getElementById('qfill-inp');
-    const chk=()=>checkFill(q.correct);
-    inp.addEventListener('keydown',e=>{if(e.key==='Enter')chk();});
-    document.getElementById('qsub-btn').addEventListener('click',chk);
+    inp.addEventListener('keydown',e=>{if(e.key==='Enter')checkFill();});
+    document.getElementById('qsub-btn').addEventListener('click',checkFill);
     setTimeout(()=>inp.focus(),50);
   }
 }
 
-function checkMC(btn,sel,correct){
+function checkMC(btn, optIdx){
+  const sel = window._qOpts[optIdx];
+  const correct = window._qCorrect;
   document.querySelectorAll('.qopt').forEach(b=>b.disabled=true);
   const fb=document.getElementById('qfb');
-  if(sel===correct){btn.classList.add('correct');fb.textContent='✓ Richtig!';fb.className='qfb ok';qOk++;}
-  else{btn.classList.add('wrong');document.querySelectorAll('.qopt').forEach(b=>{if(b.textContent.trim()===correct)b.classList.add('correct');});fb.textContent='✗ Respuesta: '+correct;fb.className='qfb ko';qKo++;wrongQs.push(quizQs[quizIdx]);}
+  if(sel===correct){
+    btn.classList.add('correct');
+    fb.textContent='✓ Richtig!';
+    fb.className='qfb ok';
+    qOk++;
+  } else {
+    btn.classList.add('wrong');
+    document.querySelectorAll('.qopt').forEach(b=>{if(b.textContent.trim()===correct)b.classList.add('correct');});
+    fb.textContent='✗ Respuesta: '+correct;
+    fb.className='qfb ko';
+    qKo++;
+    wrongQs.push(quizQs[quizIdx]);
+  }
   updScore();
   document.getElementById('qnext-btn').style.display='block';
 }
 
-function checkFill(correct){
+function checkFill(){
   const inp=document.getElementById('qfill-inp');
   if(!inp||inp.disabled) return;
+  const correct=window._qCorrect;
   const val=inp.value.trim().toLowerCase();
   const fb=document.getElementById('qfb');
-  if(val===correct.toLowerCase()){inp.classList.add('correct');fb.textContent='✓ Richtig!';fb.className='qfb ok';qOk++;}
-  else{inp.classList.add('wrong');fb.textContent=`✗ Respuesta: "${correct}"`;fb.className='qfb ko';qKo++;wrongQs.push(quizQs[quizIdx]);}
+  if(val===correct.toLowerCase()){
+    inp.classList.add('correct');
+    fb.textContent='✓ Richtig!';
+    fb.className='qfb ok';
+    qOk++;
+  } else {
+    inp.classList.add('wrong');
+    fb.textContent=`✗ Respuesta: "${correct}"`;
+    fb.className='qfb ko';
+    qKo++;
+    wrongQs.push(quizQs[quizIdx]);
+  }
   inp.disabled=true;
   const sub=document.getElementById('qsub-btn');
   if(sub) sub.disabled=true;
