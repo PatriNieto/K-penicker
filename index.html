@@ -381,7 +381,10 @@
               <option value="article">Artículos (der/die/das)</option>
               <option value="fill">Completa la frase</option>
             </select>
-            <div class="quiz-score">✓ <span id="score-correct">0</span> &nbsp;✗ <span id="score-wrong">0</span></div>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+              <div class="quiz-score">✓ <span id="score-correct">0</span> &nbsp;✗ <span id="score-wrong">0</span></div>
+              <div id="quiz-lektion-label" style="font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--accent)"></div>
+            </div>
           </div>
           <div class="progress-bar-wrap"><div class="progress-bar-fill" id="quiz-progress" style="width:0%"></div></div>
           <div class="quiz-card" id="quiz-card">
@@ -701,7 +704,15 @@ function setLektion(n, btn) {
   currentLektion = n;
   document.querySelectorAll('.lek-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
+
+  // Sync the vocab dropdown inside the vocab panel
+  const sel = document.getElementById('vocab-lektion-filter');
+  if (sel) sel.value = (n === 'all') ? 'all' : String(n);
+
   renderVocab();
+
+  // Restart quiz filtered to this lektion
+  startQuiz();
 }
 
 // ─── VOCAB ───
@@ -745,28 +756,36 @@ function startQuiz() {
   nb.textContent = 'Siguiente →';
   nb.onclick = handleNextBtn;
   nb.style.display = 'none';
+  // Show active lektion label
+  const label = document.getElementById('quiz-lektion-label');
+  if (label) label.textContent = currentLektion === 'all' ? 'Todas las lecciones' : 'Lektion ' + currentLektion;
   showQuestion();
 }
 
 function buildQuestions(type) {
-  const nouns = VOCAB.filter(v => v.art !== 'verb' && v.t);
+  const lFilter = v => currentLektion === 'all' || v.l == currentLektion;
+  const nouns = VOCAB.filter(v => v.art !== 'verb' && v.t && lFilter(v));
+  // fallback to all if filtered pool is too small
+  const pool = nouns.length >= 4 ? nouns : VOCAB.filter(v => v.art !== 'verb' && v.t);
+
   if (type === 'vocab') {
-    return shuffle(nouns.slice()).slice(0,15).map(v => ({
+    return shuffle(pool.slice()).slice(0,15).map(v => ({
       type:'mc', q:v.w, tag:'ALEMÁN → ESPAÑOL', hint:`${v.art} ${v.w}`,
       correct: v.t,
       options: shuffle([v.t, ...getRandomT(v.t, 3)])
     }));
   }
   if (type === 'vocabDE') {
-    return shuffle(nouns.slice()).slice(0,15).map(v => ({
+    return shuffle(pool.slice()).slice(0,15).map(v => ({
       type:'mc', q:v.t, tag:'ESPAÑOL → ALEMÁN', hint:`(${v.art} ___)`,
       correct: v.w,
       options: shuffle([v.w, ...getRandomW(v.w, 3)])
     }));
   }
   if (type === 'article') {
-    const artNouns = VOCAB.filter(v => ['der','die','das'].includes(v.art));
-    return shuffle(artNouns.slice()).slice(0,15).map(v => ({
+    const artPool = pool.filter(v => ['der','die','das'].includes(v.art));
+    const artFinal = artPool.length >= 4 ? artPool : VOCAB.filter(v => ['der','die','das'].includes(v.art));
+    return shuffle(artFinal.slice()).slice(0,15).map(v => ({
       type:'mc', q:`___ ${v.w}`, tag:'ARTÍCULO', hint:`(${v.t||''})`,
       correct: v.art, options: ['der','die','das','ein']
     }));
