@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deutsch Lernen — Tutor Interactivo</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0e0e12;
+    --surface: #16161e;
+    --surface2: #1e1e2a;
+    --border: #2a2a3a;
+    --accent: #f5c842;
+    --accent2: #e87d3e;
+    --text: #e8e8f0;
+    --muted: #7a7a9a;
+    --green: #4caf82;
+    --red: #e05c5c;
+    --blue: #5b8dee;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Header */
+  header {
+    border-bottom: 1px solid var(--border);
+    padding: 18px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--surface);
+  }
+  .logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.6rem;
+    color: var(--accent);
+    letter-spacing: -0.5px;
+  }
+  .logo span { color: var(--accent2); font-style: italic; }
+  .lektions-bar {
+    display: flex;
+    gap: 6px;
+  }
+  .lek-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    font-family: 'DM Mono', monospace;
+    transition: all 0.2s;
+  }
+  .lek-btn:hover, .lek-btn.active {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(245,200,66,0.07);
+  }
+
+  /* Layout */
+  .main {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 0;
+  }
+
+  /* Sidebar */
+  .sidebar {
+    border-right: 1px solid var(--border);
+    padding: 24px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    background: var(--surface);
+  }
+  .sidebar-title {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--muted);
+    padding: 0 8px;
+    margin-bottom: 8px;
+  }
+  .mode-btn {
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    padding: 10px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    text-align: left;
+    font-size: 0.85rem;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .mode-btn:hover { background: var(--surface2); color: var(--text); }
+  .mode-btn.active { background: rgba(245,200,66,0.12); color: var(--accent); }
+  .mode-icon { font-size: 1rem; width: 20px; text-align: center; }
+
+  /* Content */
+  .content {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 61px);
+    overflow: hidden;
+  }
+
+  /* Mode panels */
+  .panel { display: none; flex: 1; flex-direction: column; overflow: hidden; }
+  .panel.active { display: flex; }
+
+  /* ===== CHAT PANEL ===== */
+  .chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 28px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+  .msg {
+    display: flex;
+    gap: 12px;
+    animation: fadeIn 0.3s ease;
+  }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  .msg.user { flex-direction: row-reverse; }
+  .avatar {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+  .msg.bot .avatar { background: rgba(245,200,66,0.15); border: 1px solid var(--accent); }
+  .msg.user .avatar { background: rgba(91,141,238,0.15); border: 1px solid var(--blue); }
+  .bubble {
+    max-width: 70%;
+    padding: 12px 16px;
+    border-radius: 14px;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+  .msg.bot .bubble {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-top-left-radius: 4px;
+  }
+  .msg.user .bubble {
+    background: rgba(91,141,238,0.12);
+    border: 1px solid rgba(91,141,238,0.25);
+    border-top-right-radius: 4px;
+  }
+  .bubble strong { color: var(--accent); }
+  .bubble em { color: var(--accent2); font-style: normal; font-weight: 500; }
+  .bubble code {
+    background: rgba(245,200,66,0.1);
+    border: 1px solid rgba(245,200,66,0.2);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.82rem;
+    color: var(--accent);
+  }
+  .bubble ul { padding-left: 18px; margin-top: 6px; }
+  .bubble li { margin-bottom: 4px; }
+
+  .typing-dot {
+    display: inline-block;
+    width: 6px; height: 6px;
+    background: var(--muted);
+    border-radius: 50%;
+    margin: 0 2px;
+    animation: blink 1.2s infinite;
+  }
+  .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes blink { 0%,80%,100% { opacity: 0.2; } 40% { opacity: 1; } }
+
+  .chat-input-area {
+    border-top: 1px solid var(--border);
+    padding: 18px 32px;
+    display: flex;
+    gap: 12px;
+    background: var(--surface);
+  }
+  .chat-input {
+    flex: 1;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 16px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    resize: none;
+    outline: none;
+    transition: border-color 0.2s;
+    max-height: 120px;
+  }
+  .chat-input:focus { border-color: var(--accent); }
+  .chat-input::placeholder { color: var(--muted); }
+  .send-btn {
+    background: var(--accent);
+    border: none;
+    border-radius: 12px;
+    width: 46px;
+    height: 46px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    color: #000;
+    transition: all 0.2s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .send-btn:hover { background: #ffd84a; transform: scale(1.05); }
+  .send-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+  /* Suggestion chips */
+  .chips {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    padding: 0 32px 14px;
+  }
+  .chip {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 0.78rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .chip:hover { border-color: var(--accent); color: var(--accent); background: rgba(245,200,66,0.06); }
+
+  /* ===== VOCAB PANEL ===== */
+  .vocab-panel-inner {
+    flex: 1;
+    overflow-y: auto;
+    padding: 28px 32px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+  .vocab-controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 24px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .filter-select {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 10px;
+    padding: 8px 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    outline: none;
+    cursor: pointer;
+  }
+  .filter-select:focus { border-color: var(--accent); }
+  .vocab-search {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 8px 14px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    outline: none;
+    flex: 1;
+    min-width: 180px;
+  }
+  .vocab-search:focus { border-color: var(--accent); }
+  .vocab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+  }
+  .vcard {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .vcard:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .vcard::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .vcard[data-gender="der"]::before { background: var(--blue); }
+  .vcard[data-gender="die"]::before { background: var(--accent2); }
+  .vcard[data-gender="das"]::before { background: var(--green); }
+  .vcard[data-gender="–"]::before { background: var(--muted); }
+  .vcard-article {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+  .vcard[data-gender="der"] .vcard-article { color: var(--blue); }
+  .vcard[data-gender="die"] .vcard-article { color: var(--accent2); }
+  .vcard[data-gender="das"] .vcard-article { color: var(--green); }
+  .vcard-word {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    color: var(--text);
+    margin-bottom: 3px;
+  }
+  .vcard-plural {
+    font-size: 0.75rem;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+  }
+  .vcard-lektion {
+    position: absolute;
+    top: 10px; right: 12px;
+    font-size: 0.65rem;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* ===== GRAMMAR PANEL ===== */
+  .grammar-panel-inner {
+    flex: 1;
+    overflow-y: auto;
+    padding: 28px 32px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+  .grammar-tabs {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+  }
+  .gtab {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 7px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.82rem;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.2s;
+  }
+  .gtab:hover, .gtab.active {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(245,200,66,0.07);
+  }
+  .grammar-section { display: none; }
+  .grammar-section.active { display: block; }
+  .grammar-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.6rem;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .grammar-subtitle {
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin-bottom: 24px;
+  }
+  .g-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 24px;
+    font-size: 0.88rem;
+  }
+  .g-table th {
+    background: rgba(245,200,66,0.1);
+    color: var(--accent);
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 600;
+    border: 1px solid var(--border);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+  }
+  .g-table td {
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    color: var(--text);
+  }
+  .g-table tr:hover td { background: var(--surface2); }
+  .g-table .highlight { color: var(--accent); font-weight: 600; }
+  .g-table .muted { color: var(--muted); }
+  .g-note {
+    background: rgba(91,141,238,0.08);
+    border: 1px solid rgba(91,141,238,0.2);
+    border-left: 3px solid var(--blue);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 0.85rem;
+    color: var(--text);
+    margin-bottom: 16px;
+    line-height: 1.6;
+  }
+  .g-example {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.82rem;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+  .g-example .de { color: var(--accent); }
+  .g-example .es { color: var(--muted); font-size: 0.78rem; margin-top: 2px; }
+
+  /* ===== QUIZ PANEL ===== */
+  .quiz-panel-inner {
+    flex: 1;
+    overflow-y: auto;
+    padding: 40px 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    scrollbar-width: thin;
+  }
+  .quiz-container { width: 100%; max-width: 600px; }
+  .quiz-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+  }
+  .quiz-type-sel {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 10px;
+    padding: 8px 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    outline: none;
+    cursor: pointer;
+  }
+  .quiz-score {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+  .quiz-score span { color: var(--accent); }
+  .quiz-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+    margin-bottom: 20px;
+    text-align: center;
+    min-height: 140px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .quiz-tag {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--muted);
+    margin-bottom: 14px;
+    font-family: 'DM Mono', monospace;
+  }
+  .quiz-question {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .quiz-hint {
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+  .quiz-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .qopt {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 14px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    transition: all 0.2s;
+    text-align: center;
+  }
+  .qopt:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+  .qopt.correct { border-color: var(--green); color: var(--green); background: rgba(76,175,130,0.1); }
+  .qopt.wrong { border-color: var(--red); color: var(--red); background: rgba(224,92,92,0.1); }
+  .qopt:disabled { cursor: default; }
+  .quiz-input {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    outline: none;
+    text-align: center;
+    margin-bottom: 12px;
+  }
+  .quiz-input:focus { border-color: var(--accent); }
+  .quiz-input.correct { border-color: var(--green); color: var(--green); }
+  .quiz-input.wrong { border-color: var(--red); color: var(--red); }
+  .quiz-feedback {
+    text-align: center;
+    font-size: 0.88rem;
+    min-height: 24px;
+    margin-bottom: 14px;
+  }
+  .quiz-feedback.correct { color: var(--green); }
+  .quiz-feedback.wrong { color: var(--red); }
+  .quiz-next {
+    width: 100%;
+    background: var(--accent);
+    border: none;
+    border-radius: 10px;
+    padding: 14px;
+    color: #000;
+    font-weight: 600;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .quiz-next:hover { background: #ffd84a; }
+  .quiz-submit {
+    background: transparent;
+    border: 1px solid var(--accent);
+    border-radius: 10px;
+    padding: 10px 24px;
+    color: var(--accent);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: 12px;
+  }
+  .quiz-submit:hover { background: rgba(245,200,66,0.1); }
+
+  .progress-bar-wrap {
+    background: var(--border);
+    border-radius: 20px;
+    height: 4px;
+    margin-bottom: 28px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    border-radius: 20px;
+    transition: width 0.4s ease;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Deutsch <span>Lernen</span></div>
+  <div class="lektions-bar">
+    <button class="lek-btn active" onclick="setLektion('all')">Alle</button>
+    <button class="lek-btn" onclick="setLektion(1)">L1</button>
+    <button class="lek-btn" onclick="setLektion(2)">L2</button>
+    <button class="lek-btn" onclick="setLektion(3)">L3</button>
+    <button class="lek-btn" onclick="setLektion(4)">L4</button>
+    <button class="lek-btn" onclick="setLektion(5)">L5</button>
+    <button class="lek-btn" onclick="setLektion(6)">L6</button>
+    <button class="lek-btn" onclick="setLektion(7)">L7</button>
+  </div>
+</header>
+
+<div class="main">
+  <div class="sidebar">
+    <div class="sidebar-title">Modos</div>
+    <button class="mode-btn active" onclick="setMode('chat')">
+      <span class="mode-icon">💬</span> Conversación
+    </button>
+    <button class="mode-btn" onclick="setMode('vocab')">
+      <span class="mode-icon">📚</span> Vocabulario
+    </button>
+    <button class="mode-btn" onclick="setMode('grammar')">
+      <span class="mode-icon">📐</span> Gramática
+    </button>
+    <button class="mode-btn" onclick="setMode('quiz')">
+      <span class="mode-icon">🎯</span> Quiz
+    </button>
+  </div>
+
+  <div class="content">
+
+    <!-- CHAT PANEL -->
+    <div class="panel active" id="panel-chat">
+      <div class="chat-messages" id="chat-messages"></div>
+      <div class="chips" id="chips">
+        <button class="chip" onclick="sendChip('Explícame los artículos der/die/das')">Artículos der/die/das</button>
+        <button class="chip" onclick="sendChip('¿Cómo se usa el Akkusativ?')">Akkusativ</button>
+        <button class="chip" onclick="sendChip('Practica conmigo una conversación en un restaurante')">En el restaurante</button>
+        <button class="chip" onclick="sendChip('Explica los verbos modales müssen, können, wollen')">Verbos modales</button>
+        <button class="chip" onclick="sendChip('¿Cómo funciona el Dativ con la preposición mit?')">Dativ + mit</button>
+      </div>
+      <div class="chat-input-area">
+        <textarea class="chat-input" id="chat-input" placeholder="Pregunta algo en español o alemán..." rows="1" onkeydown="handleKey(event)"></textarea>
+        <button class="send-btn" id="send-btn" onclick="sendMessage()">➤</button>
+      </div>
+    </div>
+
+    <!-- VOCAB PANEL -->
+    <div class="panel" id="panel-vocab">
+      <div class="vocab-panel-inner">
+        <div class="vocab-controls">
+          <select class="filter-select" id="vocab-lektion-filter" onchange="renderVocab()">
+            <option value="all">Todas las lecciones</option>
+            <option value="1">Lektion 1</option>
+            <option value="2">Lektion 2</option>
+            <option value="3">Lektion 3</option>
+            <option value="4">Lektion 4</option>
+            <option value="5">Lektion 5</option>
+            <option value="6">Lektion 6</option>
+            <option value="7">Lektion 7</option>
+          </select>
+          <select class="filter-select" id="vocab-gender-filter" onchange="renderVocab()">
+            <option value="all">Todos los géneros</option>
+            <option value="der">der (masc.)</option>
+            <option value="die">die (fem.)</option>
+            <option value="das">das (neut.)</option>
+          </select>
+          <input class="vocab-search" id="vocab-search" placeholder="Buscar palabra..." oninput="renderVocab()">
+        </div>
+        <div class="vocab-grid" id="vocab-grid"></div>
+      </div>
+    </div>
+
+    <!-- GRAMMAR PANEL -->
+    <div class="panel" id="panel-grammar">
+      <div class="grammar-panel-inner">
+        <div class="grammar-tabs">
+          <button class="gtab active" onclick="setGTab('artikel')">Artikel</button>
+          <button class="gtab" onclick="setGTab('akkusativ')">Akkusativ</button>
+          <button class="gtab" onclick="setGTab('dativ')">Dativ</button>
+          <button class="gtab" onclick="setGTab('modal')">Modalverben</button>
+          <button class="gtab" onclick="setGTab('satzstellung')">Satzstellung</button>
+          <button class="gtab" onclick="setGTab('praeteritum')">Präteritum</button>
+          <button class="gtab" onclick="setGTab('trennbar')">Trennbare V.</button>
+        </div>
+
+        <div class="grammar-section active" id="gsec-artikel">
+          <div class="grammar-title">Artikel</div>
+          <div class="grammar-subtitle">Artículos definidos, indefinidos y negativos</div>
+          <table class="g-table">
+            <tr><th>Género</th><th>Definido</th><th>Indefinido</th><th>Negativo</th><th>Ejemplo</th></tr>
+            <tr><td>Maskulin</td><td class="highlight">der</td><td class="highlight">ein</td><td class="highlight">kein</td><td>der Zug / ein Zug / kein Zug</td></tr>
+            <tr><td>Neutrum</td><td class="highlight">das</td><td class="highlight">ein</td><td class="highlight">kein</td><td>das Hotel / ein Hotel / kein Hotel</td></tr>
+            <tr><td>Feminin</td><td class="highlight">die</td><td class="highlight">eine</td><td class="highlight">keine</td><td>die Kirche / eine Kirche / keine Kirche</td></tr>
+            <tr><td>Plural</td><td class="highlight">die</td><td class="muted">–</td><td class="highlight">keine</td><td>die Autos / – / keine Autos</td></tr>
+          </table>
+          <div class="g-note">💡 <strong>Regla de color:</strong> <span style="color:var(--blue)">der = azul</span> · <span style="color:var(--accent2)">die = naranja</span> · <span style="color:var(--green)">das = verde</span>. Aprende cada sustantivo con su artículo.</div>
+        </div>
+
+        <div class="grammar-section" id="gsec-akkusativ">
+          <div class="grammar-title">Akkusativ</div>
+          <div class="grammar-subtitle">Caso acusativo — objeto directo (movimiento / acción)</div>
+          <table class="g-table">
+            <tr><th>Género</th><th>Nominativ</th><th>Akkusativ</th><th>Indef.</th><th>Negativo</th></tr>
+            <tr><td>Maskulin</td><td>der</td><td class="highlight">den</td><td>einen</td><td>keinen</td></tr>
+            <tr><td>Neutrum</td><td>das</td><td class="highlight">das</td><td>ein</td><td>kein</td></tr>
+            <tr><td>Feminin</td><td>die</td><td class="highlight">die</td><td>eine</td><td>keine</td></tr>
+            <tr><td>Plural</td><td>die</td><td class="highlight">die</td><td>–</td><td>keine</td></tr>
+          </table>
+          <div class="g-note">⚠️ Solo <strong>el masculino</strong> cambia: <code>der → den</code></div>
+          <div class="g-example"><div class="de">Ich kaufe <span style="color:var(--accent)">den</span> Käse.</div><div class="es">→ Compro el queso. (der Käse → <strong>den</strong>)</div></div>
+          <div class="g-example"><div class="de">Ich esse <span style="color:var(--accent)">das</span> Fleisch.</div><div class="es">→ Como la carne. (das Fleisch → igual)</div></div>
+          <div class="g-example"><div class="de">Verben mit Akkusativ: brauchen, haben, machen, kochen, essen, kaufen, nehmen, mögen, möchten</div></div>
+        </div>
+
+        <div class="grammar-section" id="gsec-dativ">
+          <div class="grammar-title">Dativ</div>
+          <div class="grammar-subtitle">Caso dativo — posición, preposición mit, von, zu, bei...</div>
+          <table class="g-table">
+            <tr><th>Género</th><th>Nominativ</th><th>Dativ</th><th>Indef. Dativ</th></tr>
+            <tr><td>Maskulin (der)</td><td>der Freund</td><td class="highlight">dem Freund</td><td>einem Freund</td></tr>
+            <tr><td>Neutrum (das)</td><td>das Taxi</td><td class="highlight">dem Taxi</td><td>einem Taxi</td></tr>
+            <tr><td>Feminin (die)</td><td>die Freundin</td><td class="highlight">der Freundin</td><td>einer Freundin</td></tr>
+            <tr><td>Plural</td><td>die Mitarbeiter</td><td class="highlight">den Mitarbeitern</td><td>– Mitarbeitern</td></tr>
+          </table>
+          <div class="g-note">💡 Dativo = posición / Acusativo = movimiento<br><code>Ich bin <strong>in der</strong> Schule.</code> (Dativ) · <code>Ich gehe <strong>in die</strong> Schule.</code> (Akkusativ)</div>
+          <div class="g-example"><div class="de">Sie fährt mit <span style="color:var(--accent)">einem</span> Freund und <span style="color:var(--accent)">einer</span> Freundin.</div><div class="es">→ Viaja con un amigo y una amiga.</div></div>
+          <div class="g-example"><div class="de">Präpositionen mit Dativ: mit, von, zu, bei, seit, nach, aus</div></div>
+        </div>
+
+        <div class="grammar-section" id="gsec-modal">
+          <div class="grammar-title">Modalverben</div>
+          <div class="grammar-subtitle">müssen, können, wollen — el verbo modal va en posición 2, el infinitivo al final</div>
+          <table class="g-table">
+            <tr><th></th><th>müssen</th><th>können</th><th>wollen</th></tr>
+            <tr><td>ich</td><td class="highlight">muss</td><td class="highlight">kann</td><td class="highlight">will</td></tr>
+            <tr><td>du</td><td>musst</td><td>kannst</td><td>willst</td></tr>
+            <tr><td>er/sie/es</td><td class="highlight">muss</td><td class="highlight">kann</td><td class="highlight">will</td></tr>
+            <tr><td>wir</td><td>müssen</td><td>können</td><td>wollen</td></tr>
+            <tr><td>ihr</td><td>müsst</td><td>könnt</td><td>wollt</td></tr>
+            <tr><td>sie/Sie</td><td>müssen</td><td>können</td><td>wollen</td></tr>
+          </table>
+          <div class="g-example"><div class="de">Wir <span style="color:var(--accent)">können</span> nicht ins Kino <span style="color:var(--accent2)">gehen</span>.</div><div class="es">Modalverb pos. 2 → Infinitiv am Satzende</div></div>
+          <div class="g-example"><div class="de"><span style="color:var(--accent)">Wollen</span> wir zum Yoga <span style="color:var(--accent2)">gehen</span>?</div><div class="es">En preguntas: modal pos. 1 → infinitivo al final</div></div>
+        </div>
+
+        <div class="grammar-section" id="gsec-satzstellung">
+          <div class="grammar-title">Satzstellung</div>
+          <div class="grammar-subtitle">El verbo conjugado siempre ocupa la posición 2</div>
+          <table class="g-table">
+            <tr><th>Tipo</th><th>Pos. 1</th><th>Pos. 2 (Verbo)</th><th>Resto</th></tr>
+            <tr><td>Normal</td><td>Ich</td><td class="highlight">wohne</td><td>in Madrid.</td></tr>
+            <tr><td>Tiempo primero</td><td>Heute</td><td class="highlight">arbeite</td><td>ich im Restaurant.</td></tr>
+            <tr><td>Pregunta Ja/Nein</td><td class="highlight">Kommst</td><td>du</td><td>aus Spanien?</td></tr>
+            <tr><td>W-Frage</td><td>Wo</td><td class="highlight">wohnst</td><td>du?</td></tr>
+            <tr><td>Trennbar</td><td>Ich</td><td class="highlight">stehe</td><td>um 6 Uhr <em>auf</em>.</td></tr>
+          </table>
+          <div class="g-note">🔑 El verbo conjugado siempre está en posición 2 en frases declarativas. En preguntas Ja/Nein va en posición 1.</div>
+        </div>
+
+        <div class="grammar-section" id="gsec-praeteritum">
+          <div class="grammar-title">Präteritum</div>
+          <div class="grammar-subtitle">Pasado de sein y haben (formas más usadas)</div>
+          <table class="g-table">
+            <tr><th></th><th>sein (ser/estar)</th><th>haben (tener)</th></tr>
+            <tr><td>ich</td><td class="highlight">war</td><td class="highlight">hatte</td></tr>
+            <tr><td>du</td><td>warst</td><td>hattest</td></tr>
+            <tr><td>er/sie/es</td><td class="highlight">war</td><td class="highlight">hatte</td></tr>
+            <tr><td>wir</td><td>waren</td><td>hatten</td></tr>
+            <tr><td>ihr</td><td>wart</td><td>hattet</td></tr>
+            <tr><td>sie/Sie</td><td>waren</td><td>hatten</td></tr>
+          </table>
+          <div class="g-example"><div class="de">Ich <span style="color:var(--accent)">war</span> in Berlin. / Du <span style="color:var(--accent)">hattest</span> Zeit.</div></div>
+        </div>
+
+        <div class="grammar-section" id="gsec-trennbar">
+          <div class="grammar-title">Trennbare Verben</div>
+          <div class="grammar-subtitle">Verbos separables — el prefijo va al final de la frase</div>
+          <table class="g-table">
+            <tr><th>Infinitiv</th><th>Conjugado</th><th>Prefijo final</th></tr>
+            <tr><td><span style="color:var(--accent2)">ein</span>laden</td><td>Sie <span class="highlight">laden</span> die Freunde</td><td><span style="color:var(--accent2)">ein</span>.</td></tr>
+            <tr><td><span style="color:var(--accent2)">ab</span>holen</td><td>Sie <span class="highlight">holen</span> Sofia</td><td><span style="color:var(--accent2)">ab</span>.</td></tr>
+            <tr><td><span style="color:var(--accent2)">auf</span>stehen</td><td>Ich <span class="highlight">stehe</span> um 6 Uhr</td><td><span style="color:var(--accent2)">auf</span>.</td></tr>
+          </table>
+          <div class="g-note">💡 Con verbos modales, el verbo separable va al final como <strong>infinitivo entero</strong>:<br><code>Sie wollen Sofia <span style="color:var(--accent)">abholen</span>.</code></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUIZ PANEL -->
+    <div class="panel" id="panel-quiz">
+      <div class="quiz-panel-inner">
+        <div class="quiz-container">
+          <div class="quiz-header">
+            <select class="quiz-type-sel" id="quiz-type" onchange="startQuiz()">
+              <option value="vocab">Vocabulario (traducción)</option>
+              <option value="article">Artículos (der/die/das)</option>
+              <option value="fill">Completa la frase</option>
+            </select>
+            <div class="quiz-score">✓ <span id="score-correct">0</span> &nbsp;✗ <span id="score-wrong">0</span></div>
+          </div>
+          <div class="progress-bar-wrap"><div class="progress-bar-fill" id="quiz-progress" style="width:0%"></div></div>
+          <div class="quiz-card" id="quiz-card">
+            <div class="quiz-tag" id="quiz-tag">VOCABULARIO</div>
+            <div class="quiz-question" id="quiz-question">Cargando...</div>
+            <div class="quiz-hint" id="quiz-hint"></div>
+          </div>
+          <div id="quiz-options-area"></div>
+          <div class="quiz-feedback" id="quiz-feedback"></div>
+          <button class="quiz-next" id="quiz-next-btn" onclick="nextQuestion()" style="display:none">Siguiente →</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ============ DATA ============
+const VOCAB = [
+  // L1 - Hamburg/Orte
+  {w:"Zug", art:"der", pl:"Züge", l:1}, {w:"Hafen", art:"der", pl:"Häfen", l:1},
+  {w:"Turm", art:"der", pl:"Türme", l:1}, {w:"Kirche", art:"die", pl:"Kirchen", l:1},
+  {w:"Brücke", art:"die", pl:"Brücken", l:1}, {w:"Bahnhof", art:"der", pl:"Bahnhöfe", l:1},
+  {w:"Museum", art:"das", pl:"Museen", l:1}, {w:"Rathaus", art:"das", pl:"", l:1},
+  {w:"Schiff", art:"das", pl:"Schiffe", l:1}, {w:"Fluss", art:"der", pl:"Flüsse", l:1},
+  {w:"Bus", art:"der", pl:"Busse", l:1}, {w:"Fahrrad", art:"das", pl:"Fahrräder", l:1},
+  {w:"Theater", art:"das", pl:"Theater", l:1}, {w:"Kino", art:"das", pl:"Kinos", l:1},
+  {w:"Park", art:"der", pl:"Parks", l:1}, {w:"Markt", art:"der", pl:"Märkte", l:1},
+  // L2 - Essen
+  {w:"Brot", art:"das", pl:"Brote", l:2}, {w:"Käse", art:"der", pl:"–", l:2},
+  {w:"Milch", art:"die", pl:"–", l:2}, {w:"Butter", art:"die", pl:"–", l:2},
+  {w:"Ei", art:"das", pl:"Eier", l:2}, {w:"Apfel", art:"der", pl:"Äpfel", l:2},
+  {w:"Tomate", art:"die", pl:"Tomaten", l:2}, {w:"Gurke", art:"die", pl:"Gurken", l:2},
+  {w:"Salat", art:"der", pl:"Salate", l:2}, {w:"Suppe", art:"die", pl:"Suppen", l:2},
+  {w:"Fleisch", art:"das", pl:"–", l:2}, {w:"Kaffee", art:"der", pl:"–", l:2},
+  {w:"Kuchen", art:"der", pl:"Kuchen", l:2}, {w:"Wasser", art:"das", pl:"–", l:2},
+  // L3 - Familia/Tiempo
+  {w:"Bruder", art:"der", pl:"Brüder", l:3}, {w:"Schwester", art:"die", pl:"Schwestern", l:3},
+  {w:"Sohn", art:"der", pl:"Söhne", l:3}, {w:"Tochter", art:"die", pl:"Töchter", l:3},
+  {w:"Kind", art:"das", pl:"Kinder", l:3}, {w:"Wochenende", art:"das", pl:"Wochenenden", l:3},
+  {w:"Schwimmbad", art:"das", pl:"Schwimmbäder", l:3}, {w:"Schlüssel", art:"der", pl:"Schlüssel", l:3},
+  // L4 - Tiempo libre
+  {w:"Geburtstag", art:"der", pl:"Geburtstage", l:4}, {w:"Überraschung", art:"die", pl:"Überraschungen", l:4},
+  {w:"Freund", art:"der", pl:"Freunde", l:4}, {w:"Freundin", art:"die", pl:"Freundinnen", l:4},
+  // L5 - Profesiones
+  {w:"Arzt", art:"der", pl:"Ärzte", l:5}, {w:"Lehrerin", art:"die", pl:"Lehrerinnen", l:5},
+  {w:"Universität", art:"die", pl:"Universitäten", l:5}, {w:"Krankenhaus", art:"das", pl:"Krankenhäuser", l:5},
+  {w:"Stunde", art:"die", pl:"Stunden", l:5}, {w:"Rechnung", art:"die", pl:"Rechnungen", l:5},
+  // L6 - Países
+  {w:"Sprache", art:"die", pl:"Sprachen", l:6}, {w:"Koffer", art:"der", pl:"Koffer", l:6},
+  {w:"Flasche", art:"die", pl:"Flaschen", l:6}, {w:"Autobahn", art:"die", pl:"Autobahnen", l:6},
+  // L7 - Trabajo
+  {w:"Büro", art:"das", pl:"Büros", l:7}, {w:"Praktikum", art:"das", pl:"Praktika", l:7},
+  {w:"Fehler", art:"der", pl:"Fehler", l:7}, {w:"Kunde", art:"der", pl:"Kunden", l:7},
+  {w:"Brief", art:"der", pl:"Briefe", l:7}, {w:"Besprechung", art:"die", pl:"Besprechungen", l:7},
+];
+
+const TRANSLATIONS = {
+  "Zug":"tren","Hafen":"puerto","Turm":"torre","Kirche":"iglesia","Brücke":"puente",
+  "Bahnhof":"estación de tren","Museum":"museo","Rathaus":"ayuntamiento","Schiff":"barco",
+  "Fluss":"río","Bus":"autobús","Fahrrad":"bicicleta","Theater":"teatro","Kino":"cine",
+  "Park":"parque","Markt":"mercado","Brot":"pan","Käse":"queso","Milch":"leche",
+  "Butter":"mantequilla","Ei":"huevo","Apfel":"manzana","Tomate":"tomate","Gurke":"pepino",
+  "Salat":"ensalada","Suppe":"sopa","Fleisch":"carne","Kaffee":"café","Kuchen":"pastel",
+  "Wasser":"agua","Bruder":"hermano","Schwester":"hermana","Sohn":"hijo","Tochter":"hija",
+  "Kind":"niño/hijo","Wochenende":"fin de semana","Schwimmbad":"piscina","Schlüssel":"llave",
+  "Geburtstag":"cumpleaños","Überraschung":"sorpresa","Freund":"amigo","Freundin":"amiga",
+  "Arzt":"médico","Lehrerin":"profesora","Universität":"universidad","Krankenhaus":"hospital",
+  "Stunde":"hora","Rechnung":"factura/cuenta","Sprache":"idioma","Koffer":"maleta",
+  "Flasche":"botella","Autobahn":"autopista","Büro":"oficina","Praktikum":"prácticas",
+  "Fehler":"error","Kunde":"cliente","Brief":"carta","Besprechung":"reunión"
+};
+
+const FILL_INS = [
+  {q:"Ich gehe ___ Supermarkt.", ans:"zum", hint:"zu + dem = zum"},
+  {q:"Sie fährt mit ___ Freund.", ans:"einem", hint:"mit + Dativ (der/ein → dem/einem)"},
+  {q:"Wir haben ___ Käse mehr.", ans:"keinen", hint:"Negation Akkusativ maskulin"},
+  {q:"Gehen ___ ins Kino?", ans:"wir", hint:"Ja/Nein-Frage: wir"},
+  {q:"Ich stehe um 7 Uhr ___.", ans:"auf", hint:"trennbares Verb: aufstehen"},
+  {q:"Das ist ___ Hotel.", ans:"ein", hint:"Neutrum, unbestimmt"},
+  {q:"Ich kaufe ___ Brot.", ans:"das", hint:"Akkusativ Neutrum"},
+  {q:"___ wohnst du?", ans:"Wo", hint:"Pregunta de lugar"},
+];
+
+// ============ STATE ============
+let currentLektion = 'all';
+let quizQuestions = [], quizIndex = 0, scoreCorrect = 0, scoreWrong = 0;
+let conversationHistory = [];
+
+// ============ SYSTEM PROMPT ============
+const SYSTEM_PROMPT = `Eres un tutor de alemán para hispanohablantes. El estudiante está aprendiendo alemán nivel A1-A2 con las siguientes lecciones:
+
+LEKTION 1: Ciudades (Hamburgo), lugares (Hafen, Bahnhof, Kirche, Rathaus, Museum), transporte (Zug, Bus, Fahrrad, U-Bahn), artículos (der/die/das/kein/keine), imperativo con Sie (Gehen Sie links!).
+
+LEKTION 2: Comida y bebida, compras (Bäckerei, Markt, Supermarkt), Akkusativ (den/einen/keinen para masculino), verbos kochen/essen/kaufen/haben/mögen/möchten/wollen.
+
+LEKTION 3: Familia (Bruder, Schwester, Sohn, Tochter), hora (Viertel nach/vor, halb), Possessivartikel (mein/dein/sein/ihr...), Modalverben (müssen/können/wollen), llamadas telefónicas.
+
+LEKTION 4: Tiempo libre, hobbies, Ordinalzahlen para fechas, verbos trennbares (einladen, abholen), Personalpronomen Akkusativ (mich/dich/ihn/sie...), Präteritum de sein/haben, restaurante.
+
+LEKTION 5: Profesiones, números grandes, conjugación verbal completa, plurales de sustantivos.
+
+LEKTION 6: Países, nacionalidades, idiomas, saludos, presentaciones (Wie heißt du? Woher kommst du?).
+
+LEKTION 7: Vida laboral (Büro, Praktikum, Kollegen), Dativ con mit, conectores und/oder/aber, Sätze verbinden.
+
+REGLAS DE ENSEÑANZA:
+- Responde SIEMPRE en español, pero usa el alemán para ejemplos y práctica
+- Da ejemplos concretos de las lecciones del estudiante
+- Corrige errores con gentileza, explica el porqué
+- Cuando practiques conversación, actúa el rol indicado (camarero, colega, etc.)
+- Usa formato: **negrita** para palabras alemanas clave, *cursiva* para traducciones
+- Mantén las respuestas claras y no muy largas
+- Si te preguntan gramática, explica la regla y da 2-3 ejemplos`;
+
+// ============ MODE SWITCHING ============
+function setMode(mode) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + mode).classList.add('active');
+  event.currentTarget.classList.add('active');
+  if (mode === 'vocab') renderVocab();
+  if (mode === 'quiz') startQuiz();
+}
+
+function setLektion(n) {
+  currentLektion = n;
+  document.querySelectorAll('.lek-btn').forEach(b => b.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  renderVocab();
+}
+
+// ============ VOCAB ============
+function renderVocab() {
+  const lf = document.getElementById('vocab-lektion-filter').value;
+  const gf = document.getElementById('vocab-gender-filter').value;
+  const search = document.getElementById('vocab-search').value.toLowerCase();
+  const grid = document.getElementById('vocab-grid');
+
+  let filtered = VOCAB.filter(v => {
+    const lMatch = lf === 'all' || v.l == lf;
+    const gMatch = gf === 'all' || v.art === gf;
+    const sMatch = !search || v.w.toLowerCase().includes(search) ||
+      (TRANSLATIONS[v.w] && TRANSLATIONS[v.w].toLowerCase().includes(search));
+    return lMatch && gMatch && sMatch;
+  });
+
+  grid.innerHTML = filtered.map(v => `
+    <div class="vcard" data-gender="${v.art}" title="${TRANSLATIONS[v.w] || ''}">
+      <div class="vcard-lektion">L${v.l}</div>
+      <div class="vcard-article">${v.art}</div>
+      <div class="vcard-word">${v.w}</div>
+      <div class="vcard-plural">${v.pl ? 'Pl: ' + v.pl : ''}</div>
+      <div style="font-size:0.75rem;color:var(--muted);margin-top:6px">${TRANSLATIONS[v.w] || ''}</div>
+    </div>
+  `).join('');
+}
+
+// ============ GRAMMAR TABS ============
+function setGTab(id) {
+  document.querySelectorAll('.grammar-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.gtab').forEach(b => b.classList.remove('active'));
+  document.getElementById('gsec-' + id).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+
+// ============ QUIZ ============
+function startQuiz() {
+  const type = document.getElementById('quiz-type').value;
+  quizQuestions = buildQuestions(type);
+  quizIndex = 0; scoreCorrect = 0; scoreWrong = 0;
+  updateScore();
+  showQuestion();
+}
+
+function buildQuestions(type) {
+  if (type === 'vocab') {
+    return shuffle(VOCAB.slice()).slice(0, 15).map(v => ({
+      type: 'mc',
+      q: v.w,
+      tag: 'TRADUCCIÓN',
+      hint: `${v.art} ${v.w}`,
+      correct: TRANSLATIONS[v.w] || '?',
+      options: shuffle([
+        TRANSLATIONS[v.w] || '?',
+        ...getRandomTranslations(TRANSLATIONS[v.w], 3)
+      ])
+    }));
+  }
+  if (type === 'article') {
+    return shuffle(VOCAB.filter(v => v.art !== '–')).slice(0, 15).map(v => ({
+      type: 'mc',
+      q: `___ ${v.w}`,
+      tag: 'ARTÍCULO',
+      hint: `(${TRANSLATIONS[v.w] || ''})`,
+      correct: v.art,
+      options: ['der', 'die', 'das', 'ein']
+    }));
+  }
+  if (type === 'fill') {
+    return shuffle(FILL_INS).slice(0, 8).map(f => ({
+      type: 'fill',
+      q: f.q,
+      tag: 'COMPLETA',
+      hint: f.hint,
+      correct: f.ans
+    }));
+  }
+}
+
+function shuffle(arr) { return arr.sort(() => Math.random() - 0.5); }
+
+function getRandomTranslations(exclude, n) {
+  const vals = Object.values(TRANSLATIONS).filter(v => v !== exclude);
+  return shuffle(vals).slice(0, n);
+}
+
+function showQuestion() {
+  if (quizIndex >= quizQuestions.length) { showQuizEnd(); return; }
+  const q = quizQuestions[quizIndex];
+  document.getElementById('quiz-progress').style.width = (quizIndex / quizQuestions.length * 100) + '%';
+  document.getElementById('quiz-tag').textContent = q.tag;
+  document.getElementById('quiz-question').textContent = q.q;
+  document.getElementById('quiz-hint').textContent = q.hint || '';
+  document.getElementById('quiz-feedback').textContent = '';
+  document.getElementById('quiz-feedback').className = 'quiz-feedback';
+  document.getElementById('quiz-next-btn').style.display = 'none';
+
+  const area = document.getElementById('quiz-options-area');
+  if (q.type === 'mc') {
+    area.innerHTML = `<div class="quiz-options">${q.options.map(o =>
+      `<button class="qopt" onclick="checkMC(this, '${o}', '${q.correct}')">${o}</button>`
+    ).join('')}</div>`;
+  } else {
+    area.innerHTML = `
+      <input class="quiz-input" id="fill-input" placeholder="Escribe la respuesta..." onkeydown="if(event.key==='Enter') checkFill('${q.correct}')">
+      <button class="quiz-submit" onclick="checkFill('${q.correct}')">Comprobar</button>
+    `;
+    setTimeout(() => document.getElementById('fill-input')?.focus(), 50);
+  }
+}
+
+function checkMC(btn, selected, correct) {
+  document.querySelectorAll('.qopt').forEach(b => b.disabled = true);
+  const fb = document.getElementById('quiz-feedback');
+  if (selected === correct) {
+    btn.classList.add('correct');
+    fb.textContent = '✓ ¡Correcto!'; fb.className = 'quiz-feedback correct';
+    scoreCorrect++;
+  } else {
+    btn.classList.add('wrong');
+    document.querySelectorAll('.qopt').forEach(b => { if (b.textContent === correct) b.classList.add('correct'); });
+    fb.textContent = `✗ La respuesta correcta es: ${correct}`; fb.className = 'quiz-feedback wrong';
+    scoreWrong++;
+  }
+  updateScore();
+  document.getElementById('quiz-next-btn').style.display = 'block';
+}
+
+function checkFill(correct) {
+  const input = document.getElementById('fill-input');
+  const val = input.value.trim().toLowerCase();
+  const fb = document.getElementById('quiz-feedback');
+  if (val === correct.toLowerCase()) {
+    input.classList.add('correct');
+    fb.textContent = '✓ ¡Correcto!'; fb.className = 'quiz-feedback correct';
+    scoreCorrect++;
+  } else {
+    input.classList.add('wrong');
+    fb.textContent = `✗ Respuesta: "${correct}"`; fb.className = 'quiz-feedback wrong';
+    scoreWrong++;
+  }
+  input.disabled = true;
+  document.querySelector('.quiz-submit') && (document.querySelector('.quiz-submit').disabled = true);
+  updateScore();
+  document.getElementById('quiz-next-btn').style.display = 'block';
+}
+
+function nextQuestion() {
+  quizIndex++;
+  showQuestion();
+}
+
+function showQuizEnd() {
+  const total = scoreCorrect + scoreWrong;
+  const pct = Math.round(scoreCorrect / total * 100);
+  document.getElementById('quiz-card').innerHTML = `
+    <div class="quiz-tag">RESULTADO</div>
+    <div class="quiz-question">${pct}%</div>
+    <div class="quiz-hint">${scoreCorrect} correctas de ${total}</div>
+  `;
+  document.getElementById('quiz-options-area').innerHTML = '';
+  document.getElementById('quiz-feedback').textContent = pct >= 80 ? '🎉 ¡Sehr gut!' : pct >= 60 ? '👍 Gut gemacht!' : '📚 Sigue practicando';
+  document.getElementById('quiz-next-btn').textContent = 'Reiniciar Quiz';
+  document.getElementById('quiz-next-btn').style.display = 'block';
+  document.getElementById('quiz-next-btn').onclick = startQuiz;
+  document.getElementById('quiz-progress').style.width = '100%';
+}
+
+function updateScore() {
+  document.getElementById('score-correct').textContent = scoreCorrect;
+  document.getElementById('score-wrong').textContent = scoreWrong;
+}
+
+// ============ CHAT ============
+function addMsg(role, text) {
+  const container = document.getElementById('chat-messages');
+  const div = document.createElement('div');
+  div.className = 'msg ' + role;
+  const avatar = role === 'bot' ? '🇩🇪' : '👤';
+  div.innerHTML = `<div class="avatar">${avatar}</div><div class="bubble">${formatMsg(text)}</div>`;
+  container.appendChild(div);
+  container.scrollTop = container.scrollHeight;
+  return div;
+}
+
+function formatMsg(text) {
+  return text
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.*?)\*/g, '<em>$1</em>')
+    .replace(/`(.*?)`/g, '<code>$1</code>')
+    .replace(/\n/g, '<br>');
+}
+
+function showTyping() {
+  const container = document.getElementById('chat-messages');
+  const div = document.createElement('div');
+  div.className = 'msg bot'; div.id = 'typing-indicator';
+  div.innerHTML = `<div class="avatar">🇩🇪</div><div class="bubble"><span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span></div>`;
+  container.appendChild(div);
+  container.scrollTop = container.scrollHeight;
+}
+
+function removeTyping() {
+  document.getElementById('typing-indicator')?.remove();
+}
+
+async function sendMessage() {
+  const input = document.getElementById('chat-input');
+  const text = input.value.trim();
+  if (!text) return;
+  input.value = '';
+  document.getElementById('chips').style.display = 'none';
+  addMsg('user', text);
+  conversationHistory.push({ role: 'user', content: text });
+
+  const btn = document.getElementById('send-btn');
+  btn.disabled = true;
+  showTyping();
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: SYSTEM_PROMPT,
+        messages: conversationHistory
+      })
+    });
+    const data = await res.json();
+    removeTyping();
+    const reply = data.content?.[0]?.text || 'No pude responder.';
+    conversationHistory.push({ role: 'assistant', content: reply });
+    addMsg('bot', reply);
+  } catch (e) {
+    removeTyping();
+    addMsg('bot', 'Error de conexión. Inténtalo de nuevo.');
+  }
+  btn.disabled = false;
+}
+
+function sendChip(text) {
+  document.getElementById('chat-input').value = text;
+  sendMessage();
+}
+
+function handleKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+}
+
+// ============ INIT ============
+addMsg('bot', '¡Hallo! Soy tu tutor de alemán 🇩🇪\n\nPuedo ayudarte con todo lo que has visto en tus 7 lecciones: **artículos**, **casos (Akkusativ/Dativ)**, **verbos modales**, **vocabulario** y mucho más.\n\n¿Por dónde empezamos? Usa los **chips** de abajo para preguntas rápidas, o escribe directamente lo que necesites.');
+renderVocab();
+startQuiz();
+</script>
+</body>
+</html>
