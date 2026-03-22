@@ -179,6 +179,31 @@
   .quiz-submit:hover { background: rgba(245,200,66,0.1); }
   .progress-bar-wrap { background: var(--border); border-radius: 20px; height: 4px; margin-bottom: 28px; overflow: hidden; }
   .progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 20px; transition: width 0.4s ease; }
+
+  /* RESULTS SCREEN */
+  .results-header { text-align: center; margin-bottom: 28px; }
+  .results-emoji { font-size: 3rem; margin-bottom: 10px; }
+  .results-pct { font-family: 'DM Serif Display', serif; font-size: 4rem; color: var(--accent); line-height: 1; margin-bottom: 8px; }
+  .results-sub { font-size: 0.9rem; color: var(--muted); }
+  .results-bars { display: flex; gap: 12px; margin-bottom: 24px; }
+  .results-bar-item { flex: 1; background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; padding: 14px; text-align: center; }
+  .results-bar-item .rbi-num { font-family: 'DM Serif Display', serif; font-size: 1.8rem; margin-bottom: 4px; }
+  .results-bar-item .rbi-label { font-size: 0.72rem; color: var(--muted); font-family: 'DM Mono', monospace; text-transform: uppercase; letter-spacing: 1px; }
+  .results-bar-item.correct .rbi-num { color: var(--green); }
+  .results-bar-item.wrong .rbi-num { color: var(--red); }
+  .results-bar-item.total .rbi-num { color: var(--text); }
+  .results-wrong-title { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); font-family: 'DM Mono', monospace; margin-bottom: 10px; }
+  .results-wrong-list { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+  .wrong-chip { background: rgba(224,92,92,0.1); border: 1px solid rgba(224,92,92,0.3); color: var(--red); border-radius: 8px; padding: 6px 12px; font-size: 0.8rem; font-family: 'DM Mono', monospace; }
+  .wrong-chip span { color: var(--muted); font-size: 0.72rem; margin-left: 6px; }
+  .results-actions { display: flex; flex-direction: column; gap: 10px; }
+  .results-btn { width: 100%; padding: 14px; border-radius: 12px; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 600; cursor: pointer; border: none; transition: all 0.2s; }
+  .results-btn.primary { background: var(--accent); color: #000; }
+  .results-btn.primary:hover { background: #ffd84a; }
+  .results-btn.secondary { background: transparent; border: 1px solid var(--border); color: var(--text); }
+  .results-btn.secondary:hover { border-color: var(--accent2); color: var(--accent2); }
+  .results-btn.secondary:disabled { opacity: 0.35; cursor: not-allowed; }
+  .results-btn.secondary:disabled:hover { border-color: var(--border); color: var(--text); }
 </style>
 </head>
 <body>
@@ -414,27 +439,47 @@
     <div class="panel" id="panel-quiz">
       <div class="quiz-panel-inner">
         <div class="quiz-container">
-          <div class="quiz-header">
-            <select class="quiz-type-sel" id="quiz-type" onchange="startQuiz()">
-              <option value="vocab">Alemán → español</option>
-              <option value="vocabDE">Español → alemán</option>
-              <option value="article">Artículos (der/die/das)</option>
-              <option value="fill">Completa la frase</option>
-            </select>
-            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
-              <div class="quiz-score">✓ <span id="score-correct">0</span> &nbsp;✗ <span id="score-wrong">0</span></div>
-              <div id="quiz-lektion-label" style="font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--accent)"></div>
+
+          <!-- PLAYING SCREEN -->
+          <div id="quiz-playing">
+            <div class="quiz-header">
+              <select class="quiz-type-sel" id="quiz-type" onchange="startQuiz()">
+                <option value="vocab">Alemán → español</option>
+                <option value="vocabDE">Español → alemán</option>
+                <option value="article">Artículos (der/die/das)</option>
+                <option value="fill">Completa la frase</option>
+              </select>
+              <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+                <div class="quiz-score">✓ <span id="score-correct">0</span> &nbsp;✗ <span id="score-wrong">0</span></div>
+                <div id="quiz-lektion-label" style="font-family:'DM Mono',monospace;font-size:0.68rem;color:var(--accent)"></div>
+              </div>
+            </div>
+            <div class="progress-bar-wrap"><div class="progress-bar-fill" id="quiz-progress" style="width:0%"></div></div>
+            <div class="quiz-card" id="quiz-card">
+              <div class="quiz-tag" id="quiz-tag">VOCABULARIO</div>
+              <div class="quiz-question" id="quiz-question">–</div>
+              <div class="quiz-hint" id="quiz-hint"></div>
+            </div>
+            <div id="quiz-options-area"></div>
+            <div class="quiz-feedback" id="quiz-feedback"></div>
+            <button class="quiz-next" id="quiz-next-btn" style="display:none" onclick="advanceQuiz()">Siguiente →</button>
+          </div>
+
+          <!-- RESULTS SCREEN -->
+          <div id="quiz-results" style="display:none">
+            <div class="results-header">
+              <div class="results-emoji" id="results-emoji">🎉</div>
+              <div class="results-pct" id="results-pct">0%</div>
+              <div class="results-sub" id="results-sub"></div>
+            </div>
+            <div class="results-bars" id="results-bars"></div>
+            <div id="results-wrong-list"></div>
+            <div class="results-actions">
+              <button class="results-btn primary" onclick="startQuiz()">🔀 Nuevas 15 preguntas</button>
+              <button class="results-btn secondary" id="btn-retry-wrong" onclick="retryWrong()">🔁 Repasar fallos</button>
             </div>
           </div>
-          <div class="progress-bar-wrap"><div class="progress-bar-fill" id="quiz-progress" style="width:0%"></div></div>
-          <div class="quiz-card" id="quiz-card">
-            <div class="quiz-tag" id="quiz-tag">VOCABULARIO</div>
-            <div class="quiz-question" id="quiz-question">–</div>
-            <div class="quiz-hint" id="quiz-hint"></div>
-          </div>
-          <div id="quiz-options-area"></div>
-          <div class="quiz-feedback" id="quiz-feedback"></div>
-          <button class="quiz-next" id="quiz-next-btn" style="display:none">Siguiente →</button>
+
         </div>
       </div>
     </div>
@@ -716,7 +761,6 @@ const FILL_INS = [
 // ─── STATE ───
 let currentLektion = 'all';
 let quizQuestions = [], quizIndex = 0, scoreCorrect = 0, scoreWrong = 0;
-let quizIsEnd = false;
 let conversationHistory = [];
 
 const SYSTEM_PROMPT = `Eres un tutor de alemán para hispanohablantes. El estudiante aprende alemán A1-A2 con estas 7 lecciones:
@@ -885,40 +929,51 @@ function setGTab(id, btn) {
 }
 
 // ─── QUIZ ───
+let wrongQuestions = []; // questions answered wrong this round
+
 function startQuiz() {
-  quizIsEnd = false;
+  wrongQuestions = [];
   const type = document.getElementById('quiz-type').value;
   quizQuestions = buildQuestions(type);
   quizIndex = 0; scoreCorrect = 0; scoreWrong = 0;
   updateScore();
-  const nb = document.getElementById('quiz-next-btn');
-  nb.textContent = 'Siguiente →';
-  nb.onclick = handleNextBtn;
-  nb.style.display = 'none';
-  // Show active lektion label
+  // update lektion label
   const label = document.getElementById('quiz-lektion-label');
   if (label) label.textContent = currentLektion === 'all' ? 'Todas las lecciones' : 'Lektion ' + currentLektion;
+  // show playing, hide results
+  document.getElementById('quiz-playing').style.display = 'block';
+  document.getElementById('quiz-results').style.display = 'none';
+  document.getElementById('quiz-next-btn').style.display = 'none';
+  showQuestion();
+}
+
+function retryWrong() {
+  if (!wrongQuestions.length) return;
+  quizQuestions = shuffle(wrongQuestions.slice());
+  wrongQuestions = [];
+  quizIndex = 0; scoreCorrect = 0; scoreWrong = 0;
+  updateScore();
+  document.getElementById('quiz-playing').style.display = 'block';
+  document.getElementById('quiz-results').style.display = 'none';
+  document.getElementById('quiz-next-btn').style.display = 'none';
   showQuestion();
 }
 
 function buildQuestions(type) {
   const lFilter = v => currentLektion === 'all' || v.l == currentLektion;
   const nouns = VOCAB.filter(v => v.art !== 'verb' && v.t && lFilter(v));
-  // fallback to all if filtered pool is too small
   const pool = nouns.length >= 4 ? nouns : VOCAB.filter(v => v.art !== 'verb' && v.t);
 
   if (type === 'vocab') {
     return shuffle(pool.slice()).slice(0,15).map(v => ({
       type:'mc', q:v.w, tag:'ALEMÁN → ESPAÑOL', hint:`${v.art} ${v.w}`,
-      correct: v.t,
-      options: shuffle([v.t, ...getRandomT(v.t, 3)])
+      correct:v.t, options:shuffle([v.t, ...getRandomT(v.t,3)])
     }));
   }
   if (type === 'vocabDE') {
     return shuffle(pool.slice()).slice(0,15).map(v => ({
       type:'mc', q:v.t, tag:'ESPAÑOL → ALEMÁN', hint:`(${v.art} ___)`,
-      correct: v.w,
-      options: shuffle([v.w, ...getRandomW(v.w, 3)])
+      correct:v.w, options:shuffle([v.w, ...getRandomW(v.w,3)])
     }));
   }
   if (type === 'article') {
@@ -926,7 +981,7 @@ function buildQuestions(type) {
     const artFinal = artPool.length >= 4 ? artPool : VOCAB.filter(v => ['der','die','das'].includes(v.art));
     return shuffle(artFinal.slice()).slice(0,15).map(v => ({
       type:'mc', q:`___ ${v.w}`, tag:'ARTÍCULO', hint:`(${v.t||''})`,
-      correct: v.art, options: ['der','die','das','ein']
+      correct:v.art, options:['der','die','das','ein']
     }));
   }
   if (type === 'fill') {
@@ -936,15 +991,16 @@ function buildQuestions(type) {
   }
 }
 
-function shuffle(a) { return a.sort(() => Math.random()-0.5); }
-function getRandomT(excl, n) { return shuffle([...new Set(VOCAB.filter(v=>v.t&&v.t!==excl&&v.art!=='verb').map(v=>v.t))]).slice(0,n); }
-function getRandomW(excl, n) { return shuffle(VOCAB.filter(v=>v.w!==excl&&v.art!=='verb').map(v=>v.w)).slice(0,n); }
+function shuffle(a) { return a.sort(()=>Math.random()-0.5); }
+function getRandomT(excl,n){ return shuffle([...new Set(VOCAB.filter(v=>v.t&&v.t!==excl&&v.art!=='verb').map(v=>v.t))]).slice(0,n); }
+function getRandomW(excl,n){ return shuffle(VOCAB.filter(v=>v.w!==excl&&v.art!=='verb').map(v=>v.w)).slice(0,n); }
 
 function showQuestion() {
-  if (quizIndex >= quizQuestions.length) { showQuizEnd(); return; }
+  if (quizIndex >= quizQuestions.length) { showResults(); return; }
   const q = quizQuestions[quizIndex];
-  document.getElementById('quiz-progress').style.width = (quizIndex/quizQuestions.length*100)+'%';
-  document.getElementById('quiz-tag').textContent = q.tag;
+  const total = quizQuestions.length;
+  document.getElementById('quiz-progress').style.width = (quizIndex/total*100)+'%';
+  document.getElementById('quiz-tag').textContent = q.tag + ` · ${quizIndex+1}/${total}`;
   document.getElementById('quiz-question').textContent = q.q;
   document.getElementById('quiz-hint').textContent = q.hint||'';
   document.getElementById('quiz-feedback').textContent = '';
@@ -953,29 +1009,25 @@ function showQuestion() {
 
   const area = document.getElementById('quiz-options-area');
   if (q.type === 'mc') {
-    area.innerHTML = `<div class="quiz-options">${q.options.map((o,i)=>
-      `<button class="qopt" data-val="${i}" onclick="checkMC(this,'${encodeURIComponent(o)}','${encodeURIComponent(q.correct)}')">${o}</button>`
+    area.innerHTML = `<div class="quiz-options">${q.options.map(o=>
+      `<button class="qopt" onclick="checkMC(this,${JSON.stringify(o)},${JSON.stringify(q.correct)})">${o}</button>`
     ).join('')}</div>`;
   } else {
     area.innerHTML = `
       <input class="quiz-input" id="fill-input" placeholder="Escribe la respuesta...">
       <button class="quiz-submit" id="fill-submit-btn">Comprobar</button>`;
     const inp = document.getElementById('fill-input');
-    const sub = document.getElementById('fill-submit-btn');
     const doCheck = () => checkFill(q.correct);
     inp.addEventListener('keydown', e => { if(e.key==='Enter') doCheck(); });
-    sub.addEventListener('click', doCheck);
+    document.getElementById('fill-submit-btn').addEventListener('click', doCheck);
     setTimeout(()=>inp.focus(), 50);
   }
 }
 
-function checkMC(btn, encSel, encCorrect) {
-  const sel = decodeURIComponent(encSel);
-  const correct = decodeURIComponent(encCorrect);
+function checkMC(btn, sel, correct) {
   document.querySelectorAll('.qopt').forEach(b => b.disabled = true);
   const fb = document.getElementById('quiz-feedback');
-  const isRight = (sel === correct || btn.textContent.trim() === correct);
-  if (isRight) {
+  if (sel === correct) {
     btn.classList.add('correct');
     fb.textContent = '✓ Richtig!'; fb.className = 'quiz-feedback correct';
     scoreCorrect++;
@@ -984,6 +1036,7 @@ function checkMC(btn, encSel, encCorrect) {
     document.querySelectorAll('.qopt').forEach(b => { if(b.textContent.trim()===correct) b.classList.add('correct'); });
     fb.textContent = '✗ Respuesta: ' + correct; fb.className = 'quiz-feedback wrong';
     scoreWrong++;
+    wrongQuestions.push(quizQuestions[quizIndex]);
   }
   updateScore();
   document.getElementById('quiz-next-btn').style.display = 'block';
@@ -1002,6 +1055,7 @@ function checkFill(correct) {
     inp.classList.add('wrong');
     fb.textContent = `✗ Respuesta: "${correct}"`; fb.className = 'quiz-feedback wrong';
     scoreWrong++;
+    wrongQuestions.push(quizQuestions[quizIndex]);
   }
   inp.disabled = true;
   const sub = document.getElementById('fill-submit-btn');
@@ -1010,33 +1064,50 @@ function checkFill(correct) {
   document.getElementById('quiz-next-btn').style.display = 'block';
 }
 
-function handleNextBtn() {
-  if (quizIsEnd) {
-    startQuiz();
-  } else {
-    quizIndex++;
-    showQuestion();
-  }
+function advanceQuiz() {
+  quizIndex++;
+  showQuestion();
 }
 
-function showQuizEnd() {
-  quizIsEnd = true;
+function showResults() {
+  // hide playing, show results
+  document.getElementById('quiz-playing').style.display = 'none';
+  document.getElementById('quiz-results').style.display = 'block';
+
   const total = scoreCorrect + scoreWrong;
   const pct = total > 0 ? Math.round(scoreCorrect/total*100) : 0;
-  document.getElementById('quiz-card').innerHTML = `
-    <div class="quiz-tag">RESULTADO FINAL</div>
-    <div class="quiz-question">${pct}%</div>
-    <div class="quiz-hint">${scoreCorrect} correctas de ${total}</div>`;
-  document.getElementById('quiz-options-area').innerHTML = '';
-  const msg = pct>=80 ? '🎉 Sehr gut!' : pct>=60 ? '👍 Gut gemacht!' : '📚 Weiter üben!';
-  document.getElementById('quiz-feedback').textContent = msg;
-  document.getElementById('quiz-feedback').className = 'quiz-feedback correct';
-  document.getElementById('quiz-progress').style.width = '100%';
-  const nb = document.getElementById('quiz-next-btn');
-  nb.textContent = '🔄 Reiniciar Quiz';
-  nb.style.display = 'block';
-  // Key fix: reassign onclick for restart
-  nb.onclick = function() { startQuiz(); };
+
+  // emoji + percent
+  document.getElementById('results-emoji').textContent = pct>=90?'🏆':pct>=70?'🎉':pct>=50?'👍':'📚';
+  document.getElementById('results-pct').textContent = pct+'%';
+  document.getElementById('results-sub').textContent =
+    pct>=90 ? 'Ausgezeichnet! ¡Sobresaliente!' :
+    pct>=70 ? 'Sehr gut! ¡Muy bien!' :
+    pct>=50 ? 'Gut gemacht! Sigue practicando.' :
+    'Weiter üben! No te rindas.';
+
+  // stat bars
+  document.getElementById('results-bars').innerHTML = `
+    <div class="results-bar-item correct"><div class="rbi-num">${scoreCorrect}</div><div class="rbi-label">Correctas</div></div>
+    <div class="results-bar-item wrong"><div class="rbi-num">${scoreWrong}</div><div class="rbi-label">Fallos</div></div>
+    <div class="results-bar-item total"><div class="rbi-num">${total}</div><div class="rbi-label">Total</div></div>`;
+
+  // wrong list
+  const wrongDiv = document.getElementById('results-wrong-list');
+  if (wrongQuestions.length > 0) {
+    const chips = wrongQuestions.map(q => {
+      const label = q.type === 'fill' ? q.q : q.q;
+      const ans = q.correct;
+      return `<div class="wrong-chip">${label}<span>→ ${ans}</span></div>`;
+    }).join('');
+    wrongDiv.innerHTML = `<div class="results-wrong-title">❌ Preguntas falladas (${wrongQuestions.length})</div><div class="results-wrong-list">${chips}</div>`;
+  } else {
+    wrongDiv.innerHTML = `<div style="text-align:center;color:var(--green);font-size:0.9rem;margin-bottom:20px">🎯 ¡Sin fallos! Perfekt!</div>`;
+  }
+
+  // disable retry btn if no wrongs
+  const retryBtn = document.getElementById('btn-retry-wrong');
+  retryBtn.disabled = wrongQuestions.length === 0;
 }
 
 function updateScore() {
