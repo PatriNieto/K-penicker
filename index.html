@@ -1234,7 +1234,8 @@ async function callAPI(system,messages,max=900){
     body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:max,system,messages})
   });
   const d=await r.json();
-  return d.content?.[0]?.text||'Error al responder.';
+  if(!r.ok||d.error) throw new Error(d.error?.message||'HTTP '+r.status);
+  return d.content?.[0]?.text||'Sin respuesta.';
 }
 
 async function sendChat(){
@@ -1480,14 +1481,18 @@ async function checkWriting(){
   if(!text){alert('Escribe algo primero');return;}
   const btn=document.getElementById('w-check-btn');
   btn.disabled=true; btn.textContent='Corrigiendo…';
-  const prompt=`Ejercicio: "${PROMPTS[currentPromptIdx].text}"\nRespuesta del alumno: "${text}"\nCorrige y explica.`;
+  const ejercicio=PROMPTS[currentPromptIdx].text;
+  const prompt='Ejercicio: "'+ejercicio+'"\nRespuesta del alumno: "'+text+'"\nCorrige y explica.';
   const fb=document.getElementById('write-fb');
   fb.className='write-fb show';
   fb.innerHTML='<span style="color:var(--muted)">Analizando…</span>';
   try{
     const reply=await callAPI(SYS_WRITE,[{role:'user',content:prompt}]);
     fb.innerHTML=fmt(reply);
-  }catch(e){fb.innerHTML='Error de conexión.';}
+  }catch(e){
+    console.error('Writing error:',e);
+    fb.innerHTML='<span style="color:var(--red)">❌ '+e.message+'</span><br><small style="color:var(--muted)">Inténtalo de nuevo.</small>';
+  }
   btn.disabled=false; btn.textContent='✓ Corregir';
 }
 
