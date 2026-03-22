@@ -1,64 +1,51 @@
-module.exports = async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
-  }
+// api/chat.js
+export default async function handler(req, res) {
+  const apiKey = process.env.GEMINI_API_KEY; // Asegúrate de poner tu clave en las variables de entorno de Vercel
+  
+  const { system, messages } = req.body;
 
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) {
-    return res.status(500).json({ error: 'GEMINI_API_KEY not set' });
-  }
-
-  const { system, messages, max_tokens } = req.body;
-
-  // Convert Anthropic format -> Gemini format
-  const contents = (messages || []).map(m => ({
+  // Transformamos el historial al formato que entiende Gemini
+  // Nota: Gemini prefiere que los mensajes alternen Usuario -> Modelo
+  const contents = messages.map(m => ({
     role: m.role === 'assistant' ? 'model' : 'user',
     parts: [{ text: m.content }]
   }));
 
-  const body = {
-    contents,
+  const payload = {
+    contents: contents,
+    system_instruction: { 
+      parts: [{ text: system || "Eres un tutor de alemán." }] 
+    },
     generationConfig: {
-      maxOutputTokens: max_tokens || 900,
       temperature: 0.7,
+      maxOutputTokens: 1000,
     }
   };
 
-  // Add system instruction if present
-  if (system) {
-    body.system_instruction = { parts: [{ text: system }] };
-  }
-
   try {
-    const url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key=' + apiKey;
+    // Usamos el modelo 1.5 Flash que es gratuito y muy rápido
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
 
     const response = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body),
+      body: JSON.stringify(payload),
     });
 
     const data = await response.json();
 
-    if (!response.ok || data.error) {
-      const msg = (data.error && data.error.message) || ('HTTP ' + response.status);
-      return res.status(response.status || 500).json({ error: msg });
+    if (data.error) {
+       return res.status(data.error.code || 500).json({ error: data.error.message });
     }
 
-    const text = data.candidates &&
-                 data.candidates[0] &&
-                 data.candidates[0].content &&
-                 data.candidates[0].content.parts &&
-                 data.candidates[0].content.parts[0] &&
-                 data.candidates[0].content.parts[0].text
-                 || 'Sin respuesta.';
+    const text = data.candidates[0].content.parts[0].text;
 
-    // Return in Anthropic-compatible format so the frontend works unchanged
+    // Devolvemos el formato que tu HTML ya espera para no romper el frontend
     return res.status(200).json({
-      content: [{ type: 'text', text: text }]
+      content: [{ text: text }]
     });
 
   } catch (err) {
-    return res.status(500).json({ error: err.message });
+    return res.status(500).json({ error: "Error de conexión con la IA" });
   }
-};
+}
