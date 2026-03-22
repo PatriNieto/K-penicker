@@ -39,84 +39,205 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
 /* ── MOBILE NAV BAR (hidden on desktop) ── */
 .mob-nav{display:none;}
 
-/* ── MOBILE ── */
+/* ════════════════════════════════════════
+   MOBILE  ≤700px
+════════════════════════════════════════ */
 @media(max-width:700px){
-  header{padding:10px 14px;}
-  .logo{font-size:1.1rem;}
-  .lek-bar{gap:3px;}
-  .lek-btn{padding:2px 8px;font-size:0.62rem;}
 
-  .main{grid-template-columns:1fr;grid-template-rows:1fr auto;}
-  .sidebar{display:none;}
+  /* ── ROOT HEIGHT: use dvh to account for iOS browser chrome ── */
+  html,body{
+    height:100%;
+    height:-webkit-fill-available;
+  }
+  body{
+    min-height:100vh;
+    min-height:-webkit-fill-available;
+  }
 
-  .content{grid-row:1;}
-  .scroll-inner{padding:16px 14px;}
-
-  /* Bottom nav bar */
-  .mob-nav{
-    display:flex;
-    border-top:1px solid var(--border);
-    background:var(--surface);
+  /* ── HEADER: single row, lecciones scroll horizontally ── */
+  header{
+    padding:8px 12px;
+    flex-wrap:nowrap;
+    align-items:center;
+    gap:8px;
     flex-shrink:0;
+  }
+  .logo{font-size:1rem;flex-shrink:0;}
+  .lek-bar{
+    flex:1;
+    flex-wrap:nowrap;
     overflow-x:auto;
     scrollbar-width:none;
+    gap:4px;
+    min-width:0;
     -webkit-overflow-scrolling:touch;
+  }
+  .lek-bar::-webkit-scrollbar{display:none;}
+  .lek-btn{
+    flex-shrink:0;
+    padding:3px 9px;
+    font-size:0.64rem;
+  }
+
+  /* ── MAIN LAYOUT ── */
+  .main{
+    display:flex;
+    flex-direction:column;
+    flex:1;
+    min-height:0;
+    overflow:hidden;
+  }
+  .sidebar{display:none;}
+  .content{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    min-height:0;
+    overflow:hidden;
+  }
+  .panel{
+    flex:1;
+    min-height:0;
+    overflow:hidden;
+  }
+  .scroll-inner{
+    flex:1;
+    padding:14px 12px;
+    min-height:0;
+  }
+
+  /* ── CHAT ── */
+  .chat-msgs{
+    flex:1;
+    min-height:0;
+    padding:12px;
+    gap:10px;
+  }
+  .bubble{max-width:84%;font-size:0.85rem;padding:10px 12px;}
+  .chat-footer{
+    flex-shrink:0;
+    padding:8px 12px;
+    padding-bottom:max(8px,env(safe-area-inset-bottom,0px));
+  }
+  .chips{gap:5px;margin-bottom:7px;}
+  .chip{padding:5px 10px;font-size:0.72rem;}
+  .chat-row{gap:7px;}
+  .chat-input{
+    font-size:16px;
+    padding:10px 12px;
+    border-radius:20px;
+  }
+  .send-btn{
+    width:42px;height:42px;
+    border-radius:21px;
+    flex-shrink:0;
+    font-size:0.95rem;
+  }
+
+  /* ── BOTTOM NAV ── */
+  .mob-nav{
+    display:flex;
+    flex-shrink:0;
+    background:var(--surface);
+    border-top:1px solid var(--border);
+    /* scroll horizontally if needed */
+    overflow-x:auto;
+    overflow-y:hidden;
+    scrollbar-width:none;
+    -webkit-overflow-scrolling:touch;
+    padding-bottom:env(safe-area-inset-bottom,0px);
   }
   .mob-nav::-webkit-scrollbar{display:none;}
   .mob-nav-btn{
-    flex:1;min-width:56px;
+    flex:0 0 auto;          /* don't shrink — fixed width per button */
+    width:64px;
     display:flex;flex-direction:column;align-items:center;justify-content:center;
-    gap:3px;padding:8px 4px;
+    gap:3px;
+    padding:8px 0 6px;
     background:transparent;border:none;
-    color:var(--muted);font-size:0.58rem;font-family:'DM Sans',sans-serif;
-    cursor:pointer;transition:color .2s;white-space:nowrap;
+    color:var(--muted);
+    font-size:0.55rem;
+    font-family:'DM Sans',sans-serif;
+    cursor:pointer;
+    transition:color .15s;
+    white-space:nowrap;
   }
-  .mob-nav-btn .mico{font-size:1.25rem;line-height:1;}
+  .mob-nav-btn .mico{
+    font-size:1.4rem;
+    line-height:1;
+    display:block;
+  }
   .mob-nav-btn.active{color:var(--accent);}
-  .mob-nav-btn.active .mico{filter:drop-shadow(0 0 4px rgba(245,200,66,.5));}
+  .mob-nav-btn.active .mico{
+    filter:drop-shadow(0 0 5px rgba(245,200,66,.45));
+  }
 
-  /* Bigger touch targets */
-  .qopt{padding:16px 10px;font-size:0.88rem;}
-  .qnext,.rbtn{padding:16px;}
-  .chip{padding:7px 13px;font-size:0.78rem;}
-  .chat-input{font-size:0.9rem;}
-  .send-btn,.dial-send{width:48px;height:48px;}
-  .dial-input{font-size:0.9rem;}
-  .write-ta{font-size:0.9rem;}
+  /* ── TOUCH TARGETS ── */
+  .qopt{padding:14px 8px;font-size:0.84rem;border-radius:10px;}
+  .qnext,.rbtn{padding:14px;font-size:0.9rem;}
+  .dial-input{font-size:16px;border-radius:20px;}
+  .dial-send{width:42px;height:42px;border-radius:21px;flex-shrink:0;}
+  .write-ta{font-size:16px;}
 
-  /* Quiz */
-  .quiz-wrap{padding:16px 14px;}
-  .qcard{padding:20px 16px;}
-  .qqst{font-size:1.4rem;}
-  .qopts{grid-template-columns:1fr 1fr;gap:8px;}
+  /* ── QUIZ ── */
+  .quiz-wrap{padding:12px;align-items:stretch;}
+  .quiz-box{max-width:100%;}
+  .qcard{padding:18px 12px;min-height:100px;}
+  .qqst{font-size:1.25rem;}
+  .qopts{grid-template-columns:1fr 1fr;gap:7px;margin-bottom:12px;}
+  .qhdr{margin-bottom:14px;gap:8px;}
+  .prog-wrap{margin-bottom:16px;}
 
-  /* Stories */
-  .story-list{grid-template-columns:1fr 1fr;}
-  .dial-list{grid-template-columns:1fr 1fr;}
+  /* ── STORIES & DIALOGS lists ── */
+  .story-list,.dial-list{grid-template-columns:1fr 1fr;gap:9px;}
+  .story-hdr,.dial-hdr{padding:11px 12px;}
+  .story-body{padding:14px 12px;}
+  .story-vocab{padding:10px 12px;}
 
-  /* Vocab grid */
-  .vgrid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;}
+  /* ── VOCAB ── */
+  .vocab-controls{gap:5px;}
+  .fsel,.fsearch{font-size:14px;padding:6px 10px;}
+  .vgrid{grid-template-columns:repeat(auto-fill,minmax(135px,1fr));gap:7px;}
 
-  /* Grammar tabs scroll */
-  .gtabs{flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;}
+  /* ── GRAMMAR ── */
+  .gtabs{
+    flex-wrap:nowrap;overflow-x:auto;
+    padding-bottom:4px;
+    scrollbar-width:none;
+    -webkit-overflow-scrolling:touch;
+  }
   .gtabs::-webkit-scrollbar{display:none;}
-  .gtab{white-space:nowrap;flex-shrink:0;}
-  .gt{font-size:0.75rem;}
-  .gt th,.gt td{padding:7px 8px;}
+  .gtab{white-space:nowrap;flex-shrink:0;font-size:0.74rem;padding:5px 11px;}
+  .gt{font-size:0.72rem;}
+  .gt th,.gt td{padding:6px 7px;}
+  .gnote{font-size:0.76rem;padding:8px 10px;}
+  .section-title{font-size:1.25rem;}
+  .section-sub{font-size:0.76rem;margin-bottom:14px;}
 
-  /* Pron */
+  /* ── PRONUNCIATION ── */
   .pron-grid{grid-template-columns:1fr;}
 
-  /* Results */
-  .res-pct{font-size:2.8rem;}
-  .rbar .rn{font-size:1.4rem;}
+  /* ── RESULTS ── */
+  .res-pct{font-size:2.4rem;}
+  .rbar .rn{font-size:1.3rem;}
+  .res-bars{gap:7px;}
+  .res-emoji{font-size:2.2rem;}
 
-  /* Dialog hint */
-  .dial-hint{margin:10px 14px 0;}
+  /* ── WRITING ── */
+  .write-wrap{max-width:100%;}
+  .write-actions{flex-wrap:wrap;}
+  .w-btn{flex:1;min-width:100px;padding:10px;}
 
-  /* Story vocab */
-  .story-vocab{padding:14px;}
-  .sv-chips{gap:5px;}
+  /* ── DIALOGS chat ── */
+  .dial-footer{
+    padding:8px 12px;
+    padding-bottom:max(8px,env(safe-area-inset-bottom,0px));
+    gap:7px;
+  }
+  .dial-hint{margin:8px 12px 0;font-size:0.76rem;padding:8px 11px;}
+  .dial-msgs{padding:10px 12px;}
+  .dial-msgs .bubble{max-width:84%;}
+
 }
 
 /* ── SHARED ── */
@@ -888,34 +1009,15 @@ const FILL_INS=[
 // ── STORIES ──
 const STORIES=[
   {id:0,emoji:"🛒",title:"Im Supermarkt",desc:"Anna compra comida para la cena. Vocabulario L2.",lection:2,words:["Supermarkt","Käse","Brot","Milch","Gurke","kaufen","brauchen"],
-  text:`<p>Anna geht in den <hw>Supermarkt</hw>. Sie <hw>braucht</hw> Essen für heute Abend.</p>
-<p>Sie nimmt ein Stück <hw>Käse</hw> und ein <hw>Brot</hw>. Dann sucht sie die <hw>Milch</hw>. Die Milch steht rechts, neben dem Joghurt.</p>
-<p>„Haben Sie auch <hw>Gurken</hw>?" fragt Anna. „Ja, dort links", sagt der Mann.</p>
-<p>Anna <hw>kauft</hw> alles und geht zur Kasse. Das macht 8,50 Euro. „Danke, auf Wiedersehen!"</p>`},
+  text:"<p>Anna geht in den <hw>Supermarkt</hw>. Sie <hw>braucht</hw> Essen für heute Abend.</p> <p>Sie nimmt ein Stück <hw>Käse</hw> und ein <hw>Brot</hw>. Dann sucht sie die <hw>Milch</hw>. Die Milch steht rechts, neben dem Joghurt.</p> <p>„Haben Sie auch <hw>Gurken</hw>?\" fragt Anna. „Ja, dort links\", sagt der Mann.</p> <p>Anna <hw>kauft</hw> alles und geht zur Kasse. Das macht 8,50 Euro. „Danke, auf Wiedersehen!\"</p>"},
   {id:1,emoji:"🚆",title:"Am Bahnhof",desc:"Max busca el tren correcto. Vocabulario L1.",lection:1,words:["Bahnhof","Zug","Fahrkarte","Straßenbahn","Bus","fahren"],
-  text:`<p>Max ist am <hw>Bahnhof</hw>. Er hat eine <hw>Fahrkarte</hw> nach Hamburg.</p>
-<p>„Entschuldigung, wo <hw>fährt</hw> der <hw>Zug</hw> nach Hamburg ab?" fragt Max.</p>
-<p>„Der Zug fährt von Gleis 7 ab. In zehn Minuten!", sagt die Frau.</p>
-<p>Max läuft schnell. Er findet Gleis 7 und steigt in den Zug ein. Der Zug fährt pünktlich ab.</p>
-<p>Neben dem Bahnhof gibt es auch eine <hw>Straßenbahn</hw> und einen <hw>Bus</hw>. Aber heute <hw>fährt</hw> Max mit dem Zug.</p>`},
+  text:"<p>Max ist am <hw>Bahnhof</hw>. Er hat eine <hw>Fahrkarte</hw> nach Hamburg.</p> <p>„Entschuldigung, wo <hw>fährt</hw> der <hw>Zug</hw> nach Hamburg ab?\" fragt Max.</p> <p>„Der Zug fährt von Gleis 7 ab. In zehn Minuten!\", sagt die Frau.</p> <p>Max läuft schnell. Er findet Gleis 7 und steigt in den Zug ein. Der Zug fährt pünktlich ab.</p> <p>Neben dem Bahnhof gibt es auch eine <hw>Straßenbahn</hw> und einen <hw>Bus</hw>. Aber heute <hw>fährt</hw> Max mit dem Zug.</p>"},
   {id:2,emoji:"🎂",title:"Der Geburtstag",desc:"Lisa feiert ihren Geburtstag. Vocabulario L4.",lection:4,words:["Geburtstag","feiern","einladen","schenken","Überraschung","spielen"],
-  text:`<p>Heute ist Lisas <hw>Geburtstag</hw>! Sie <hw>feiert</hw> mit der Familie.</p>
-<p>Lisa <hw>lädt</hw> ihre Freunde <hw>ein</hw>. Tom, Anna und Max kommen um drei Uhr.</p>
-<p>Tom <hw>schenkt</hw> Lisa ein Buch. Anna gibt ihr Blumen. Max hat eine <hw>Überraschung</hw>: einen Kuchen mit Schokolade!</p>
-<p>Alle <hw>spielen</hw> Spiele und essen Kuchen. Lisa ist sehr glücklich.</p>
-<p>„Herzlichen Glückwunsch zum Geburtstag, Lisa!"</p>`},
+  text:"<p>Heute ist Lisas <hw>Geburtstag</hw>! Sie <hw>feiert</hw> mit der Familie.</p> <p>Lisa <hw>lädt</hw> ihre Freunde <hw>ein</hw>. Tom, Anna und Max kommen um drei Uhr.</p> <p>Tom <hw>schenkt</hw> Lisa ein Buch. Anna gibt ihr Blumen. Max hat eine <hw>Überraschung</hw>: einen Kuchen mit Schokolade!</p> <p>Alle <hw>spielen</hw> Spiele und essen Kuchen. Lisa ist sehr glücklich.</p> <p>„Herzlichen Glückwunsch zum Geburtstag, Lisa!\"</p>"},
   {id:3,emoji:"👔",title:"Das Praktikum",desc:"Luis empieza sus prácticas. Vocabulario L7.",lection:7,words:["Praktikum","Firma","Kollege","Pause","Besprechung","bleiben","Fehler"],
-  text:`<p>Luis macht ein <hw>Praktikum</hw> in einer kleinen <hw>Firma</hw>. Es ist sein erster Tag.</p>
-<p>Seine <hw>Kollegen</hw> sind sehr nett. „Hallo, ich bin Maria", sagt eine Frau.</p>
-<p>Um zehn Uhr gibt es eine <hw>Besprechung</hw>. Luis versteht nicht alles, aber er lernt schnell.</p>
-<p>Um zwölf macht Luis <hw>Pause</hw> und isst ein Sandwich. „Schmeckt das gut?" fragt Maria.</p>
-<p>Am Abend <hw>bleibt</hw> Luis bis sechs Uhr. Er macht nur einen kleinen <hw>Fehler</hw>, aber das ist normal!</p>`},
+  text:"<p>Luis macht ein <hw>Praktikum</hw> in einer kleinen <hw>Firma</hw>. Es ist sein erster Tag.</p> <p>Seine <hw>Kollegen</hw> sind sehr nett. „Hallo, ich bin Maria\", sagt eine Frau.</p> <p>Um zehn Uhr gibt es eine <hw>Besprechung</hw>. Luis versteht nicht alles, aber er lernt schnell.</p> <p>Um zwölf macht Luis <hw>Pause</hw> und isst ein Sandwich. „Schmeckt das gut?\" fragt Maria.</p> <p>Am Abend <hw>bleibt</hw> Luis bis sechs Uhr. Er macht nur einen kleinen <hw>Fehler</hw>, aber das ist normal!</p>"},
   {id:4,emoji:"🏠",title:"Meine Familie",desc:"Julia presenta a su familia. Vocabulario L3.",lection:3,words:["Bruder","Schwester","Sohn","Tochter","Arzt","Wochenende","arbeiten"],
-  text:`<p>Ich heiße Julia und habe eine große Familie.</p>
-<p>Mein <hw>Bruder</hw> heißt Tom. Er ist 25 Jahre alt und <hw>arbeitet</hw> als <hw>Arzt</hw>.</p>
-<p>Meine <hw>Schwester</hw> heißt Anna. Sie ist Lehrerin und hat eine <hw>Tochter</hw>, die kleine Sophie.</p>
-<p>Am <hw>Wochenende</hw> treffen wir uns immer. Wir essen zusammen und spielen Spiele.</p>
-<p>Ich liebe meine Familie sehr!</p>`},
+  text:"<p>Ich heiße Julia und habe eine große Familie.</p> <p>Mein <hw>Bruder</hw> heißt Tom. Er ist 25 Jahre alt und <hw>arbeitet</hw> als <hw>Arzt</hw>.</p> <p>Meine <hw>Schwester</hw> heißt Anna. Sie ist Lehrerin und hat eine <hw>Tochter</hw>, die kleine Sophie.</p> <p>Am <hw>Wochenende</hw> treffen wir uns immer. Wir essen zusammen und spielen Spiele.</p> <p>Ich liebe meine Familie sehr!</p>"},
 ];
 
 // ── DIALOGS ──
@@ -1064,7 +1166,7 @@ function init(){
   renderDialogs();
   loadPrompt();
   startQuiz();
-  addChatMsg('bot','¡Hallo! Soy tu tutor de alemán A1 🇩🇪\n\nPuedo ayudarte con **gramática**, **vocabulario**, **corrección** y mucho más. También tienes **Cuentos**, **Diálogos** y **Ejercicios de escritura** en el menú lateral.\n\n¿Por dónde empezamos?');
+  addChatMsg('bot','¡Hallo! Soy tu tutor de alemán A1 🇩🇪\n\nPuedo ayudarte con **gramática**, **vocabulario**, **corrección** y mucho más. También tienes **Cuentos**, **Diálogos** y **Escritura** en el menú.\n\n¿Por dónde empezamos?');
 }
 
 // ════════════════════════════════════════════
@@ -1159,16 +1261,17 @@ function chatKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendChat
 // VOCAB
 // ════════════════════════════════════════════
 function buildConjHTML(verb){
-  const c=CONJ[verb.toLowerCase()];
-  if(!c) return `<div class="bt">Conjugación</div><div style="font-size:.68rem;color:var(--muted)">${verb}t/en (regular)</div>`;
-  let rows='';
-  PKEYS.forEach((p,i)=>{
-    const f=c[p]||'';
-    const cls=IRR.has(verb.toLowerCase())&&(p==='du'||p==='er'||p==='ich')?' ci':' cf';
-    rows+=`<span class="cp">${PROS[i]}</span><span class="cf${cls==' ci'?'':''}"style="${cls===' ci'?'color:var(--accent2)':''}">${f}</span>`;
+  var c=CONJ[verb.toLowerCase()];
+  if(!c) return '<div class="bt">Conjugación</div><div style="font-size:.68rem;color:var(--muted)">'+verb+' (regular)</div>';
+  var rows='';
+  PKEYS.forEach(function(p,i){
+    var f=c[p]||'';
+    var isIrr=IRR.has(verb.toLowerCase())&&(p==='du'||p==='er'||p==='ich');
+    var style=isIrr?'style="color:var(--accent2)"':'';
+    rows+='<span class="cp">'+PROS[i]+'</span><span class="cf" '+style+'>'+f+'</span>';
   });
-  const note=c.note?`<div class="bh">⚡ ${c.note}</div>`:'';
-  return `<div class="bt">Konjugation · Präsens</div><div class="cg">${rows}</div>${note}`;
+  var note=c.note?'<div class="bh">⚡ '+c.note+'</div>':'';
+  return '<div class="bt">Konjugation · Präsens</div><div class="cg">'+rows+'</div>'+note;
 }
 
 function renderVocab(){
@@ -1216,13 +1319,20 @@ function setGTab(id,btn){
 // PRONUNCIATION
 // ════════════════════════════════════════════
 function renderPron(){
-  document.getElementById('pron-grid').innerHTML=PRON_DATA.map(p=>`
-    <div class="pron-card">
-      <div class="pc-sound">${p.sound}</div>
-      <div class="pc-rule">${p.rule}</div>
-      <div class="pc-examples">${p.examples.map(([de,es])=>`<div class="pc-ex"><span class="pe-de">${de}</span><span class="pe-es">${es}</span></div>`).join('')}</div>
-      <div class="pc-tip">${p.tip}</div>
-    </div>`).join('');
+  var html='';
+  PRON_DATA.forEach(function(p){
+    var exHtml='';
+    p.examples.forEach(function(ex){
+      exHtml+='<div class="pc-ex"><span class="pe-de">'+ex[0]+'</span><span class="pe-es">'+ex[1]+'</span></div>';
+    });
+    html+='<div class="pron-card">'
+      +'<div class="pc-sound">'+p.sound+'</div>'
+      +'<div class="pc-rule">'+p.rule+'</div>'
+      +'<div class="pc-examples">'+exHtml+'</div>'
+      +'<div class="pc-tip">'+p.tip+'</div>'
+      +'</div>';
+  });
+  document.getElementById('pron-grid').innerHTML=html;
 }
 
 // ════════════════════════════════════════════
@@ -1258,7 +1368,7 @@ function openStory(id){
   // any remaining <hw> tags not in map
   html=html.replace(/<hw>(.*?)<\/hw>/g,(m,w)=>`<span class="hw" data-de="${w}" data-es="" onmouseenter="showTip(event,this)" onmouseleave="hideTip()">${w}</span>`);
   document.getElementById('sr-body').innerHTML=`<div class="story-text">${html}</div>`;
-  document.getElementById('sr-vocab').innerHTML=Object.entries(vmap).map(([w,tr])=>`<div class="sv-chip">${w}<span>${tr}</span></div>`).join('');
+  document.getElementById('sr-vocab').innerHTML=Object.entries(vmap).map(function(e){return '<div class="sv-chip">'+e[0]+'<span>'+e[1]+'</span></div>';}).join('');
 }
 
 function closeStory(){
@@ -1414,8 +1524,8 @@ function buildQs(type){
   const lf=v=>currentLek==='all'||v.l==currentLek;
   const nouns=VOCAB.filter(v=>v.art!=='verb'&&v.t&&lf(v));
   const pool=nouns.length>=4?nouns:VOCAB.filter(v=>v.art!=='verb'&&v.t);
-  if(type==='vocab') return shuf(pool.slice()).slice(0,15).map(v=>({type:'mc',q:v.w,tag:'ALEMÁN → ESPAÑOL',hint:`${v.art} ${v.w}`,correct:v.t,options:shuf([v.t,...rndT(v.t,3)])}));
-  if(type==='vocabDE') return shuf(pool.slice()).slice(0,15).map(v=>({type:'mc',q:v.t,tag:'ESPAÑOL → ALEMÁN',hint:`(${v.art} ___)`,correct:v.w,options:shuf([v.w,...rndW(v.w,3)])}));
+  if(type==='vocab') return shuf(pool.slice()).slice(0,15).map(v=>({type:'mc',q:v.w,tag:'ALEMÁN → ESPAÑOL',hint:(v.art+' '+v.w),correct:v.t,options:shuf([v.t,...rndT(v.t,3)])}));
+  if(type==='vocabDE') return shuf(pool.slice()).slice(0,15).map(v=>({type:'mc',q:v.t,tag:'ESPAÑOL → ALEMÁN',hint:'('+v.art+' ___)',correct:v.w,options:shuf([v.w,...rndW(v.w,3)])}));
   if(type==='article'){
     const ap=pool.filter(v=>['der','die','das'].includes(v.art));
     const af=ap.length>=4?ap:VOCAB.filter(v=>['der','die','das'].includes(v.art));
