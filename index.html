@@ -90,6 +90,46 @@
   .vcard-lektion { position: absolute; top: 8px; right: 10px; font-size: 0.6rem; color: var(--muted); font-family: 'DM Mono', monospace; }
   .vcard-trans { font-size: 0.72rem; color: var(--muted); margin-top: 5px; }
 
+  /* VERB FLIP CARDS */
+  .vcard.is-verb { cursor: pointer; }
+  .vcard-inner {
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.45s cubic-bezier(.4,0,.2,1);
+    min-height: 108px;
+  }
+  .vcard.is-verb.flipped .vcard-inner { transform: rotateY(180deg); }
+  .vcard-front, .vcard-back {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+  .vcard-back {
+    position: absolute; top: 0; left: 0; right: 0;
+    transform: rotateY(180deg);
+  }
+  .conj-grid {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 2px 10px;
+    font-size: 0.71rem;
+    font-family: 'DM Mono', monospace;
+    margin-top: 4px;
+  }
+  .conj-grid .pro { color: var(--muted); white-space: nowrap; }
+  .conj-grid .form { color: var(--accent); }
+  .conj-grid .form.irr { color: var(--accent2); }
+  .back-title {
+    font-size: 0.62rem; text-transform: uppercase; letter-spacing: 1.5px;
+    color: var(--muted); margin-bottom: 5px; font-family: 'DM Mono', monospace;
+  }
+  .back-hint { font-size: 0.63rem; color: var(--muted); margin-top: 7px; }
+  .flip-hint {
+    position: absolute; bottom: 7px; right: 9px;
+    font-size: 0.7rem; color: var(--muted); transition: color 0.2s;
+    pointer-events: none;
+  }
+  .vcard.is-verb:hover .flip-hint { color: var(--accent); }
+
   /* GRAMMAR */
   .grammar-panel-inner { flex: 1; overflow-y: auto; padding: 28px 32px; scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
   .grammar-tabs { display: flex; gap: 6px; margin-bottom: 28px; flex-wrap: wrap; }
@@ -715,6 +755,82 @@ function setLektion(n, btn) {
   startQuiz();
 }
 
+// ─── CONJUGATIONS ───
+// Format: { ich, du, er, wir, ihr, sie, note? }
+const CONJ = {
+  gehen:    {ich:'gehe',   du:'gehst',    er:'geht',    wir:'gehen',   ihr:'geht',    sie:'gehen'},
+  fahren:   {ich:'fahre',  du:'fährst',   er:'fährt',   wir:'fahren',  ihr:'fahrt',   sie:'fahren',   note:'du/er: Umlaut ä'},
+  heißen:   {ich:'heiße',  du:'heißt',    er:'heißt',   wir:'heißen',  ihr:'heißt',   sie:'heißen'},
+  zeigen:   {ich:'zeige',  du:'zeigst',   er:'zeigt',   wir:'zeigen',  ihr:'zeigt',   sie:'zeigen'},
+  kaufen:   {ich:'kaufe',  du:'kaufst',   er:'kauft',   wir:'kaufen',  ihr:'kauft',   sie:'kaufen'},
+  kochen:   {ich:'koche',  du:'kochst',   er:'kocht',   wir:'kochen',  ihr:'kocht',   sie:'kochen'},
+  essen:    {ich:'esse',   du:'isst',     er:'isst',    wir:'essen',   ihr:'esst',    sie:'essen',    note:'du/er: isst (irregular)'},
+  trinken:  {ich:'trinke', du:'trinkst',  er:'trinkt',  wir:'trinken', ihr:'trinkt',  sie:'trinken'},
+  brauchen: {ich:'brauche',du:'brauchst', er:'braucht', wir:'brauchen',ihr:'braucht', sie:'brauchen'},
+  schmecken:{ich:'schmecke',du:'schmeckst',er:'schmeckt',wir:'schmecken',ihr:'schmeckt',sie:'schmecken'},
+  mögen:    {ich:'mag',    du:'magst',    er:'mag',     wir:'mögen',   ihr:'mögt',    sie:'mögen',    note:'ich/er: mag (irregular)'},
+  möchten:  {ich:'möchte', du:'möchtest', er:'möchte',  wir:'möchten', ihr:'möchtet', sie:'möchten',  note:'Modalverb (höflich)'},
+  nehmen:   {ich:'nehme',  du:'nimmst',   er:'nimmt',   wir:'nehmen',  ihr:'nehmt',   sie:'nehmen',   note:'du/er: nimmt (irregular)'},
+  waschen:  {ich:'wasche', du:'wäschst',  er:'wäscht',  wir:'waschen', ihr:'wascht',  sie:'waschen',  note:'du/er: Umlaut ä'},
+  schneiden:{ich:'schneide',du:'schneidest',er:'schneidet',wir:'schneiden',ihr:'schneidet',sie:'schneiden'},
+  aufstehen:{ich:'stehe … auf',du:'stehst … auf',er:'steht … auf',wir:'stehen … auf',ihr:'steht … auf',sie:'stehen … auf', note:'Trennbar: auf— ans Satzende'},
+  schlafen: {ich:'schlafe',du:'schläfst', er:'schläft', wir:'schlafen',ihr:'schlaft', sie:'schlafen', note:'du/er: Umlaut ä'},
+  arbeiten: {ich:'arbeite',du:'arbeitest',er:'arbeitet',wir:'arbeiten',ihr:'arbeitet',sie:'arbeiten', note:'-e- extra: du arbeit-est'},
+  lernen:   {ich:'lerne',  du:'lernst',   er:'lernt',   wir:'lernen',  ihr:'lernt',   sie:'lernen'},
+  müssen:   {ich:'muss',   du:'musst',    er:'muss',    wir:'müssen',  ihr:'müsst',   sie:'müssen',   note:'Modalverb'},
+  können:   {ich:'kann',   du:'kannst',   er:'kann',    wir:'können',  ihr:'könnt',   sie:'können',   note:'Modalverb'},
+  wollen:   {ich:'will',   du:'willst',   er:'will',    wir:'wollen',  ihr:'wollt',   sie:'wollen',   note:'Modalverb'},
+  telefonieren:{ich:'telefoniere',du:'telefonierst',er:'telefoniert',wir:'telefonieren',ihr:'telefoniert',sie:'telefonieren'},
+  duschen:  {ich:'dusche', du:'duschst',  er:'duscht',  wir:'duschen', ihr:'duscht',  sie:'duschen'},
+  einladen: {ich:'lade … ein',du:'lädst … ein',er:'lädt … ein',wir:'laden … ein',ihr:'ladet … ein',sie:'laden … ein', note:'Trennbar: ein— ans Satzende'},
+  abholen:  {ich:'hole … ab',du:'holst … ab',er:'holt … ab',wir:'holen … ab',ihr:'holt … ab',sie:'holen … ab', note:'Trennbar: ab— ans Satzende'},
+  feiern:   {ich:'feiere', du:'feierst',  er:'feiert',  wir:'feiern',  ihr:'feiert',  sie:'feiern'},
+  schenken: {ich:'schenke',du:'schenkst', er:'schenkt', wir:'schenken',ihr:'schenkt', sie:'schenken'},
+  spielen:  {ich:'spiele', du:'spielst',  er:'spielt',  wir:'spielen', ihr:'spielt',  sie:'spielen'},
+  wandern:  {ich:'wandere',du:'wanderst', er:'wandert', wir:'wandern', ihr:'wandert', sie:'wandern'},
+  klettern: {ich:'klettere',du:'kletterst',er:'klettert',wir:'klettern',ihr:'klettert',sie:'klettern'},
+  grillen:  {ich:'grille', du:'grillst',  er:'grillt',  wir:'grillen', ihr:'grillt',  sie:'grillen'},
+  anfangen: {ich:'fange … an',du:'fängst … an',er:'fängt … an',wir:'fangen … an',ihr:'fangt … an',sie:'fangen … an', note:'Trennbar + Umlaut du/er'},
+  mitmachen:{ich:'mache … mit',du:'machst … mit',er:'macht … mit',wir:'machen … mit',ihr:'macht … mit',sie:'machen … mit', note:'Trennbar'},
+  bezahlen: {ich:'bezahle',du:'bezahlst', er:'bezahlt', wir:'bezahlen',ihr:'bezahlt', sie:'bezahlen'},
+  lesen:    {ich:'lese',   du:'liest',    er:'liest',   wir:'lesen',   ihr:'lest',    sie:'lesen',    note:'du/er: liest (Umlaut e→ie)'},
+  sprechen: {ich:'spreche',du:'sprichst', er:'spricht', wir:'sprechen',ihr:'sprecht', sie:'sprechen', note:'du/er: sprichst/spricht'},
+  schreiben:{ich:'schreibe',du:'schreibst',er:'schreibt',wir:'schreiben',ihr:'schreibt',sie:'schreiben'},
+  fotografieren:{ich:'fotografiere',du:'fotografierst',er:'fotografiert',wir:'fotografieren',ihr:'fotografiert',sie:'fotografieren'},
+  tanzen:   {ich:'tanze',  du:'tanzt',    er:'tanzt',   wir:'tanzen',  ihr:'tanzt',   sie:'tanzen'},
+  joggen:   {ich:'jogge',  du:'joggst',   er:'joggt',   wir:'joggen',  ihr:'joggt',   sie:'joggen'},
+  schwimmen:{ich:'schwimme',du:'schwimmst',er:'schwimmt',wir:'schwimmen',ihr:'schwimmt',sie:'schwimmen'},
+  singen:   {ich:'singe',  du:'singst',   er:'singt',   wir:'singen',  ihr:'singt',   sie:'singen'},
+  reisen:   {ich:'reise',  du:'reist',    er:'reist',   wir:'reisen',  ihr:'reist',   sie:'reisen'},
+  kommen:   {ich:'komme',  du:'kommst',   er:'kommt',   wir:'kommen',  ihr:'kommt',   sie:'kommen'},
+  wohnen:   {ich:'wohne',  du:'wohnst',   er:'wohnt',   wir:'wohnen',  ihr:'wohnt',   sie:'wohnen'},
+  verstehen:{ich:'verstehe',du:'verstehst',er:'versteht',wir:'verstehen',ihr:'versteht',sie:'verstehen'},
+  bleiben:  {ich:'bleibe', du:'bleibst',  er:'bleibt',  wir:'bleiben', ihr:'bleibt',  sie:'bleiben'},
+  drucken:  {ich:'drucke', du:'druckst',  er:'druckt',  wir:'drucken', ihr:'druckt',  sie:'drucken'},
+  verbinden:{ich:'verbinde',du:'verbindest',er:'verbindet',wir:'verbinden',ihr:'verbindet',sie:'verbinden'},
+  besuchen: {ich:'besuche',du:'besuchst', er:'besucht', wir:'besuchen',ihr:'besucht', sie:'besuchen'},
+  beantworten:{ich:'beantworte',du:'beantwortest',er:'beantwortet',wir:'beantworten',ihr:'beantwortet',sie:'beantworten'},
+  beschreiben:{ich:'beschreibe',du:'beschreibst',er:'beschreibt',wir:'beschreiben',ihr:'beschreibt',sie:'beschreiben'},
+};
+
+const PRONOUNS = ['ich','du','er/sie','wir','ihr','sie/Sie'];
+const PRONOUN_KEYS = ['ich','du','er','wir','ihr','sie'];
+
+function buildConjHTML(verb) {
+  const c = CONJ[verb.toLowerCase()];
+  if (!c) return `<div class="back-title">Conjugación</div><div style="font-size:0.72rem;color:var(--muted)">Regular: ${verb}en/en</div>`;
+  const irregular = ['essen','mögen','möchten','müssen','können','wollen','nehmen','fahren','waschen','schlafen','lesen','sprechen','einladen','anfangen'];
+  const isIrr = v => irregular.some(w => verb.toLowerCase() === w);
+  let rows = '';
+  PRONOUN_KEYS.forEach((p,i) => {
+    const form = c[p] || '';
+    const hilight = isIrr() && (p==='du'||p==='er'||p==='ich') ? ' irr' : '';
+    rows += `<span class="pro">${PRONOUNS[i]}</span><span class="form${hilight}">${form}</span>`;
+  });
+  const note = c.note ? `<div class="back-hint">⚡ ${c.note}</div>` : '';
+  return `<div class="back-title">Konjugation · Präsens</div><div class="conj-grid">${rows}</div>${note}`;
+}
+
 // ─── VOCAB ───
 function renderVocab() {
   const lf = document.getElementById('vocab-lektion-filter').value;
@@ -727,14 +843,37 @@ function renderVocab() {
     return lm && gm && sm;
   });
   document.getElementById('vocab-count').textContent = filtered.length + ' palabras';
-  document.getElementById('vocab-grid').innerHTML = filtered.map(v => `
-    <div class="vcard" data-gender="${v.art}">
-      <div class="vcard-lektion">L${v.l}</div>
-      <div class="vcard-article">${v.art === 'verb' ? 'Verb' : v.art}</div>
-      <div class="vcard-word">${v.w}</div>
-      <div class="vcard-plural">${v.pl && v.pl !== '–' && v.pl !== '' ? 'Pl: ' + v.pl : (v.pl === '–' ? '(sin plural)' : '')}</div>
-      <div class="vcard-trans">${v.t || ''}</div>
-    </div>`).join('');
+
+  document.getElementById('vocab-grid').innerHTML = filtered.map(v => {
+    if (v.art === 'verb') {
+      const conjHTML = buildConjHTML(v.w);
+      return `
+        <div class="vcard is-verb" data-gender="verb" onclick="flipCard(this)">
+          <div class="vcard-lektion">L${v.l}</div>
+          <div class="vcard-inner">
+            <div class="vcard-front">
+              <div class="vcard-article">Verb</div>
+              <div class="vcard-word">${v.w}</div>
+              <div class="vcard-trans">${v.t || ''}</div>
+            </div>
+            <div class="vcard-back">${conjHTML}</div>
+          </div>
+          <div class="flip-hint">↺</div>
+        </div>`;
+    }
+    return `
+      <div class="vcard" data-gender="${v.art}">
+        <div class="vcard-lektion">L${v.l}</div>
+        <div class="vcard-article">${v.art}</div>
+        <div class="vcard-word">${v.w}</div>
+        <div class="vcard-plural">${v.pl && v.pl !== '–' && v.pl !== '' ? 'Pl: ' + v.pl : (v.pl === '–' ? '(sin plural)' : '')}</div>
+        <div class="vcard-trans">${v.t || ''}</div>
+      </div>`;
+  }).join('');
+}
+
+function flipCard(card) {
+  card.classList.toggle('flipped');
 }
 
 // ─── GRAMMAR ───
