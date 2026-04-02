@@ -518,6 +518,7 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
     <button class="lek-btn" onclick="setLek(5,this)">L5</button>
     <button class="lek-btn" onclick="setLek(6,this)">L6</button>
     <button class="lek-btn" onclick="setLek(7,this)">L7</button>
+    <button class="lek-btn" onclick="setLek(8,this)">L8</button>
   </div>
 </header>
 
@@ -643,6 +644,7 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
         <option value="5">L5 — Berufe &amp; Hobbys</option>
         <option value="6">L6 — Länder &amp; Grüßen</option>
         <option value="7">L7 — Arbeitsalltag</option>
+        <option value="8">L8 — Fit und gesund</option>
       </select>
       <select class="fsel" id="vg-fil" onchange="renderVocab()">
         <option value="all">Todos</option>
@@ -671,6 +673,8 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
       <button class="gtab" onclick="setGTab('trennb',this)">Trennbare V.</button>
       <button class="gtab" onclick="setGTab('possessiv',this)">Possessiv</button>
       <button class="gtab" onclick="setGTab('praep',this)">Präpositionen</button>
+      <button class="gtab" onclick="setGTab('imperativ',this)">Imperativ</button>
+      <button class="gtab" onclick="setGTab('durfen',this)">dürfen/sollen</button>
     </div>
     <div class="gsec active" id="gsec-artikel">
       <p class="section-title">Artikel</p><p class="section-sub">Artículos definidos, indefinidos y negativos</p>
@@ -759,6 +763,32 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
       <tr><td class="hl">seit</td><td>desde (hasta ahora)</td><td>seit 2020</td></tr>
       <tr><td class="hl">vor</td><td>hace</td><td>vor zwei Tagen</td></tr>
       <tr><td class="hl">von…bis</td><td>duración</td><td>von 9 bis 17 Uhr</td></tr></table>
+    </div>
+
+    <div class="gsec" id="gsec-imperativ">
+      <p class="section-title">Imperativ</p><p class="section-sub">Ordenes y peticiones — con du, ihr y Sie</p>
+      <table class="gt"><tr><th></th><th>machen</th><th>aufstehen</th><th>laufen</th><th>sein</th></tr>
+      <tr><td><b>du</b></td><td class="hl">Mach!</td><td class="hl">Steh auf!</td><td class="hl">Lauf!</td><td class="hl">Sei aktiv!</td></tr>
+      <tr><td><b>ihr</b></td><td class="hl">Macht!</td><td class="hl">Steht auf!</td><td class="hl">Lauft!</td><td class="hl">Seid sportlich!</td></tr>
+      <tr><td><b>Sie</b></td><td class="hl">Machen Sie!</td><td class="hl">Stehen Sie auf!</td><td class="hl">Laufen Sie!</td><td class="hl">Seien Sie sportlich!</td></tr></table>
+      <div class="gnote">💡 Imperativ con <b>du</b>: quita el <b>-st</b> de la conjugación → du machst → <b>Mach!</b><br>
+      Verbos con <b>-ten</b> añaden <b>-e</b>: Warte! Arbeite! (no tan seco)</div>
+      <div class="gex"><div class="gde">Geh früh ins Bett! · Mach Sport! · Trink viel Wasser! · Rauche nicht!</div><div class="ges">¡Ve pronto a la cama! · ¡Haz deporte! · ¡Bebe mucha agua! · ¡No fumes!</div></div>
+    </div>
+    <div class="gsec" id="gsec-durfen">
+      <p class="section-title">dürfen · sollen</p><p class="section-sub">Permisos y obligaciones externas — Beim Arzt</p>
+      <table class="gt"><tr><th></th><th>dürfen (permiso)</th><th>sollen (deber externo)</th></tr>
+      <tr><td>ich</td><td class="hl">darf</td><td class="hl">soll</td></tr>
+      <tr><td>du</td><td>darfst</td><td>sollst</td></tr>
+      <tr><td>er/sie</td><td class="hl">darf</td><td class="hl">soll</td></tr>
+      <tr><td>wir</td><td>dürfen</td><td>sollen</td></tr>
+      <tr><td>ihr</td><td>dürft</td><td>sollt</td></tr>
+      <tr><td>sie/Sie</td><td>dürfen</td><td>sollen</td></tr></table>
+      <div class="gnote">💡 <b>dürfen</b> = tener permiso (el médico da permiso)<br>
+      <b>sollen</b> = deber según otro (el médico manda)<br>
+      <b>müssen</b> = necesidad propia (yo debo porque lo necesito)</div>
+      <div class="gex"><div class="gde">Sie dürfen nicht rauchen. · Du darfst viel Tee trinken.</div><div class="ges">→ No le está permitido fumar. · Puedes beber mucho té.</div></div>
+      <div class="gex"><div class="gde">Ich soll das Bein wenig bewegen. · Du sollst zu Hause bleiben.</div><div class="ges">→ (El médico dice que) debo mover poco la pierna.</div></div>
     </div>
   </div>
 </div>
@@ -1007,6 +1037,37 @@ const VOCAB=[
   {w:"drucken",art:"verb",pl:"",l:7,t:"imprimir"},
   {w:"besuchen",art:"verb",pl:"",l:7,t:"visitar"},
   {w:"telefonieren",art:"verb",pl:"",l:7,t:"hablar por teléfono"},
+  // ── L8 ── Fit und gesund / Körper / Beim Arzt
+  {w:"Bauch",art:"der",pl:"Bäuche",l:8,t:"barriga / estómago"},
+  {w:"Finger",art:"der",pl:"Finger",l:8,t:"dedo"},
+  {w:"Rücken",art:"der",pl:"Rücken",l:8,t:"espalda"},
+  {w:"Arm",art:"der",pl:"Arme",l:8,t:"brazo"},
+  {w:"Hals",art:"der",pl:"Hälse",l:8,t:"cuello / garganta"},
+  {w:"Kopf",art:"der",pl:"Köpfe",l:8,t:"cabeza"},
+  {w:"Fuß",art:"der",pl:"Füße",l:8,t:"pie"},
+  {w:"Unfall",art:"der",pl:"Unfälle",l:8,t:"accidente"},
+  {w:"Verband",art:"der",pl:"Verbände",l:8,t:"vendaje"},
+  {w:"Zahnarzt",art:"der",pl:"Zahnärzte",l:8,t:"dentista (m)"},
+  {w:"Hustensaft",art:"der",pl:"Hustensäfte",l:8,t:"jarabe para la tos"},
+  {w:"Knie",art:"das",pl:"Knie",l:8,t:"rodilla"},
+  {w:"Bein",art:"das",pl:"Beine",l:8,t:"pierna"},
+  {w:"Fieber",art:"das",pl:"–",l:8,t:"fiebre"},
+  {w:"Rezept",art:"das",pl:"Rezepte",l:8,t:"receta (médica)"},
+  {w:"Ergebnis",art:"das",pl:"Ergebnisse",l:8,t:"resultado"},
+  {w:"Salbe",art:"die",pl:"Salben",l:8,t:"ungüento / pomada"},
+  {w:"Wunde",art:"die",pl:"Wunden",l:8,t:"herida"},
+  {w:"Tablette",art:"die",pl:"Tabletten",l:8,t:"pastilla / comprimido"},
+  {w:"Nase",art:"die",pl:"Nasen",l:8,t:"nariz"},
+  {w:"Hand",art:"die",pl:"Hände",l:8,t:"mano"},
+  {w:"Zahnärztin",art:"die",pl:"Zahnärztinnen",l:8,t:"dentista (f)"},
+  {w:"Süßigkeit",art:"die",pl:"Süßigkeiten",l:8,t:"dulce / chuchería"},
+  {w:"dürfen",art:"verb",pl:"",l:8,t:"tener permiso / poder (se permite)"},
+  {w:"sollen",art:"verb",pl:"",l:8,t:"deber (se supone que)"},
+  {w:"bewegen",art:"verb",pl:"",l:8,t:"mover(se)"},
+  {w:"wechseln",art:"verb",pl:"",l:8,t:"cambiar"},
+  {w:"rauchen",art:"verb",pl:"",l:8,t:"fumar"},
+  {w:"husten",art:"verb",pl:"",l:8,t:"toser"},
+  {w:"verletzt",art:"–",pl:"",l:8,t:"herido/a (adjetivo)"},
 ];
 
 const FILL_INS=[
@@ -1025,6 +1086,10 @@ const FILL_INS=[
   {q:"Das Buch ist für ___ Freundin.",ans:"meine",hint:"Possessiv feminin"},
   {q:"Ich kaufe ___ Brot.",ans:"das",hint:"Akk. Neutrum = igual"},
   {q:"Am Montag ___ ich früh auf.",ans:"stehe",hint:"aufstehen → stehe…auf"},
+  {q:"Du ___ nicht rauchen! (Verbot)",ans:"darfst",hint:"dürfen: du darfst"},
+  {q:"Der Arzt sagt, ich ___ viel trinken.",ans:"soll",hint:"sollen: ich soll"},
+  {q:"Mach ___ ! (aufmachen, du)",ans:"auf",hint:"trennbar: aufmachen → auf"},
+  {q:"Mein Kopf tut ___.",ans:"weh",hint:"wehtun: es tut weh"},
 ];
 
 // ── STORIES ──
@@ -1039,6 +1104,8 @@ const STORIES=[
   text:"<p>Luis macht ein <hw>Praktikum</hw> in einer kleinen <hw>Firma</hw>. Es ist sein erster Tag.</p> <p>Seine <hw>Kollegen</hw> sind sehr nett. „Hallo, ich bin Maria\", sagt eine Frau.</p> <p>Um zehn Uhr gibt es eine <hw>Besprechung</hw>. Luis versteht nicht alles, aber er lernt schnell.</p> <p>Um zwölf macht Luis <hw>Pause</hw> und isst ein Sandwich. „Schmeckt das gut?\" fragt Maria.</p> <p>Am Abend <hw>bleibt</hw> Luis bis sechs Uhr. Er macht nur einen kleinen <hw>Fehler</hw>, aber das ist normal!</p>"},
   {id:4,emoji:"🏠",title:"Meine Familie",desc:"Julia presenta a su familia. Vocabulario L3.",lection:3,words:["Bruder","Schwester","Sohn","Tochter","Arzt","Wochenende","arbeiten"],
   text:"<p>Ich heiße Julia und habe eine große Familie.</p> <p>Mein <hw>Bruder</hw> heißt Tom. Er ist 25 Jahre alt und <hw>arbeitet</hw> als <hw>Arzt</hw>.</p> <p>Meine <hw>Schwester</hw> heißt Anna. Sie ist Lehrerin und hat eine <hw>Tochter</hw>, die kleine Sophie.</p> <p>Am <hw>Wochenende</hw> treffen wir uns immer. Wir essen zusammen und spielen Spiele.</p> <p>Ich liebe meine Familie sehr!</p>"},
+  {id:5,emoji:"🏥",title:"Beim Arzt",desc:"Tom tiene fiebre y va al médico. Vocabulario L8.",lection:8,words:["Fieber","Kopf","Bein","Salbe","Tablette","dürfen","sollen"],
+  text:"<p>Tom fühlt sich heute nicht gut. Er hat <hw>Fieber</hw> und sein <hw>Kopf</hw> tut sehr weh.</p> <p>Er geht zur Ärztin. \"Wie geht es Ihnen?\" fragt sie. \"Mir ist schlecht. Mein Kopf tut weh und ich habe Bauchschmerzen\", sagt Tom.</p> <p>\"Ich schreibe Ihnen ein Rezept für <hw>Tabletten</hw>. Nehmen Sie die Tabletten morgens und abends.\", sagt die Ärztin.</p> <p>\"Sie <hw>dürfen</hw> heute nicht zur Arbeit gehen. Sie <hw>sollen</hw> zu Hause bleiben und viel trinken. Hier ist auch eine <hw>Salbe</hw> für das <hw>Bein</hw>.\", erklärt sie.</p> <p>Tom geht nach Hause. Gute Besserung!</p>"},
 ];
 
 // ── DIALOGS ──
@@ -1124,6 +1191,12 @@ const CONJ={
   drucken:{ich:"drucke",du:"druckst",er:"druckt",wir:"drucken",ihr:"druckt",sie:"drucken"},
   besuchen:{ich:"besuche",du:"besuchst",er:"besucht",wir:"besuchen",ihr:"besucht",sie:"besuchen"},
   telefonieren:{ich:"telefoniere",du:"telefonierst",er:"telefoniert",wir:"telefonieren",ihr:"telefoniert",sie:"telefonieren"},
+  durfen:{ich:"darf",du:"darfst",er:"darf",wir:"duerfen",ihr:"duerft",sie:"duerfen",note:"Modalverb: permiso"},
+  sollen:{ich:"soll",du:"sollst",er:"soll",wir:"sollen",ihr:"sollt",sie:"sollen",note:"Modalverb: obligación externa"},
+  bewegen:{ich:"bewege",du:"bewegst",er:"bewegt",wir:"bewegen",ihr:"bewegt",sie:"bewegen"},
+  wechseln:{ich:"wechsle",du:"wechselst",er:"wechselt",wir:"wechseln",ihr:"wechselt",sie:"wechseln"},
+  rauchen:{ich:"rauche",du:"rauchst",er:"raucht",wir:"rauchen",ihr:"raucht",sie:"rauchen"},
+  husten:{ich:"huste",du:"hustest",er:"hustet",wir:"husten",ihr:"hustet",sie:"husten"},
 };
 const PROS=["ich","du","er/sie","wir","ihr","sie/Sie"];
 const PKEYS=["ich","du","er","wir","ihr","sie"];
@@ -1167,6 +1240,7 @@ L4:Tiempo libre — Ordinalzahlen — trennbare Verben — Präteritum sein/habe
 L5:Profesiones — números grandes — conjugación completa — plurales
 L6:Países/nacionalidades — saludos — presentaciones
 L7:Vida laboral — Dativ con mit — konnektoren und/oder/aber
+L8:Salud y cuerpo — partes del cuerpo (Kopf/Arm/Bein...) — beim Arzt — Imperativ mit du/ihr/Sie — Modalverben dürfen/sollen
 REGLAS: Responde siempre en español. Usa alemán solo para ejemplos. Usa **negrita** para palabras alemanas clave. Respuestas concisas.`;
 
 const SYS_WRITE=`Eres un corrector de alemán A1. El alumno escribe en alemán y tú corriges sus errores.
@@ -1175,7 +1249,6 @@ FORMATO DE RESPUESTA (siempre en español):
 2. 📝 **Errores encontrados:** lista los errores numerados con explicación breve
 3. 💡 **Tip:** un consejo gramatical relacionado
 Si no hay errores, felicítale y añade una variante más avanzada.
-Por favor, si el alumno falla en el género (der/die/das) o en el caso (Akkusativ/Dativ), resáltalo en negrita y explica por qué se usa ese caso.
 Sé amable y constructivo. Vocabulario y estructuras solo A1-A2.`;
 
 // ════════════════════════════════════════════
