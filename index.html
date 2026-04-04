@@ -516,7 +516,7 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
 .spill.a1{background:rgba(76,175,130,.1);color:var(--green);border:1px solid rgba(76,175,130,.2);}
 .spill.words{background:rgba(245,200,66,.1);color:var(--accent);border:1px solid rgba(245,200,66,.2);}
 /* story reader */
-.story-reader{display:none;flex:1;flex-direction:column;min-height:0;}
+.story-reader{display:none;flex-direction:column;height:100%;}
 .story-reader.open{display:flex;}
 .story-hdr{padding:18px 28px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:14px;flex-shrink:0;}
 .story-hdr-info{flex:1;}
@@ -545,9 +545,9 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
 .dial-card .dc-emoji{font-size:1.6rem;margin-bottom:10px;}
 .dial-card .dc-title{font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--text);margin-bottom:5px;}
 .dial-card .dc-desc{font-size:.75rem;color:var(--muted);line-height:1.4;}
-.dial-list-view, #story-list-view{display:flex;flex-direction:column;flex:1;min-height:0;}
+.dial-list-view, #story-list-view{display:flex;flex-direction:column;flex:1;}
 /* dialog chat */
-.dial-chat{display:none;flex:1;flex-direction:column;min-height:0;}
+.dial-chat{display:none;flex-direction:column;height:100%;}
 .dial-chat.open{display:flex;}
 .dial-hdr{padding:16px 28px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;flex-shrink:0;background:var(--surface);}
 .dial-hdr-emoji{font-size:1.5rem;}
@@ -1502,7 +1502,6 @@ Sé amable y constructivo. Vocabulario y estructuras solo A1-A2.`;
 // ════════════════════════════════════════════
 function init(){
   renderVocab();
-  renderVerbs();
   initEjercicios();
   renderPron();
   renderStories();
