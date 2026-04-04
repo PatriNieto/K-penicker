@@ -390,13 +390,14 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
 /* translation — highlighted */
 .vc-tr{
   font-size:1.05rem;font-weight:600;
+  color:var(--text);
   line-height:1.5;
   word-break:break-word;
+  padding:10px 14px;
+  background:var(--surface2);
+  border-radius:8px;
+  border-left:0;
 }
-.vc[data-g="der"] .vc-tr{color:var(--blue);}
-.vc[data-g="die"] .vc-tr{color:var(--accent2);}
-.vc[data-g="das"] .vc-tr{color:var(--green);}
-.vc[data-g="verb"] .vc-tr{color:var(--muted);}
 
 /* ── VERB FLIP ── */
 .vc.is-verb{cursor:pointer;}
@@ -587,6 +588,99 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
 .pn-btn:hover{border-color:var(--accent);color:var(--accent);}
 .pn-count{font-family:'DM Mono',monospace;font-size:.75rem;color:var(--muted);}
 
+
+/* ── EJERCICIOS SIN IA ── */
+.ej-wrap{max-width:660px;}
+.ej-tabs{display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap;}
+.ej-tab{background:transparent;border:1px solid var(--border);color:var(--muted);padding:7px 14px;border-radius:7px;cursor:pointer;font-size:.8rem;font-family:'DM Sans',sans-serif;transition:all .2s;}
+.ej-tab:hover,.ej-tab.active{border-color:var(--green);color:var(--green);background:rgba(76,175,130,.07);}
+.ej-sec{display:none;}.ej-sec.active{display:block;}
+/* fill-in-the-blank */
+.fib-list{display:flex;flex-direction:column;gap:14px;margin-bottom:20px;}
+.fib-item{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:16px 18px;}
+.fib-sentence{font-size:1rem;color:var(--text);line-height:1.8;margin-bottom:10px;font-family:'DM Mono',monospace;}
+.fib-inp{background:var(--surface);border:1.5px solid var(--border);border-radius:7px;padding:6px 12px;color:var(--text);font-family:'DM Mono',monospace;font-size:.9rem;outline:none;width:120px;text-align:center;transition:all .2s;}
+.fib-inp:focus{border-color:var(--accent);}
+.fib-inp.ok{border-color:var(--green);color:var(--green);background:rgba(76,175,130,.08);}
+.fib-inp.ko{border-color:var(--red);color:var(--red);background:rgba(224,92,92,.08);}
+.fib-hint{font-size:.72rem;color:var(--muted);margin-top:6px;font-family:'DM Mono',monospace;}
+.fib-fb{font-size:.78rem;margin-top:6px;min-height:18px;}
+.fib-fb.ok{color:var(--green);}.fib-fb.ko{color:var(--red);}
+/* sentence builder */
+.sb-list{display:flex;flex-direction:column;gap:18px;margin-bottom:20px;}
+.sb-item{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:16px 18px;}
+.sb-prompt{font-size:.82rem;color:var(--muted);margin-bottom:10px;}
+.sb-words{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px;}
+.sb-word{background:var(--surface);border:1.5px solid var(--border);border-radius:7px;padding:5px 12px;font-size:.85rem;font-family:'DM Mono',monospace;color:var(--text);cursor:pointer;transition:all .2s;user-select:none;}
+.sb-word:hover{border-color:var(--accent);color:var(--accent);}
+.sb-word.used{opacity:.3;pointer-events:none;}
+.sb-answer{min-height:42px;background:var(--surface);border:1.5px dashed var(--border);border-radius:8px;padding:8px 12px;display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin-bottom:8px;cursor:pointer;}
+.sb-answer-word{background:var(--accent);color:#000;border-radius:5px;padding:4px 10px;font-size:.82rem;font-family:'DM Mono',monospace;cursor:pointer;font-weight:600;}
+.sb-answer-word:hover{background:#ffd84a;}
+.sb-fb{font-size:.8rem;min-height:20px;}
+.sb-fb.ok{color:var(--green);}.sb-fb.ko{color:var(--red);}
+/* matching */
+.match-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;}
+.match-col{display:flex;flex-direction:column;gap:8px;}
+.match-item{background:var(--surface2);border:1.5px solid var(--border);border-radius:9px;padding:10px 14px;font-size:.85rem;cursor:pointer;transition:all .2s;text-align:center;font-family:'DM Mono',monospace;}
+.match-item:hover{border-color:var(--accent);}
+.match-item.selected{border-color:var(--accent);background:rgba(245,200,66,.12);color:var(--accent);}
+.match-item.matched{border-color:var(--green);background:rgba(76,175,130,.1);color:var(--green);pointer-events:none;}
+.match-item.wrong-flash{border-color:var(--red);background:rgba(224,92,92,.1);animation:shake .3s ease;}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.match-score{font-family:'DM Mono',monospace;font-size:.78rem;color:var(--muted);margin-bottom:12px;}
+/* shared buttons */
+.ej-btn{padding:10px 20px;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:600;cursor:pointer;border:none;transition:all .2s;}
+.ej-btn.pri{background:var(--green);color:#fff;}
+.ej-btn.pri:hover{background:#5dc897;}
+.ej-btn.sec{background:transparent;border:1px solid var(--border);color:var(--muted);}
+.ej-btn.sec:hover{border-color:var(--green);color:var(--green);}
+.ej-result{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:14px 18px;font-size:.85rem;margin-top:14px;display:none;}
+.ej-result.show{display:block;}
+.ej-result .er-ok{color:var(--green);font-weight:600;}
+.ej-result .er-ko{color:var(--red);font-weight:600;}
+@media(max-width:700px){
+  .ej-wrap{max-width:100%;}
+  .match-grid{grid-template-columns:1fr 1fr;}
+  .match-item{font-size:.78rem;padding:8px 10px;}
+  .fib-inp{width:100px;font-size:.85rem;}
+}
+
+
+/* ── VERBOS ── */
+.verb-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;}
+.verb-card{background:var(--surface2);border:1.5px solid var(--border);border-radius:14px;cursor:pointer;transition:all .28s cubic-bezier(.34,.1,.64,1);position:relative;overflow:hidden;}
+.verb-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--purple),rgba(155,127,232,.4));}
+.verb-card:hover{border-color:var(--purple);transform:translateY(-4px);box-shadow:0 12px 24px rgba(0,0,0,.3);}
+.verb-card.open{border-color:var(--purple);box-shadow:0 0 0 2px rgba(155,127,232,.2);}
+.vc-head{padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.vc-name{font-family:'DM Sans',sans-serif;font-size:1.2rem;font-weight:700;color:var(--text);}
+.vc-trans{font-size:.8rem;color:var(--muted);margin-top:2px;}
+.vc-lk2{font-size:.62rem;color:var(--purple);font-family:'DM Mono',monospace;background:rgba(155,127,232,.12);padding:3px 8px;border-radius:5px;flex-shrink:0;}
+.vc-arrow{font-size:.8rem;color:var(--muted);transition:transform .25s;flex-shrink:0;}
+.verb-card.open .vc-arrow{transform:rotate(180deg);color:var(--purple);}
+.vc-body{display:none;border-top:1px solid var(--border);padding:14px 18px 16px;}
+.verb-card.open .vc-body{display:block;}
+.vc-conj{display:grid;grid-template-columns:auto 1fr;gap:5px 14px;font-family:'DM Mono',monospace;font-size:.85rem;margin-bottom:10px;}
+.vc-conj .pr{color:var(--muted);font-weight:600;}
+.vc-conj .vf{color:var(--accent);font-weight:700;}
+.vc-conj .vi{color:var(--accent2);font-weight:700;}
+.vc-note{font-size:.75rem;color:var(--muted);padding:7px 11px;background:rgba(245,200,66,.07);border-radius:6px;border-left:2px solid var(--accent);}
+.verb-filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;align-items:center;}
+.verb-filter-btn{background:transparent;border:1px solid var(--border);color:var(--muted);border-radius:20px;padding:4px 12px;font-size:.75rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;}
+.verb-filter-btn:hover,.verb-filter-btn.active{border-color:var(--purple);color:var(--purple);background:rgba(155,127,232,.08);}
+.verb-search{background:var(--surface2);border:1.5px solid var(--border);border-radius:10px;padding:9px 14px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.88rem;outline:none;flex:1;min-width:160px;transition:all .2s;}
+.verb-search:focus{border-color:var(--purple);}
+.verb-search::placeholder{color:var(--muted);}
+.verb-count{font-family:'DM Mono',monospace;font-size:.8rem;color:var(--muted);align-self:center;}
+@media(max-width:700px){
+  .verb-grid{grid-template-columns:1fr 1fr;gap:10px;}
+  .vc-name{font-size:1rem;}
+  .vc-head{padding:12px 14px;}
+  .vc-body{padding:11px 14px 13px;}
+  .vc-conj{font-size:.78rem;gap:4px 10px;}
+}
+
 /* ── PRONUNCIACIÓN ── */
 .pron-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;}
 .pron-card{background:var(--surface2);border:1px solid var(--border);border-radius:14px;padding:18px;transition:all .2s;}
@@ -627,9 +721,11 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
   <button class="mode-btn" onclick="setMode('write',this)"><span class="ico">✍️</span>Escritura</button>
   <div class="sb-title">Estudiar</div>
   <button class="mode-btn" onclick="setMode('vocab',this)"><span class="ico">📚</span>Vocabulario</button>
+  <button class="mode-btn" onclick="setMode('verbs',this)"><span class="ico">🔤</span>Verbos</button>
   <button class="mode-btn" onclick="setMode('grammar',this)"><span class="ico">📐</span>Gramática</button>
   <button class="mode-btn" onclick="setMode('pron',this)"><span class="ico">🔊</span>Pronunciación</button>
   <div class="sb-title">Evaluar</div>
+  <button class="mode-btn" onclick="setMode('ejercicios',this)"><span class="ico">📝</span>Ejercicios</button>
   <button class="mode-btn" onclick="setMode('quiz',this)"><span class="ico">🎯</span>Quiz</button>
 </div>
 
@@ -705,7 +801,7 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
   <div class="scroll-inner">
     <div class="write-wrap">
       <div class="section-title">Ejercicios de escritura</div>
-      <div class="section-sub">Escribe frases en alemán y recibe corrección con IA. <strong>Corrección inteligente:</strong> Análisis detallado con explicaciones en español. <strong>Sin conexión:</strong> Corrección automática básica.</div>
+      <div class="section-sub">Escribe frases en alemán y Claude te corrige con explicaciones detalladas.</div>
       <div class="prompt-nav">
         <button class="pn-btn" onclick="prevPrompt()">←</button>
         <span class="pn-count" id="pn-count">1 / 10</span>
@@ -830,7 +926,6 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
       <tr><td>du</td><td>warst</td><td>hattest</td></tr>
       <tr><td>er/sie</td><td class="hl">war</td><td class="hl">hatte</td></tr>
       <tr><td>wir</td><td>waren</td><td>hatten</td></tr>
-      <tr><td>ihr</td><td>wart</td><td>hattet</td></tr>
       <tr><td>sie/Sie</td><td>waren</td><td>hatten</td></tr></table>
     </div>
     <div class="gsec" id="gsec-trennb">
@@ -890,12 +985,85 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
   </div>
 </div>
 
+
+<!-- ══ VERBOS ══ -->
+<div class="panel" id="panel-verbs">
+  <div class="scroll-inner">
+    <div class="section-title">Verbos</div>
+    <div class="section-sub">Todos los verbos de tus lecciones. Pulsa cualquiera para ver la conjugación completa en presente.</div>
+    <div class="verb-filters">
+      <input class="verb-search" id="verb-search" placeholder="Buscar verbo…" oninput="filterVerbs()">
+      <button class="verb-filter-btn active" onclick="filterVerbLek('all',this)">Todas</button>
+      <button class="verb-filter-btn" onclick="filterVerbLek(1,this)">L1</button>
+      <button class="verb-filter-btn" onclick="filterVerbLek(2,this)">L2</button>
+      <button class="verb-filter-btn" onclick="filterVerbLek(3,this)">L3</button>
+      <button class="verb-filter-btn" onclick="filterVerbLek(4,this)">L4</button>
+      <button class="verb-filter-btn" onclick="filterVerbLek(5,this)">L5</button>
+      <button class="verb-filter-btn" onclick="filterVerbLek(6,this)">L6</button>
+      <button class="verb-filter-btn" onclick="filterVerbLek(7,this)">L7</button>
+      <button class="verb-filter-btn" onclick="filterVerbLek(8,this)">L8</button>
+      <span class="verb-count" id="verb-count"></span>
+    </div>
+    <div class="verb-grid" id="verb-grid"></div>
+  </div>
+</div>
+
 <!-- ══ PRONUNCIACIÓN ══ -->
 <div class="panel" id="panel-pron">
   <div class="scroll-inner">
     <div class="section-title">Pronunciación</div>
     <div class="section-sub">Reglas y sonidos del alemán difíciles para hispanohablantes</div>
     <div class="pron-grid" id="pron-grid"></div>
+  </div>
+</div>
+
+
+<!-- ══ EJERCICIOS SIN IA ══ -->
+<div class="panel" id="panel-ejercicios">
+  <div class="scroll-inner">
+    <div class="ej-wrap">
+      <div class="section-title">Ejercicios</div>
+      <div class="section-sub">Corrección automática instantánea — sin necesidad de IA ni internet.</div>
+      <div class="ej-tabs">
+        <button class="ej-tab active" onclick="setEjTab('fib',this)">✏️ Rellena el hueco</button>
+        <button class="ej-tab" onclick="setEjTab('sb',this)">🔀 Ordena la frase</button>
+        <button class="ej-tab" onclick="setEjTab('match',this)">🔗 Une el par</button>
+      </div>
+
+      <!-- RELLENA EL HUECO -->
+      <div class="ej-sec active" id="ej-fib">
+        <div class="fib-list" id="fib-list"></div>
+        <div style="display:flex;gap:9px;flex-wrap:wrap;">
+          <button class="ej-btn pri" onclick="checkFib()">✓ Comprobar</button>
+          <button class="ej-btn sec" onclick="resetFib()">↺ Reiniciar</button>
+          <button class="ej-btn sec" onclick="newFib()">🔀 Nuevos</button>
+        </div>
+        <div class="ej-result" id="fib-result"></div>
+      </div>
+
+      <!-- ORDENA LA FRASE -->
+      <div class="ej-sec" id="ej-sb">
+        <div class="sb-list" id="sb-list"></div>
+        <div style="display:flex;gap:9px;flex-wrap:wrap;">
+          <button class="ej-btn sec" onclick="resetSb()">↺ Reiniciar</button>
+          <button class="ej-btn sec" onclick="newSb()">🔀 Nuevas</button>
+        </div>
+        <div class="ej-result" id="sb-result"></div>
+      </div>
+
+      <!-- UNE EL PAR -->
+      <div class="ej-sec" id="ej-match">
+        <div class="match-score" id="match-score"></div>
+        <div class="match-grid">
+          <div class="match-col" id="match-de"></div>
+          <div class="match-col" id="match-es"></div>
+        </div>
+        <div style="display:flex;gap:9px;flex-wrap:wrap;">
+          <button class="ej-btn sec" onclick="newMatch()">🔀 Nuevas palabras</button>
+        </div>
+        <div class="ej-result" id="match-result"></div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -963,11 +1131,17 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
   <button class="mob-nav-btn" onclick="setMode('vocab',this)" data-mode="vocab">
     <span class="mico">📚</span>Vocab
   </button>
+  <button class="mob-nav-btn" onclick="setMode('verbs',this)" data-mode="verbs">
+    <span class="mico">🔤</span>Verbos
+  </button>
   <button class="mob-nav-btn" onclick="setMode('grammar',this)" data-mode="grammar">
     <span class="mico">📐</span>Gramática
   </button>
   <button class="mob-nav-btn" onclick="setMode('pron',this)" data-mode="pron">
     <span class="mico">🔊</span>Sonidos
+  </button>
+  <button class="mob-nav-btn" onclick="setMode('ejercicios',this)" data-mode="ejercicios">
+    <span class="mico">📝</span>Ejercicios
   </button>
   <button class="mob-nav-btn" onclick="setMode('quiz',this)" data-mode="quiz">
     <span class="mico">🎯</span>Quiz
@@ -1353,6 +1527,8 @@ Sé amable y constructivo. Vocabulario y estructuras solo A1-A2.`;
 // ════════════════════════════════════════════
 function init(){
   renderVocab();
+  renderVerbs();
+  initEjercicios();
   renderPron();
   renderStories();
   renderDialogs();
@@ -1378,6 +1554,7 @@ function setMode(mode,btn){
     }
   });
   if(mode==='vocab') renderVocab();
+  if(mode==='verbs') renderVerbs();
   if(mode==='quiz') startQuiz();
 }
 
@@ -1417,70 +1594,15 @@ function showTyping(id='typing'){
 function removeTyping(id='typing'){ document.getElementById('t-'+id)?.remove(); }
 
 async function callAPI(system,messages,max=900){
-  // Try Hugging Face Inference API with a better model for text correction
-  const HF_MODEL = 'microsoft/DialoGPT-medium'; // Free conversational model for corrections
-
-  // Format the conversation for the model
-  const conversation = messages.map(m => `${m.role === 'user' ? 'Usuario' : 'Asistente'}: ${m.content}`).join('\n');
-  const fullPrompt = `${system}\n\n${conversation}\nAsistente:`;
-
-  try {
-    const response = await fetch(`https://api-inference.huggingface.co/models/${HF_MODEL}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        inputs: fullPrompt,
-        parameters: {
-          max_length: Math.min(max + fullPrompt.length, 1024), // Reasonable limit
-          temperature: 0.3, // Lower temperature for more consistent corrections
-          do_sample: true,
-          top_p: 0.9,
-          return_full_text: false,
-          pad_token_id: 50256
-        },
-        options: {
-          wait_for_model: true,
-          use_cache: false
-        }
-      })
-    });
-
-    if (!response.ok) {
-      throw new Error(`API Error: ${response.status}`);
-    }
-
-    const data = await response.json();
-
-    if (data.error) {
-      throw new Error(data.error);
-    }
-
-    // Extract the generated text
-    let generatedText = '';
-    if (Array.isArray(data) && data[0]?.generated_text) {
-      generatedText = data[0].generated_text.trim();
-    } else if (data.generated_text) {
-      generatedText = data.generated_text.trim();
-    }
-
-    // Clean up the response
-    if (generatedText) {
-      // Remove any unwanted prefixes
-      generatedText = generatedText.replace(/^Asistente:\s*/i, '');
-      return generatedText;
-    }
-
-    throw new Error('No response generated');
-
-  } catch (apiError) {
-    console.log('AI API failed, using rule-based correction:', apiError.message);
-
-    // Fallback to rule-based correction
-    const userMessage = messages.find(m => m.role === 'user')?.content || '';
-    return getRuleBasedCorrection(userMessage, system);
-  }
+  // Calls our Vercel proxy (/api/chat) to avoid CORS issues
+  const r=await fetch('/api/chat',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:max,system,messages})
+  });
+  const d=await r.json();
+  if(!r.ok||d.error) throw new Error(d.error?.message||'HTTP '+r.status);
+  return d.content?.[0]?.text||'Sin respuesta.';
 }
 
 async function sendChat(){
@@ -1733,145 +1855,23 @@ function nextPrompt(){currentPromptIdx=(currentPromptIdx+1)%PROMPTS.length;loadP
 function randPrompt(){currentPromptIdx=Math.floor(Math.random()*PROMPTS.length);loadPrompt();}
 function clearWrite(){document.getElementById('write-ta').value='';document.getElementById('write-fb').className='write-fb';document.getElementById('write-fb').innerHTML='';}
 
-// ── RULE-BASED CORRECTION (ULTIMATE FALLBACK) ──
-function getRuleBasedCorrection(userText, systemPrompt) {
-  // Simple rule-based German correction for basic cases
-  let corrected = userText;
-  let feedback = [];
-
-  // Basic corrections
-  if (userText.toLowerCase().includes('ich heise')) {
-    corrected = corrected.replace(/heise/gi, 'heiße');
-    feedback.push('✅ "heise" → "heiße" (Umlaut ü)');
-  }
-
-  if (userText.toLowerCase().includes('ich habe') && userText.toLowerCase().includes('geessen')) {
-    corrected = corrected.replace(/geessen/gi, 'gegessen');
-    feedback.push('✅ "geessen" → "gegessen" (doble s)');
-  }
-
-  if (userText.match(/\bich bin\b.*\bgegangen\b/)) {
-    feedback.push('✅ Correcto: "ich bin gegangen" (Perfekt con sein)');
-  }
-
-  if (userText.match(/\bich habe\b.*\bgegessen\b/)) {
-    feedback.push('✅ Correcto: "ich habe gegessen" (Perfekt con haben)');
-  }
-
-  // Word order check
-  const sentences = userText.split(/[.!?]+/).filter(s => s.trim());
-  sentences.forEach(sentence => {
-    const words = sentence.trim().split(/\s+/);
-    if (words.length > 3) {
-      const lastWord = words[words.length - 1].toLowerCase();
-      // Check if sentence ends with a verb (basic check)
-      if (['bin', 'habe', 'esse', 'trinke', 'gehe', 'komme', 'wohne', 'arbeite', 'lerne'].includes(lastWord)) {
-        feedback.push('💡 Posible oración principal: verbo en posición 2');
-      }
-    }
-  });
-
-  // Build response
-  let response = '📝 **Corrección automática básica:**\n\n';
-  response += '✅ **Tu texto corregido:** ' + corrected + '\n\n';
-
-  if (feedback.length > 0) {
-    response += '📋 **Observaciones:**\n' + feedback.join('\n') + '\n\n';
-  }
-
-  response += '💡 **Consejos generales:**\n';
-  response += '• Verbos en posición 2 en oraciones principales\n';
-  response += '• sein + gegangen/gewesen/gereist (movimiento)\n';
-  response += '• haben + todas las demás acciones\n';
-  response += '• Umlaut: ä/ö/ü son importantes\n\n';
-
-  response += '🔧 *Esta es una corrección automática simple. Para análisis detallado, considera usar un tutor humano.*';
-
-  return response;
-}
-function getBasicCorrection(text, ejercicio){
-  let feedback='<div style="background:rgba(245,200,66,.1);padding:16px;border-radius:8px;border-left:3px solid var(--accent);margin-bottom:12px;">';
-  feedback+='<strong style="color:var(--accent)">📝 Corrección básica (sin conexión a IA)</strong><br><small style="color:var(--muted)">Esta es una evaluación automática simple. Para corrección detallada, conecta a internet.</small></div>';
-
-  // Análisis básico
-  const words=text.split(/\s+/).length;
-  const sentences=text.split(/[.!?]+/).length-1;
-  const hasIch=text.toLowerCase().includes('ich');
-  const hasDu=text.toLowerCase().includes('du');
-  const hasErSie=text.toLowerCase().includes('er')||text.toLowerCase().includes('sie');
-  const hasWir=text.toLowerCase().includes('wir');
-  const hasIhr=text.toLowerCase().includes('ihr');
-  const hasSieSie=text.toLowerCase().includes('sie');
-
-  feedback+='<strong>✅ Tu respuesta:</strong><br><code style="background:var(--surface2);padding:8px;border-radius:4px;display:block;margin:8px 0;">'+text+'</code>';
-
-  feedback+='<strong>📊 Análisis básico:</strong><ul>';
-  feedback+='<li><strong>Palabras:</strong> '+words+'</li>';
-  feedback+='<li><strong>Oraciones:</strong> '+sentences+'</li>';
-
-  // Verificar uso de pronombres
-  const pronouns=[hasIch&&'ich',hasDu&&'du',hasErSie&&'er/sie',hasWir&&'wir',hasIhr&&'ihr',hasSieSie&&'Sie'].filter(Boolean);
-  if(pronouns.length>0){
-    feedback+='<li><strong>Pronombres usados:</strong> '+pronouns.join(', ')+'</li>';
-  }else{
-    feedback+='<li style="color:var(--red)">⚠️ No se detectaron pronombres personales</li>';
-  }
-
-  // Consejos básicos según el ejercicio
-  feedback+='</ul><strong>💡 Consejos:</strong><ul>';
-  if(ejercicio.includes('Präteritum')||ejercicio.includes('ayer')||ejercicio.includes('hiciste')){
-    feedback+='<li>Para hablar del pasado, usa <strong>Präteritum</strong> de sein/haben + Partizip II</li>';
-    feedback+='<li>Ejemplo: Ich <strong>war</strong> zu Hause. Ich <strong>habe</strong> gegessen.</li>';
-  }
-  if(ejercicio.includes('presentándote')||ejercicio.includes('nombre')||ejercicio.includes('eres')||ejercicio.includes('vives')){
-    feedback+='<li>Para presentarte: Ich <strong>heiße</strong> [nombre]. Ich <strong>komme aus</strong> [país]. Ich <strong>wohne in</strong> [ciudad].</li>';
-  }
-  if(ejercicio.includes('familia')||ejercicio.includes('hermano')||ejercicio.includes('hermana')){
-    feedback+='<li>Miembros de familia: Bruder/Schwester/Eltern/Mutter/Vater</li>';
-    feedback+='<li>Profesiones: Lehrer/Arzt/Ingenieur/Student</li>';
-  }
-  if(ejercicio.includes('desayuno')||ejercicio.includes('comes')||ejercicio.includes('bebe')){
-    feedback+='<li>Comida: Brot/Käse/Eier/Kaffee/Tee</li>';
-    feedback+='<li>Verbos: essen/trinken/mögen</li>';
-  }
-
-  feedback+='<li>Recuerda: <strong>Verbo al final</strong> en frases subordinadas</li>';
-  feedback+='<li>Artículos: der/die/das según género</li>';
-  feedback+='</ul>';
-
-  feedback+='<div style="background:var(--surface2);padding:12px;border-radius:6px;margin-top:12px;">';
-  feedback+='<strong>🔧 Para corrección avanzada:</strong><br>';
-  feedback+='Conecta a internet y la IA te dará corrección detallada con explicaciones en español.';
-  feedback+='</div>';
-
-  return feedback;
-}
-
 async function checkWriting(){
   const text=document.getElementById('write-ta').value.trim();
   if(!text){alert('Escribe algo primero');return;}
-
   const btn=document.getElementById('w-check-btn');
-  btn.disabled=true; btn.textContent='Analizando…';
+  btn.disabled=true; btn.textContent='Corrigiendo…';
   const ejercicio=PROMPTS[currentPromptIdx].text;
+  const prompt='Ejercicio: "'+ejercicio+'"\nRespuesta del alumno: "'+text+'"\nCorrige y explica.';
   const fb=document.getElementById('write-fb');
   fb.className='write-fb show';
-
+  fb.innerHTML='<span style="color:var(--muted)">Analizando…</span>';
   try{
-    // Intentar usar IA para corrección avanzada
-    fb.innerHTML='<span style="color:var(--muted)">🤖 Conectando con IA para análisis detallado…</span>';
-    const prompt='Ejercicio: "'+ejercicio+'"\nRespuesta del alumno: "'+text+'"\nCorrige y explica en español.';
     const reply=await callAPI(SYS_WRITE,[{role:'user',content:prompt}]);
     fb.innerHTML=fmt(reply);
   }catch(e){
-    console.log('IA no disponible, usando corrección básica:',e.message);
-    // Corrección básica offline como fallback
-    fb.innerHTML='<span style="color:var(--muted)">📝 Usando corrección automática básica…</span>';
-    setTimeout(() => {
-      fb.innerHTML=getBasicCorrection(text, ejercicio);
-    }, 500); // Small delay for better UX
+    console.error('Writing error:',e);
+    fb.innerHTML='<span style="color:var(--red)">❌ '+e.message+'</span><br><small style="color:var(--muted)">Inténtalo de nuevo.</small>';
   }
-
   btn.disabled=false; btn.textContent='✓ Corregir';
 }
 
@@ -2027,6 +2027,533 @@ function showResults(){
 function updScore(){
   document.getElementById('sc-ok').textContent=qOk;
   document.getElementById('sc-ko').textContent=qKo;
+}
+
+
+// ════════════════════════════════════════════
+// EJERCICIOS SIN IA
+// ════════════════════════════════════════════
+
+// ── DATA ──
+const FIB_BANK = [
+  // Artículos
+  {s:"Ich fahre mit ___ Bus.",ans:"dem",hint:"mit + Dativ: der Bus → dem",cat:"Dativ"},
+  {s:"Er hat ___ Hund.",ans:"einen",hint:"haben + Akkusativ: der Hund → einen",cat:"Akkusativ"},
+  {s:"Das ist ___ Kirche.",ans:"eine",hint:"Femininum indefinido: eine",cat:"Artikel"},
+  {s:"Ich brauche ___ Milch.",ans:"die",hint:"die Milch → Akk. = die (feminino no cambia)",cat:"Akkusativ"},
+  {s:"Wir gehen in ___ Kino.",ans:"das",hint:"Dativ nach 'in' (posición): das Kino",cat:"Dativ"},
+  // Verbos
+  {s:"Er ___ um 7 Uhr auf.",ans:"steht",hint:"aufstehen: er steht…auf",cat:"Trennbar"},
+  {s:"Ich ___ gern Kaffee.",ans:"trinke",hint:"trinken: ich trinke",cat:"Verb"},
+  {s:"Sie ___ ihre Freunde ein.",ans:"lädt",hint:"einladen: sie lädt…ein (irregular)",cat:"Trennbar"},
+  {s:"Wir ___ nicht ins Kino gehen.",ans:"können",hint:"Modalverb können (wir)",cat:"Modal"},
+  {s:"Du ___ nicht rauchen!",ans:"darfst",hint:"dürfen (du): darfst",cat:"Modal"},
+  {s:"Ich ___ viel trinken, sagt der Arzt.",ans:"soll",hint:"sollen (ich): soll",cat:"Modal"},
+  {s:"Ihr ___ früh aufstehen.",ans:"müsst",hint:"müssen (ihr): müsst",cat:"Modal"},
+  // Satzstellung
+  {s:"Heute ___ ich nicht zur Arbeit.",ans:"gehe",hint:"Verb en pos.2 cuando comienza con Heute",cat:"Satzstellung"},
+  {s:"___ kommst du?",ans:"Woher",hint:"W-Frage para preguntar origen",cat:"W-Fragen"},
+  {s:"___ heißt du?",ans:"Wie",hint:"W-Frage para preguntar nombre",cat:"W-Fragen"},
+  {s:"___ Uhr ist es?",ans:"Wie viel",hint:"Preguntar la hora",cat:"W-Fragen"},
+  // Possessiv
+  {s:"Das ist ___ Bruder.",ans:"mein",hint:"mein + mask./neut.: mein",cat:"Possessiv"},
+  {s:"Ich liebe ___ Familie.",ans:"meine",hint:"meine + feminin/Plural: meine",cat:"Possessiv"},
+  {s:"Er sucht ___ Schlüssel.",ans:"seinen",hint:"seinen + mask. Akk.: seinen",cat:"Possessiv"},
+  // Präteritum
+  {s:"Gestern ___ ich krank.",ans:"war",hint:"Präteritum von sein: war",cat:"Präteritum"},
+  {s:"Wir ___ keine Zeit.",ans:"hatten",hint:"Präteritum von haben: hatten",cat:"Präteritum"},
+  // L8 Körper
+  {s:"Mein ___ tut weh.",ans:"Kopf",hint:"der Kopf = la cabeza",cat:"Körper"},
+  {s:"Sie hat ___ im Bein.",ans:"Schmerzen",hint:"Schmerzen haben = tener dolor",cat:"Körper"},
+  {s:"Nehmen Sie die ___ morgens.",ans:"Tabletten",hint:"die Tablette Pl. = Tabletten",cat:"L8"},
+];
+
+const SB_BANK = [
+  {words:["Ich","gehe","zum","Supermarkt"],correct:"Ich gehe zum Supermarkt",es:"Voy al supermercado"},
+  {words:["Sie","fährt","mit","einem","Freund"],correct:"Sie fährt mit einem Freund",es:"Ella va con un amigo"},
+  {words:["Heute","arbeite","ich","im","Büro"],correct:"Heute arbeite ich im Büro",es:"Hoy trabajo en la oficina"},
+  {words:["Er","steht","um","sieben","Uhr","auf"],correct:"Er steht um sieben Uhr auf",es:"Él se levanta a las siete"},
+  {words:["Wir","können","nicht","kommen"],correct:"Wir können nicht kommen",es:"No podemos venir"},
+  {words:["Du","darfst","das","nicht","machen"],correct:"Du darfst das nicht machen",es:"No te está permitido hacer eso"},
+  {words:["Ich","heiße","María","und","komme","aus","Spanien"],correct:"Ich heiße María und komme aus Spanien",es:"Me llamo María y soy de España"},
+  {words:["Mein","Kopf","tut","sehr","weh"],correct:"Mein Kopf tut sehr weh",es:"Me duele mucho la cabeza"},
+  {words:["Sie","laden","die","Freunde","ein"],correct:"Sie laden die Freunde ein",es:"Invitan a los amigos"},
+  {words:["Ich","soll","zu","Hause","bleiben"],correct:"Ich soll zu Hause bleiben",es:"Se supone que debo quedarme en casa"},
+  {words:["Kaufen","Sie","das","Brot","beim","Bäcker"],correct:"Kaufen Sie das Brot beim Bäcker",es:"Compre el pan en la panadería"},
+  {words:["Morgen","fahre","ich","nach","Berlin"],correct:"Morgen fahre ich nach Berlin",es:"Mañana voy a Berlín"},
+];
+
+const MATCH_BANK = [
+  {de:"der Bahnhof",es:"la estación"},
+  {de:"die Fahrkarte",es:"el billete"},
+  {de:"das Krankenhaus",es:"el hospital"},
+  {de:"der Arzt",es:"el médico"},
+  {de:"die Tablette",es:"la pastilla"},
+  {de:"der Kopf",es:"la cabeza"},
+  {de:"das Fieber",es:"la fiebre"},
+  {de:"die Salbe",es:"la pomada"},
+  {de:"der Unfall",es:"el accidente"},
+  {de:"das Knie",es:"la rodilla"},
+  {de:"die Wunde",es:"la herida"},
+  {de:"der Hustensaft",es:"el jarabe"},
+  {de:"die Firma",es:"la empresa"},
+  {de:"das Praktikum",es:"las prácticas"},
+  {de:"der Kollege",es:"el colega"},
+  {de:"die Besprechung",es:"la reunión"},
+  {de:"der Supermarkt",es:"el supermercado"},
+  {de:"die Straßenbahn",es:"el tranvía"},
+  {de:"das Museum",es:"el museo"},
+  {de:"der Geburtstag",es:"el cumpleaños"},
+];
+
+// Normalize: trim, lowercase, collapse spaces, normalize ß→ss for comparison
+function norm(s){
+  return s.trim().toLowerCase()
+    .replace(/ß/g,'ss')
+    .replace(/\s+/g,' ')
+    .replace(/[.,!?]/g,'');
+}
+
+// ═══════════════════
+// RELLENA EL HUECO
+// ═══════════════════
+let fibQs = [];
+
+function newFib(){
+  fibQs = shuf(FIB_BANK.slice()).slice(0, 8);
+  renderFib();
+}
+
+function renderFib(){
+  document.getElementById('fib-result').className = 'ej-result';
+  document.getElementById('fib-list').innerHTML = fibQs.map((q, i) => {
+    var sentence = q.s.replace('___', '<input class="fib-inp" id="fib-'+i+'" placeholder="___" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" onkeydown="if(event.key==\'Enter\')checkFib()">');
+    return '<div class="fib-item">'
+      + '<div class="fib-sentence">' + sentence + '</div>'
+      + '<div class="fib-hint">💡 ' + q.hint + '</div>'
+      + '<div class="fib-fb" id="fib-fb-' + i + '"></div>'
+      + '</div>';
+  }).join('');
+  // focus first
+  setTimeout(function(){ var f=document.getElementById('fib-0'); if(f) f.focus(); }, 100);
+}
+
+function resetFib(){
+  fibQs.forEach(function(_, i){
+    var inp = document.getElementById('fib-'+i);
+    if(inp){ inp.value=''; inp.className='fib-inp'; }
+    var fb = document.getElementById('fib-fb-'+i);
+    if(fb){ fb.textContent=''; fb.className='fib-fb'; }
+  });
+  document.getElementById('fib-result').className = 'ej-result';
+  var f = document.getElementById('fib-0'); if(f) f.focus();
+}
+
+function checkFib(){
+  var ok=0, total=fibQs.length;
+  fibQs.forEach(function(q, i){
+    var inp = document.getElementById('fib-'+i);
+    var fb  = document.getElementById('fib-fb-'+i);
+    if(!inp) return;
+    var val = norm(inp.value);
+    var ans = norm(q.ans);
+    // Accept also ß/ss variants
+    var correct = val === ans || val === norm(q.ans.replace(/ss/g,'ß'));
+    if(correct){
+      inp.className='fib-inp ok'; ok++;
+      fb.textContent='✓ Richtig!'; fb.className='fib-fb ok';
+    } else {
+      inp.className='fib-inp ko';
+      fb.textContent='✗ Respuesta: ' + q.ans; fb.className='fib-fb ko';
+    }
+  });
+  var pct = Math.round(ok/total*100);
+  var res = document.getElementById('fib-result');
+  res.className = 'ej-result show';
+  res.innerHTML = '<span class="'+(pct>=80?'er-ok':'er-ko')+'">'+pct+'% — '+ok+'/'+total+' correctas</span>'
+    + (pct===100 ? ' 🏆 Perfekt!' : pct>=60 ? ' 👍 Gut gemacht!' : ' 📚 Sigue practicando');
+}
+
+// ═══════════════════
+// ORDENA LA FRASE
+// ═══════════════════
+let sbQs = [];
+let sbState = []; // array of {used:[], answer:[]} per question
+
+function newSb(){
+  sbQs = shuf(SB_BANK.slice()).slice(0, 5);
+  sbState = sbQs.map(function(q){ return {answer:[], pool: shuf(q.words.slice())}; });
+  renderSb();
+}
+
+function resetSb(){
+  sbState = sbQs.map(function(q){ return {answer:[], pool: shuf(q.words.slice())}; });
+  renderSb();
+  document.getElementById('sb-result').className = 'ej-result';
+}
+
+function renderSb(){
+  document.getElementById('sb-result').className = 'ej-result';
+  document.getElementById('sb-list').innerHTML = sbQs.map(function(q, qi){
+    var poolHtml = sbState[qi].pool.map(function(w, wi){
+      var used = sbState[qi].answer.indexOf(w) !== -1 && sbState[qi].answer.filter(function(x){return x===w;}).length >= sbState[qi].pool.filter(function(x){return x===w;}).length;
+      // simpler: track by index
+      return '<span class="sb-word" onclick="sbAddWord('+qi+','+wi+')">'+w+'</span>';
+    }).join('');
+    var ansHtml = sbState[qi].answer.map(function(w, ai){
+      return '<span class="sb-answer-word" onclick="sbRemoveWord('+qi+','+ai+')">'+w+'</span>';
+    }).join('');
+    var fb = document.getElementById('sb-fb-'+qi);
+    return '<div class="sb-item">'
+      +'<div class="sb-prompt">🇪🇸 '+q.es+'</div>'
+      +'<div class="sb-words" id="sb-pool-'+qi+'">'+poolHtml+'</div>'
+      +'<div class="sb-answer" id="sb-ans-'+qi+'" title="Pulsa para quitar palabras">'+ansHtml+'</div>'
+      +'<div class="sb-fb" id="sb-fb-'+qi+'"></div>'
+      +'</div>';
+  }).join('');
+}
+
+// Track which pool indices are used per question
+var sbUsed = []; // array of Set of indices
+
+function newSbFull(){
+  sbQs = shuf(SB_BANK.slice()).slice(0, 5);
+  sbUsed = sbQs.map(function(){ return new Set(); });
+  sbState = sbQs.map(function(q){ return {answer:[], pool: shuf(q.words.slice())}; });
+  renderSbFull();
+}
+
+function renderSbFull(){
+  document.getElementById('sb-result').className = 'ej-result';
+  document.getElementById('sb-list').innerHTML = sbQs.map(function(q, qi){
+    var poolHtml = sbState[qi].pool.map(function(w, wi){
+      var isUsed = sbUsed[qi] && sbUsed[qi].has(wi);
+      return '<span class="sb-word'+(isUsed?' used':'')+'" onclick="sbAdd('+qi+','+wi+')">'+w+'</span>';
+    }).join('');
+    var ansHtml = sbState[qi].answer.map(function(item, ai){
+      return '<span class="sb-answer-word" onclick="sbRemove('+qi+','+ai+')">'+item.w+'</span>';
+    }).join('');
+    return '<div class="sb-item">'
+      +'<div class="sb-prompt">🇪🇸 '+q.es+'</div>'
+      +'<div class="sb-words" id="sbpool-'+qi+'">'+poolHtml+'</div>'
+      +'<div class="sb-answer" id="sbans-'+qi+'">'+ansHtml+'</div>'
+      +'<div class="sb-fb" id="sbfb-'+qi+'"></div>'
+      +'</div>';
+  }).join('');
+}
+
+function sbAdd(qi, wi){
+  if(sbUsed[qi].has(wi)) return;
+  sbUsed[qi].add(wi);
+  sbState[qi].answer.push({w: sbState[qi].pool[wi], wi: wi});
+  // check immediately
+  var correct = sbState[qi].answer.map(function(x){return x.w;}).join(' ');
+  var fb = document.getElementById('sbfb-'+qi);
+  if(correct === sbQs[qi].correct){
+    fb.textContent = '✓ Richtig! ✅'; fb.className = 'sb-fb ok';
+  } else {
+    fb.textContent = ''; fb.className = 'sb-fb';
+  }
+  refreshSbItem(qi);
+}
+
+function sbRemove(qi, ai){
+  var item = sbState[qi].answer[ai];
+  sbUsed[qi].delete(item.wi);
+  sbState[qi].answer.splice(ai, 1);
+  document.getElementById('sbfb-'+qi).textContent = '';
+  refreshSbItem(qi);
+}
+
+function refreshSbItem(qi){
+  var q = sbQs[qi];
+  var poolHtml = sbState[qi].pool.map(function(w, wi){
+    var isUsed = sbUsed[qi].has(wi);
+    return '<span class="sb-word'+(isUsed?' used':'')+'" onclick="sbAdd('+qi+','+wi+')">'+w+'</span>';
+  }).join('');
+  var ansHtml = sbState[qi].answer.map(function(item, ai){
+    return '<span class="sb-answer-word" onclick="sbRemove('+qi+','+ai+')">'+item.w+'</span>';
+  }).join('');
+  var poolEl = document.getElementById('sbpool-'+qi);
+  var ansEl  = document.getElementById('sbans-'+qi);
+  if(poolEl) poolEl.innerHTML = poolHtml;
+  if(ansEl)  ansEl.innerHTML  = ansHtml;
+  // check if all done
+  var allOk = sbQs.every(function(sq, i){
+    return sbState[i].answer.map(function(x){return x.w;}).join(' ') === sq.correct;
+  });
+  var res = document.getElementById('sb-result');
+  if(allOk){
+    res.className = 'ej-result show';
+    res.innerHTML = '<span class="er-ok">🏆 ¡Todas correctas! Ausgezeichnet!</span>';
+  } else {
+    res.className = 'ej-result';
+  }
+}
+
+function newSb(){ newSbFull(); }
+function resetSb(){
+  sbUsed = sbQs.map(function(){ return new Set(); });
+  sbState = sbQs.map(function(q){ return {answer:[], pool: sbState[sbQs.indexOf(q)]? sbState[sbQs.indexOf(q)].pool : shuf(q.words.slice())}; });
+  // simpler reset:
+  sbUsed = sbQs.map(function(){ return new Set(); });
+  sbState = sbQs.map(function(q){ return {answer:[], pool: shuf(q.words.slice())}; });
+  renderSbFull();
+  document.getElementById('sb-result').className = 'ej-result';
+}
+
+// ═══════════════════
+// UNE EL PAR
+// ═══════════════════
+var matchPairs = [];
+var matchSelected = null; // {side:'de'|'es', idx:int}
+var matchDone = new Set();
+var matchErrors = 0;
+
+function newMatch(){
+  matchPairs = shuf(MATCH_BANK.slice()).slice(0, 8);
+  matchSelected = null;
+  matchDone = new Set();
+  matchErrors = 0;
+  renderMatch();
+}
+
+function renderMatch(){
+  document.getElementById('match-result').className = 'ej-result';
+  updateMatchScore();
+  var deHtml = matchPairs.map(function(p, i){
+    return '<div class="match-item" id="mde-'+i+'" onclick="matchClick(\'de\','+i+')">'+p.de+'</div>';
+  }).join('');
+  // shuffle ES side independently
+  var esOrder = shuf(matchPairs.map(function(_,i){return i;}));
+  var esHtml = esOrder.map(function(pi, i){
+    return '<div class="match-item" id="mes-'+pi+'" onclick="matchClick(\'es\','+pi+')">'+matchPairs[pi].es+'</div>';
+  }).join('');
+  document.getElementById('match-de').innerHTML = deHtml;
+  document.getElementById('match-es').innerHTML = esHtml;
+}
+
+function updateMatchScore(){
+  var done = matchDone.size;
+  var total = matchPairs.length;
+  document.getElementById('match-score').textContent = done + ' / ' + total + ' pares encontrados' + (matchErrors>0 ? ' · ' + matchErrors + ' error(es)' : '');
+}
+
+function matchClick(side, idx){
+  if(matchDone.has(idx)) return;
+  var el = document.getElementById('m'+side+'-'+idx);
+  if(!el) return;
+
+  if(!matchSelected){
+    // first selection
+    matchSelected = {side:side, idx:idx};
+    el.classList.add('selected');
+    return;
+  }
+
+  // second selection
+  var prev = matchSelected;
+  matchSelected = null;
+
+  // deselect previous
+  var prevEl = document.getElementById('m'+prev.side+'-'+prev.idx);
+  if(prevEl) prevEl.classList.remove('selected');
+
+  // same side click → just reselect new one
+  if(prev.side === side){
+    el.classList.add('selected');
+    matchSelected = {side:side, idx:idx};
+    return;
+  }
+
+  // different sides: check if same pair index
+  var deIdx = side==='de' ? idx : prev.idx;
+  var esIdx = side==='es' ? idx : prev.idx;
+
+  if(deIdx === esIdx){
+    // correct match!
+    var deEl = document.getElementById('mde-'+deIdx);
+    var esEl = document.getElementById('mes-'+esIdx);
+    if(deEl) deEl.classList.add('matched');
+    if(esEl) esEl.classList.add('matched');
+    matchDone.add(deIdx);
+    updateMatchScore();
+    // all done?
+    if(matchDone.size === matchPairs.length){
+      var res = document.getElementById('match-result');
+      res.className = 'ej-result show';
+      res.innerHTML = '<span class="er-ok">🏆 ¡Todos los pares!</span> '
+        + (matchErrors===0 ? 'Sin errores — Ausgezeichnet! 🎉' : matchErrors+' error(es). Gut gemacht!');
+    }
+  } else {
+    // wrong: flash red briefly
+    var deEl2 = document.getElementById('mde-'+deIdx);
+    var esEl2 = document.getElementById('mes-'+esIdx);
+    matchErrors++;
+    updateMatchScore();
+    if(deEl2){ deEl2.classList.add('wrong-flash'); setTimeout(function(){deEl2.classList.remove('wrong-flash');},400); }
+    if(esEl2){ esEl2.classList.add('wrong-flash'); setTimeout(function(){esEl2.classList.remove('wrong-flash');},400); }
+  }
+}
+
+// ── TAB SWITCHER ──
+function setEjTab(id, btn){
+  document.querySelectorAll('.ej-sec').forEach(function(s){s.classList.remove('active');});
+  document.querySelectorAll('.ej-tab').forEach(function(b){b.classList.remove('active');});
+  document.getElementById('ej-'+id).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ── INIT EJERCICIOS ──
+function initEjercicios(){
+  newFib();
+  newSbFull();
+  newMatch();
+}
+
+
+// ════════════════════════════════════════════
+// VERBOS
+// ════════════════════════════════════════════
+var verbLekFilter = 'all';
+var openVerbId = null;
+
+var EXTRA_VERBS = [
+  // Common A1 verbs not in VOCAB but useful to show
+  {w:'sein',     art:'verb', l:1, t:'ser / estar',   special:{ich:'bin',du:'bist',er:'ist',wir:'sind',ihr:'seid',sie:'sind',note:'Unregelmäßig — sehr wichtig!'}},
+  {w:'haben',    art:'verb', l:1, t:'tener',          special:{ich:'habe',du:'hast',er:'hat',wir:'haben',ihr:'habt',sie:'haben',note:'Unregelmäßig — sehr wichtig!'}},
+  {w:'werden',   art:'verb', l:1, t:'llegar a ser / se va a',  special:{ich:'werde',du:'wirst',er:'wird',wir:'werden',ihr:'werdet',sie:'werden',note:'Unregelmäßig'}},
+  {w:'machen',   art:'verb', l:1, t:'hacer',          special:{ich:'mache',du:'machst',er:'macht',wir:'machen',ihr:'macht',sie:'machen'}},
+  {w:'sagen',    art:'verb', l:2, t:'decir',          special:{ich:'sage',du:'sagst',er:'sagt',wir:'sagen',ihr:'sagt',sie:'sagen'}},
+  {w:'finden',   art:'verb', l:2, t:'encontrar',      special:{ich:'finde',du:'findest',er:'findet',wir:'finden',ihr:'findet',sie:'finden'}},
+  {w:'brauchen', art:'verb', l:2, t:'necesitar'},
+  {w:'geben',    art:'verb', l:3, t:'dar',            special:{ich:'gebe',du:'gibst',er:'gibt',wir:'geben',ihr:'gebt',sie:'geben',note:'du/er: gibt (irregular)'}},
+  {w:'wissen',   art:'verb', l:3, t:'saber (un hecho)',special:{ich:'weiß',du:'weißt',er:'weiß',wir:'wissen',ihr:'wisst',sie:'wissen',note:'ich/er: weiß (irregular)'}},
+  {w:'anrufen',  art:'verb', l:7, t:'llamar por teléfono', special:{ich:'rufe … an',du:'rufst … an',er:'ruft … an',wir:'rufen … an',ihr:'ruft … an',sie:'rufen … an',note:'Trennbar: an— al final'}},
+  {w:'aufmachen',art:'verb', l:7, t:'abrir',          special:{ich:'mache … auf',du:'machst … auf',er:'macht … auf',wir:'machen … auf',ihr:'macht … auf',sie:'machen … auf',note:'Trennbar: auf— al final'}},
+  {w:'laufen',   art:'verb', l:8, t:'correr / caminar',special:{ich:'laufe',du:'läufst',er:'läuft',wir:'laufen',ihr:'lauft',sie:'laufen',note:'du/er: Umlaut ä'}},
+];
+
+function getVerbConj(verbName) {
+  // Check CONJ object first
+  var c = CONJ[verbName.toLowerCase()];
+  if (c) return c;
+  // Check EXTRA_VERBS
+  var extra = EXTRA_VERBS.find(function(v){ return v.w.toLowerCase() === verbName.toLowerCase(); });
+  if (extra && extra.special) return extra.special;
+  return null;
+}
+
+function buildVerbCardHTML(verb, idx) {
+  var conj = getVerbConj(verb.w);
+  var lkClass = verb.l <= 3 ? 'var(--blue)' : verb.l <= 6 ? 'var(--accent2)' : 'var(--purple)';
+
+  var conjHTML = '';
+  if (conj) {
+    var PRONS = ['ich','du','er/sie','wir','ihr','sie/Sie'];
+    var KEYS  = ['ich','du','er','wir','ihr','sie'];
+    var rows = '';
+    KEYS.forEach(function(p, i) {
+      var f = conj[p] || '';
+      // Irregular forms highlighted
+      var isIrr = (p === 'du' || p === 'er' || p === 'ich') &&
+                  (f !== (conj['wir'] || '').replace(/en$/,'e').replace(/n$/,'') ) &&
+                  IRR.has(verb.w.toLowerCase());
+      rows += '<span class="pr">' + PRONS[i] + '</span>'
+            + '<span class="' + (isIrr ? 'vi' : 'vf') + '">' + f + '</span>';
+    });
+    conjHTML = '<div class="vc-conj">' + rows + '</div>';
+    if (conj.note) {
+      conjHTML += '<div class="vc-note">⚡ ' + conj.note + '</div>';
+    }
+  } else {
+    // Generate regular conjugation automatically
+    var stem = verb.w.replace(/en$/, '').replace(/n$/, '');
+    var rows = '';
+    var endings = ['e','st','t','en','t','en'];
+    var prons = ['ich','du','er/sie','wir','ihr','sie/Sie'];
+    endings.forEach(function(e, i) {
+      var f = stem + e;
+      // -ten verbs add e before ending
+      if ((stem.endsWith('t') || stem.endsWith('d')) && (e === 'st' || e === 't')) {
+        f = stem + 'e' + e;
+      }
+      rows += '<span class="pr">' + prons[i] + '</span><span class="vf">' + f + '</span>';
+    });
+    conjHTML = '<div class="vc-conj">' + rows + '</div>';
+    conjHTML += '<div class="vc-note">Regular — terminaciones estándar</div>';
+  }
+
+  return '<div class="verb-card" id="vcard-' + idx + '" onclick="toggleVerbCard(' + idx + ')">'
+    + '<div class="vc-head">'
+    + '<div>'
+    + '<div class="vc-name">' + verb.w + '</div>'
+    + '<div class="vc-trans">' + verb.t + '</div>'
+    + '</div>'
+    + '<div style="display:flex;align-items:center;gap:8px;">'
+    + '<span class="vc-lk2">L' + verb.l + '</span>'
+    + '<span class="vc-arrow">▼</span>'
+    + '</div>'
+    + '</div>'
+    + '<div class="vc-body">' + conjHTML + '</div>'
+    + '</div>';
+}
+
+function toggleVerbCard(idx) {
+  var card = document.getElementById('vcard-' + idx);
+  if (!card) return;
+  var wasOpen = card.classList.contains('open');
+  // close all
+  document.querySelectorAll('.verb-card.open').forEach(function(c){ c.classList.remove('open'); });
+  // toggle
+  if (!wasOpen) card.classList.add('open');
+}
+
+function renderVerbs() {
+  var search = (document.getElementById('verb-search') || {value:''}).value.toLowerCase().trim();
+  
+  // Combine VOCAB verbs + EXTRA_VERBS (deduplicated)
+  var vocabVerbs = VOCAB.filter(function(v){ return v.art === 'verb'; });
+  var extraFiltered = EXTRA_VERBS.filter(function(ev){
+    return !vocabVerbs.find(function(v){ return v.w.toLowerCase() === ev.w.toLowerCase(); });
+  });
+  var allVerbs = vocabVerbs.concat(extraFiltered);
+  
+  // Sort alphabetically
+  allVerbs.sort(function(a,b){ return a.w.localeCompare(b.w, 'de'); });
+  
+  // Filter by lektion
+  if (verbLekFilter !== 'all') {
+    allVerbs = allVerbs.filter(function(v){ return v.l == verbLekFilter; });
+  }
+  
+  // Filter by search
+  if (search) {
+    allVerbs = allVerbs.filter(function(v){
+      return v.w.toLowerCase().includes(search) || v.t.toLowerCase().includes(search);
+    });
+  }
+  
+  var grid = document.getElementById('verb-grid');
+  var count = document.getElementById('verb-count');
+  if (!grid) return;
+  
+  if (count) count.textContent = allVerbs.length + ' verbos';
+  
+  grid.innerHTML = allVerbs.map(function(v, i) {
+    return buildVerbCardHTML(v, i);
+  }).join('');
+}
+
+function filterVerbs() {
+  renderVerbs();
+}
+
+function filterVerbLek(lek, btn) {
+  verbLekFilter = lek;
+  document.querySelectorAll('.verb-filter-btn').forEach(function(b){ b.classList.remove('active'); });
+  if (btn) btn.classList.add('active');
+  renderVerbs();
 }
 
 // ════════════════════════════════════════════
