@@ -34,7 +34,7 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
 .content{display:flex;flex-direction:column;overflow:hidden;}
 .panel{display:none;flex:1;flex-direction:column;overflow:hidden;}
 .panel.active{display:flex;}
-.scroll-inner{flex:1;overflow-y:auto;padding:24px 28px;scrollbar-width:thin;scrollbar-color:var(--border) transparent;}
+.scroll-inner{flex:1;overflow-y:auto;padding:24px 28px;scrollbar-width:thin;scrollbar-color:var(--border) transparent;min-height:0;}
 
 /* ── MOBILE NAV BAR (hidden on desktop) ── */
 .mob-nav{display:none;}
@@ -516,7 +516,7 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
 .spill.a1{background:rgba(76,175,130,.1);color:var(--green);border:1px solid rgba(76,175,130,.2);}
 .spill.words{background:rgba(245,200,66,.1);color:var(--accent);border:1px solid rgba(245,200,66,.2);}
 /* story reader */
-.story-reader{display:none;flex-direction:column;height:100%;}
+.story-reader{display:none;flex:1;flex-direction:column;min-height:0;}
 .story-reader.open{display:flex;}
 .story-hdr{padding:18px 28px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:14px;flex-shrink:0;}
 .story-hdr-info{flex:1;}
@@ -545,8 +545,9 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
 .dial-card .dc-emoji{font-size:1.6rem;margin-bottom:10px;}
 .dial-card .dc-title{font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--text);margin-bottom:5px;}
 .dial-card .dc-desc{font-size:.75rem;color:var(--muted);line-height:1.4;}
+.dial-list-view, #story-list-view{display:flex;flex-direction:column;flex:1;min-height:0;}
 /* dialog chat */
-.dial-chat{display:none;flex-direction:column;height:100%;}
+.dial-chat{display:none;flex:1;flex-direction:column;min-height:0;}
 .dial-chat.open{display:flex;}
 .dial-hdr{padding:16px 28px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;flex-shrink:0;background:var(--surface);}
 .dial-hdr-emoji{font-size:1.5rem;}
@@ -721,7 +722,6 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
   <button class="mode-btn" onclick="setMode('write',this)"><span class="ico">✍️</span>Escritura</button>
   <div class="sb-title">Estudiar</div>
   <button class="mode-btn" onclick="setMode('vocab',this)"><span class="ico">📚</span>Vocabulario</button>
-  <button class="mode-btn" onclick="setMode('verbs',this)"><span class="ico">🔤</span>Verbos</button>
   <button class="mode-btn" onclick="setMode('grammar',this)"><span class="ico">📐</span>Gramática</button>
   <button class="mode-btn" onclick="setMode('pron',this)"><span class="ico">🔊</span>Pronunciación</button>
   <div class="sb-title">Evaluar</div>
@@ -986,28 +986,6 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
 </div>
 
 
-<!-- ══ VERBOS ══ -->
-<div class="panel" id="panel-verbs">
-  <div class="scroll-inner">
-    <div class="section-title">Verbos</div>
-    <div class="section-sub">Todos los verbos de tus lecciones. Pulsa cualquiera para ver la conjugación completa en presente.</div>
-    <div class="verb-filters">
-      <input class="verb-search" id="verb-search" placeholder="Buscar verbo…" oninput="filterVerbs()">
-      <button class="verb-filter-btn active" onclick="filterVerbLek('all',this)">Todas</button>
-      <button class="verb-filter-btn" onclick="filterVerbLek(1,this)">L1</button>
-      <button class="verb-filter-btn" onclick="filterVerbLek(2,this)">L2</button>
-      <button class="verb-filter-btn" onclick="filterVerbLek(3,this)">L3</button>
-      <button class="verb-filter-btn" onclick="filterVerbLek(4,this)">L4</button>
-      <button class="verb-filter-btn" onclick="filterVerbLek(5,this)">L5</button>
-      <button class="verb-filter-btn" onclick="filterVerbLek(6,this)">L6</button>
-      <button class="verb-filter-btn" onclick="filterVerbLek(7,this)">L7</button>
-      <button class="verb-filter-btn" onclick="filterVerbLek(8,this)">L8</button>
-      <span class="verb-count" id="verb-count"></span>
-    </div>
-    <div class="verb-grid" id="verb-grid"></div>
-  </div>
-</div>
-
 <!-- ══ PRONUNCIACIÓN ══ -->
 <div class="panel" id="panel-pron">
   <div class="scroll-inner">
@@ -1130,9 +1108,6 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
   </button>
   <button class="mob-nav-btn" onclick="setMode('vocab',this)" data-mode="vocab">
     <span class="mico">📚</span>Vocab
-  </button>
-  <button class="mob-nav-btn" onclick="setMode('verbs',this)" data-mode="verbs">
-    <span class="mico">🔤</span>Verbos
   </button>
   <button class="mob-nav-btn" onclick="setMode('grammar',this)" data-mode="grammar">
     <span class="mico">📐</span>Gramática
@@ -1554,7 +1529,6 @@ function setMode(mode,btn){
     }
   });
   if(mode==='vocab') renderVocab();
-  if(mode==='verbs') renderVerbs();
   if(mode==='quiz') startQuiz();
 }
 
@@ -2415,146 +2389,19 @@ function initEjercicios(){
 // ════════════════════════════════════════════
 // VERBOS
 // ════════════════════════════════════════════
-var verbLekFilter = 'all';
-var openVerbId = null;
 
-var EXTRA_VERBS = [
-  // Common A1 verbs not in VOCAB but useful to show
-  {w:'sein',     art:'verb', l:1, t:'ser / estar',   special:{ich:'bin',du:'bist',er:'ist',wir:'sind',ihr:'seid',sie:'sind',note:'Unregelmäßig — sehr wichtig!'}},
-  {w:'haben',    art:'verb', l:1, t:'tener',          special:{ich:'habe',du:'hast',er:'hat',wir:'haben',ihr:'habt',sie:'haben',note:'Unregelmäßig — sehr wichtig!'}},
-  {w:'werden',   art:'verb', l:1, t:'llegar a ser / se va a',  special:{ich:'werde',du:'wirst',er:'wird',wir:'werden',ihr:'werdet',sie:'werden',note:'Unregelmäßig'}},
-  {w:'machen',   art:'verb', l:1, t:'hacer',          special:{ich:'mache',du:'machst',er:'macht',wir:'machen',ihr:'macht',sie:'machen'}},
-  {w:'sagen',    art:'verb', l:2, t:'decir',          special:{ich:'sage',du:'sagst',er:'sagt',wir:'sagen',ihr:'sagt',sie:'sagen'}},
-  {w:'finden',   art:'verb', l:2, t:'encontrar',      special:{ich:'finde',du:'findest',er:'findet',wir:'finden',ihr:'findet',sie:'finden'}},
-  {w:'brauchen', art:'verb', l:2, t:'necesitar'},
-  {w:'geben',    art:'verb', l:3, t:'dar',            special:{ich:'gebe',du:'gibst',er:'gibt',wir:'geben',ihr:'gebt',sie:'geben',note:'du/er: gibt (irregular)'}},
-  {w:'wissen',   art:'verb', l:3, t:'saber (un hecho)',special:{ich:'weiß',du:'weißt',er:'weiß',wir:'wissen',ihr:'wisst',sie:'wissen',note:'ich/er: weiß (irregular)'}},
-  {w:'anrufen',  art:'verb', l:7, t:'llamar por teléfono', special:{ich:'rufe … an',du:'rufst … an',er:'ruft … an',wir:'rufen … an',ihr:'ruft … an',sie:'rufen … an',note:'Trennbar: an— al final'}},
-  {w:'aufmachen',art:'verb', l:7, t:'abrir',          special:{ich:'mache … auf',du:'machst … auf',er:'macht … auf',wir:'machen … auf',ihr:'macht … auf',sie:'machen … auf',note:'Trennbar: auf— al final'}},
-  {w:'laufen',   art:'verb', l:8, t:'correr / caminar',special:{ich:'laufe',du:'läufst',er:'läuft',wir:'laufen',ihr:'lauft',sie:'laufen',note:'du/er: Umlaut ä'}},
-];
 
-function getVerbConj(verbName) {
-  // Check CONJ object first
-  var c = CONJ[verbName.toLowerCase()];
-  if (c) return c;
-  // Check EXTRA_VERBS
-  var extra = EXTRA_VERBS.find(function(v){ return v.w.toLowerCase() === verbName.toLowerCase(); });
-  if (extra && extra.special) return extra.special;
-  return null;
-}
 
-function buildVerbCardHTML(verb, idx) {
-  var conj = getVerbConj(verb.w);
-  var lkClass = verb.l <= 3 ? 'var(--blue)' : verb.l <= 6 ? 'var(--accent2)' : 'var(--purple)';
 
-  var conjHTML = '';
-  if (conj) {
-    var PRONS = ['ich','du','er/sie','wir','ihr','sie/Sie'];
-    var KEYS  = ['ich','du','er','wir','ihr','sie'];
-    var rows = '';
-    KEYS.forEach(function(p, i) {
-      var f = conj[p] || '';
-      // Irregular forms highlighted
-      var isIrr = (p === 'du' || p === 'er' || p === 'ich') &&
-                  (f !== (conj['wir'] || '').replace(/en$/,'e').replace(/n$/,'') ) &&
-                  IRR.has(verb.w.toLowerCase());
-      rows += '<span class="pr">' + PRONS[i] + '</span>'
-            + '<span class="' + (isIrr ? 'vi' : 'vf') + '">' + f + '</span>';
-    });
-    conjHTML = '<div class="vc-conj">' + rows + '</div>';
-    if (conj.note) {
-      conjHTML += '<div class="vc-note">⚡ ' + conj.note + '</div>';
-    }
-  } else {
-    // Generate regular conjugation automatically
-    var stem = verb.w.replace(/en$/, '').replace(/n$/, '');
-    var rows = '';
-    var endings = ['e','st','t','en','t','en'];
-    var prons = ['ich','du','er/sie','wir','ihr','sie/Sie'];
-    endings.forEach(function(e, i) {
-      var f = stem + e;
-      // -ten verbs add e before ending
-      if ((stem.endsWith('t') || stem.endsWith('d')) && (e === 'st' || e === 't')) {
-        f = stem + 'e' + e;
-      }
-      rows += '<span class="pr">' + prons[i] + '</span><span class="vf">' + f + '</span>';
-    });
-    conjHTML = '<div class="vc-conj">' + rows + '</div>';
-    conjHTML += '<div class="vc-note">Regular — terminaciones estándar</div>';
-  }
 
-  return '<div class="verb-card" id="vcard-' + idx + '" onclick="toggleVerbCard(' + idx + ')">'
-    + '<div class="vc-head">'
-    + '<div>'
-    + '<div class="vc-name">' + verb.w + '</div>'
-    + '<div class="vc-trans">' + verb.t + '</div>'
-    + '</div>'
-    + '<div style="display:flex;align-items:center;gap:8px;">'
-    + '<span class="vc-lk2">L' + verb.l + '</span>'
-    + '<span class="vc-arrow">▼</span>'
-    + '</div>'
-    + '</div>'
-    + '<div class="vc-body">' + conjHTML + '</div>'
-    + '</div>';
-}
 
-function toggleVerbCard(idx) {
-  var card = document.getElementById('vcard-' + idx);
-  if (!card) return;
-  var wasOpen = card.classList.contains('open');
-  // close all
-  document.querySelectorAll('.verb-card.open').forEach(function(c){ c.classList.remove('open'); });
-  // toggle
-  if (!wasOpen) card.classList.add('open');
-}
 
-function renderVerbs() {
-  var search = (document.getElementById('verb-search') || {value:''}).value.toLowerCase().trim();
-  
-  // Combine VOCAB verbs + EXTRA_VERBS (deduplicated)
-  var vocabVerbs = VOCAB.filter(function(v){ return v.art === 'verb'; });
-  var extraFiltered = EXTRA_VERBS.filter(function(ev){
-    return !vocabVerbs.find(function(v){ return v.w.toLowerCase() === ev.w.toLowerCase(); });
-  });
-  var allVerbs = vocabVerbs.concat(extraFiltered);
-  
-  // Sort alphabetically
-  allVerbs.sort(function(a,b){ return a.w.localeCompare(b.w, 'de'); });
-  
-  // Filter by lektion
-  if (verbLekFilter !== 'all') {
-    allVerbs = allVerbs.filter(function(v){ return v.l == verbLekFilter; });
-  }
-  
-  // Filter by search
-  if (search) {
-    allVerbs = allVerbs.filter(function(v){
-      return v.w.toLowerCase().includes(search) || v.t.toLowerCase().includes(search);
-    });
-  }
-  
-  var grid = document.getElementById('verb-grid');
-  var count = document.getElementById('verb-count');
-  if (!grid) return;
-  
-  if (count) count.textContent = allVerbs.length + ' verbos';
-  
-  grid.innerHTML = allVerbs.map(function(v, i) {
-    return buildVerbCardHTML(v, i);
-  }).join('');
-}
 
-function filterVerbs() {
-  renderVerbs();
-}
 
-function filterVerbLek(lek, btn) {
-  verbLekFilter = lek;
-  document.querySelectorAll('.verb-filter-btn').forEach(function(b){ b.classList.remove('active'); });
-  if (btn) btn.classList.add('active');
-  renderVerbs();
-}
+
+
+
+
 
 // ════════════════════════════════════════════
 init();
