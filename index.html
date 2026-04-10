@@ -34,7 +34,7 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
 .content{display:flex;flex-direction:column;overflow:hidden;}
 .panel{display:none;flex:1;flex-direction:column;overflow:hidden;}
 .panel.active{display:flex;}
-.scroll-inner{flex:1;overflow-y:auto;padding:24px 28px;scrollbar-width:thin;scrollbar-color:var(--border) transparent;min-height:0;}
+.scroll-inner{flex:1;overflow-y:auto;padding:24px 28px;scrollbar-width:thin;scrollbar-color:var(--border) transparent;}
 
 /* ── MOBILE NAV BAR (hidden on desktop) ── */
 .mob-nav{display:none;}
@@ -390,13 +390,13 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
 /* translation — highlighted */
 .vc-tr{
   font-size:1.05rem;font-weight:600;
-  color:var(--text);
+  color:var(--accent2);
   line-height:1.5;
   word-break:break-word;
   padding:10px 14px;
-  background:var(--surface2);
+  background:rgba(232,125,62,.08);
   border-radius:8px;
-  border-left:0;
+  border-left:3px solid var(--accent2);
 }
 
 /* ── VERB FLIP ── */
@@ -545,7 +545,6 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
 .dial-card .dc-emoji{font-size:1.6rem;margin-bottom:10px;}
 .dial-card .dc-title{font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--text);margin-bottom:5px;}
 .dial-card .dc-desc{font-size:.75rem;color:var(--muted);line-height:1.4;}
-.dial-list-view, #story-list-view{display:flex;flex-direction:column;flex:1;}
 /* dialog chat */
 .dial-chat{display:none;flex-direction:column;height:100%;}
 .dial-chat.open{display:flex;}
@@ -710,6 +709,9 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
     <button class="lek-btn" onclick="setLek(6,this)">L6</button>
     <button class="lek-btn" onclick="setLek(7,this)">L7</button>
     <button class="lek-btn" onclick="setLek(8,this)">L8</button>
+    <button class="lek-btn" onclick="setLek(9,this)">L9</button>
+    <button class="lek-btn" onclick="setLek(10,this)">L10</button>
+    <button class="lek-btn" onclick="setLek(11,this)">L11</button>
   </div>
 </header>
 
@@ -722,6 +724,7 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
   <button class="mode-btn" onclick="setMode('write',this)"><span class="ico">✍️</span>Escritura</button>
   <div class="sb-title">Estudiar</div>
   <button class="mode-btn" onclick="setMode('vocab',this)"><span class="ico">📚</span>Vocabulario</button>
+  <button class="mode-btn" onclick="setMode('verbs',this)"><span class="ico">🔤</span>Verbos</button>
   <button class="mode-btn" onclick="setMode('grammar',this)"><span class="ico">📐</span>Gramática</button>
   <button class="mode-btn" onclick="setMode('pron',this)"><span class="ico">🔊</span>Pronunciación</button>
   <div class="sb-title">Evaluar</div>
@@ -837,6 +840,9 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
         <option value="6">L6 — Länder &amp; Grüßen</option>
         <option value="7">L7 — Arbeitsalltag</option>
         <option value="8">L8 — Fit und gesund</option>
+        <option value="9">L9 — Studium und Beruf</option>
+        <option value="10">L10 — Meine Wohnung</option>
+        <option value="11">L11 — Mode und Kleidung</option>
       </select>
       <select class="fsel" id="vg-fil" onchange="renderVocab()">
         <option value="all">Todos</option>
@@ -867,6 +873,10 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
       <button class="gtab" onclick="setGTab('praep',this)">Präpositionen</button>
       <button class="gtab" onclick="setGTab('imperativ',this)">Imperativ</button>
       <button class="gtab" onclick="setGTab('durfen',this)">dürfen/sollen</button>
+      <button class="gtab" onclick="setGTab('perfekt',this)">Perfekt</button>
+      <button class="gtab" onclick="setGTab('wechsel',this)">Wechselpräp.</button>
+      <button class="gtab" onclick="setGTab('perfekt',this)">Perfekt</button>
+      <button class="gtab" onclick="setGTab('wechsel',this)">Wechselpräp.</button>
     </div>
     <div class="gsec active" id="gsec-artikel">
       <p class="section-title">Artikel</p><p class="section-sub">Artículos definidos, indefinidos y negativos</p>
@@ -981,10 +991,67 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
       <b>müssen</b> = necesidad propia (yo debo porque lo necesito)</div>
       <div class="gex"><div class="gde">Sie dürfen nicht rauchen. · Du darfst viel Tee trinken.</div><div class="ges">→ No le está permitido fumar. · Puedes beber mucho té.</div></div>
       <div class="gex"><div class="gde">Ich soll das Bein wenig bewegen. · Du sollst zu Hause bleiben.</div><div class="ges">→ (El médico dice que) debo mover poco la pierna.</div></div>
+
+    <div class="gsec" id="gsec-perfekt">
+      <p class="section-title">Perfekt</p><p class="section-sub">Pasado conversacional — haben/sein + Partizip II al final</p>
+      <div class="gnote">💡 <b>Estructura:</b> sujeto + <b>haben/sein</b> (pos.2) + ... + <b>Partizip II</b> (al final)<br>
+      Ej: Daniel <b>hat</b> sechs Stunden <b>gelernt</b>. · Claudia <b>ist</b> zur Arbeit <b>gefahren</b>.</div>
+      <table class="gt"><tr><th>Tipo Partizip II</th><th>Regla</th><th>Ejemplos</th></tr>
+      <tr><td>Regular</td><td class="hl">ge…t</td><td>machen→<b>gemacht</b> · planen→<b>geplant</b></td></tr>
+      <tr><td>Verbos en -ten/-den</td><td class="hl">ge…et</td><td>arbeiten→<b>gearbeitet</b> · warten→<b>gewartet</b></td></tr>
+      <tr><td>Verbos en -ieren</td><td class="hl">…iert (sin ge-)</td><td>studieren→<b>studiert</b> · telefonieren→<b>telefoniert</b></td></tr>
+      <tr><td>Irregular</td><td class="hl">ge…en</td><td>fahren→<b>gefahren</b> · finden→<b>gefunden</b> · gehen→<b>gegangen</b></td></tr></table>
+      <div class="gnote">⚠️ <b>sein</b> en el Perfekt: verbos de movimiento o cambio de estado<br>
+      fahren→ist gefahren · gehen→ist gegangen · kommen→ist gekommen · bleiben→ist geblieben</div>
+      <table class="gt"><tr><th>Infinitiv</th><th>Perfekt (haben)</th><th>Infinitiv</th><th>Perfekt (sein)</th></tr>
+      <tr><td>machen</td><td class="hl">hat gemacht</td><td>fahren</td><td class="hl">ist gefahren</td></tr>
+      <tr><td>lernen</td><td class="hl">hat gelernt</td><td>gehen</td><td class="hl">ist gegangen</td></tr>
+      <tr><td>studieren</td><td class="hl">hat studiert</td><td>kommen</td><td class="hl">ist gekommen</td></tr>
+      <tr><td>treffen</td><td class="hl">hat getroffen</td><td>bleiben</td><td class="hl">ist geblieben</td></tr>
+      <tr><td>finden</td><td class="hl">hat gefunden</td><td>aufstehen</td><td class="hl">ist aufgestanden</td></tr>
+      <tr><td>einladen</td><td class="hl">hat eingeladen</td><td>passieren</td><td class="hl">ist passiert</td></tr></table>
+      <div class="gex"><div class="gde">Was hast du heute gemacht? — Ich habe gearbeitet und Kunden getroffen.</div></div>
+      <div class="gex"><div class="gde">Wie bist du zur Arbeit gefahren? — Ich bin mit dem Zug gefahren.</div></div>
+    </div>
+    <div class="gsec" id="gsec-wechsel">
+      <p class="section-title">Wechselpräpositionen</p><p class="section-sub">an · auf · hinter · in · neben · über · unter · vor · zwischen</p>
+      <div class="gnote">💡 La misma preposición pero el caso cambia:<br>
+      <b>Wohin?</b> (¿adónde? / movimiento) → <b>Akkusativ</b><br>
+      <b>Wo?</b> (¿dónde? / posición estática) → <b>Dativ</b></div>
+      <table class="gt"><tr><th>Pregunta</th><th>Caso</th><th>mask.</th><th>neutr.</th><th>fem.</th></tr>
+      <tr><td><b>Wohin?</b></td><td class="hl">Akk.</td><td>in <b>den</b> Flur</td><td>in<b>s</b> Bad</td><td>in <b>die</b> Küche</td></tr>
+      <tr><td><b>Wo?</b></td><td class="hl">Dat.</td><td>i<b>m</b> Flur</td><td>i<b>m</b> Bad</td><td>in <b>der</b> Küche</td></tr></table>
+      <div class="gnote">💡 Kurzformen: <b>in+dem→im</b> · <b>in+das→ins</b> · <b>an+dem→am</b> · <b>an+das→ans</b></div>
+      <div class="gex"><div class="gde">Wohin? Wir stellen den Stuhl <b>in den</b> Flur. (Akk.)</div><div class="ges">→ movimiento hacia dentro</div></div>
+      <div class="gex"><div class="gde">Wo? Der Stuhl steht <b>im</b> Flur. (Dat.)</div><div class="ges">→ posición estática</div></div>
+      <div class="gex"><div class="gde">stehen/liegen/hängen → Dativ · stellen/legen/hängen → Akkusativ</div><div class="ges">truco: si el verbo describe posición → Dativ; si describe movimiento → Akkusativ</div></div>
+    </div>
     </div>
   </div>
 </div>
 
+
+<!-- ══ VERBOS ══ -->
+<div class="panel" id="panel-verbs">
+  <div class="scroll-inner">
+    <div class="section-title">Verbos</div>
+    <div class="section-sub">Todos los verbos de tus lecciones. Pulsa cualquiera para ver la conjugación completa en presente.</div>
+    <div class="verb-filters">
+      <input class="verb-search" id="verb-search" placeholder="Buscar verbo…" oninput="filterVerbs()">
+      <button class="verb-filter-btn active" onclick="filterVerbLek('all',this)">Todas</button>
+      <button class="verb-filter-btn" onclick="filterVerbLek(1,this)">L1</button>
+      <button class="verb-filter-btn" onclick="filterVerbLek(2,this)">L2</button>
+      <button class="verb-filter-btn" onclick="filterVerbLek(3,this)">L3</button>
+      <button class="verb-filter-btn" onclick="filterVerbLek(4,this)">L4</button>
+      <button class="verb-filter-btn" onclick="filterVerbLek(5,this)">L5</button>
+      <button class="verb-filter-btn" onclick="filterVerbLek(6,this)">L6</button>
+      <button class="verb-filter-btn" onclick="filterVerbLek(7,this)">L7</button>
+      <button class="verb-filter-btn" onclick="filterVerbLek(8,this)">L8</button>
+      <span class="verb-count" id="verb-count"></span>
+    </div>
+    <div class="verb-grid" id="verb-grid"></div>
+  </div>
+</div>
 
 <!-- ══ PRONUNCIACIÓN ══ -->
 <div class="panel" id="panel-pron">
@@ -1108,6 +1175,9 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
   </button>
   <button class="mob-nav-btn" onclick="setMode('vocab',this)" data-mode="vocab">
     <span class="mico">📚</span>Vocab
+  </button>
+  <button class="mob-nav-btn" onclick="setMode('verbs',this)" data-mode="verbs">
+    <span class="mico">🔤</span>Verbos
   </button>
   <button class="mob-nav-btn" onclick="setMode('grammar',this)" data-mode="grammar">
     <span class="mico">📐</span>Gramática
@@ -1314,6 +1384,94 @@ const VOCAB=[
   {w:"rauchen",art:"verb",pl:"",l:8,t:"fumar"},
   {w:"husten",art:"verb",pl:"",l:8,t:"toser"},
   {w:"verletzt",art:"–",pl:"",l:8,t:"herido/a (adjetivo)"},
+  // ── L9 ── Studium und Beruf / Perfekt
+  {w:"Stelle",art:"die",pl:"Stellen",l:9,t:"puesto de trabajo"},
+  {w:"Heimat",art:"die",pl:"Heimaten",l:9,t:"tierra natal / patria"},
+  {w:"Anzeige",art:"die",pl:"Anzeigen",l:9,t:"anuncio"},
+  {w:"Bewertung",art:"die",pl:"Bewertungen",l:9,t:"valoración / puntuación"},
+  {w:"Durchwahl",art:"die",pl:"Durchwahlen",l:9,t:"extensión (teléfono)"},
+  {w:"Ehefrau",art:"die",pl:"Ehefrauen",l:9,t:"esposa"},
+  {w:"Ware",art:"die",pl:"Waren",l:9,t:"mercancía"},
+  {w:"Karriere",art:"die",pl:"Karrieren",l:9,t:"carrera profesional"},
+  {w:"Präsentation",art:"die",pl:"Präsentationen",l:9,t:"presentación"},
+  {w:"Job",art:"der",pl:"Jobs",l:9,t:"trabajo / empleo"},
+  {w:"Zuschauer",art:"der",pl:"Zuschauer",l:9,t:"espectador"},
+  {w:"Spaziergang",art:"der",pl:"Spaziergänge",l:9,t:"paseo"},
+  {w:"Vorteil",art:"der",pl:"Vorteile",l:9,t:"ventaja"},
+  {w:"Nachteil",art:"der",pl:"Nachteile",l:9,t:"inconveniente"},
+  {w:"Reiseführer",art:"der",pl:"Reiseführer",l:9,t:"guía turístico (m)"},
+  {w:"Erzieher",art:"der",pl:"Erzieher",l:9,t:"educador"},
+  {w:"Informatiker",art:"der",pl:"Informatiker",l:9,t:"informático"},
+  {w:"Künstler",art:"der",pl:"Künstler",l:9,t:"artista (m)"},
+  {w:"Kostüm",art:"das",pl:"Kostüme",l:9,t:"disfraz / traje de época"},
+  {w:"Protokoll",art:"das",pl:"Protokolle",l:9,t:"acta / registro"},
+  {w:"recherchieren",art:"verb",pl:"",l:9,t:"investigar / buscar información"},
+  {w:"verdienen",art:"verb",pl:"",l:9,t:"ganar (dinero)"},
+  {w:"verbinden",art:"verb",pl:"",l:9,t:"conectar / pasar (llamada)"},
+  {w:"buchstabieren",art:"verb",pl:"",l:9,t:"deletrear"},
+  {w:"planen",art:"verb",pl:"",l:9,t:"planificar"},
+  {w:"diskutieren",art:"verb",pl:"",l:9,t:"discutir / debatir"},
+  {w:"studieren",art:"verb",pl:"",l:9,t:"estudiar (universidad)"},
+  {w:"treffen",art:"verb",pl:"",l:9,t:"quedar / encontrarse con"},
+  {w:"bekommen",art:"verb",pl:"",l:9,t:"recibir"},
+  {w:"verkaufen",art:"verb",pl:"",l:9,t:"vender"},
+  {w:"mitbringen",art:"verb",pl:"",l:9,t:"traer (con uno)"},
+  {w:"fernsehen",art:"verb",pl:"",l:9,t:"ver la televisión"},
+  // ── L10 ── Meine Wohnung / Möbel / Wechselpräpositionen
+  {w:"Spülmaschine",art:"die",pl:"Spülmaschinen",l:10,t:"lavavajillas"},
+  {w:"Waschmaschine",art:"die",pl:"Waschmaschinen",l:10,t:"lavadora"},
+  {w:"Lampe",art:"die",pl:"Lampen",l:10,t:"lámpara"},
+  {w:"Küche",art:"die",pl:"Küchen",l:10,t:"cocina (habitación)"},
+  {w:"Toilette",art:"die",pl:"Toiletten",l:10,t:"váter / aseo"},
+  {w:"Terrasse",art:"die",pl:"Terrassen",l:10,t:"terraza"},
+  {w:"Pflanze",art:"die",pl:"Pflanzen",l:10,t:"planta"},
+  {w:"Ecke",art:"die",pl:"Ecken",l:10,t:"rincón / esquina"},
+  {w:"Wand",art:"die",pl:"Wände",l:10,t:"pared"},
+  {w:"Farbe",art:"die",pl:"Farben",l:10,t:"color"},
+  {w:"Zeitung",art:"die",pl:"Zeitungen",l:10,t:"periódico"},
+  {w:"Fernseher",art:"der",pl:"Fernseher",l:10,t:"televisión"},
+  {w:"Stuhl",art:"der",pl:"Stühle",l:10,t:"silla"},
+  {w:"Kühlschrank",art:"der",pl:"Kühlschränke",l:10,t:"nevera"},
+  {w:"Sessel",art:"der",pl:"Sessel",l:10,t:"sillón"},
+  {w:"Tisch",art:"der",pl:"Tische",l:10,t:"mesa"},
+  {w:"Teppich",art:"der",pl:"Teppiche",l:10,t:"alfombra"},
+  {w:"Schrank",art:"der",pl:"Schränke",l:10,t:"armario"},
+  {w:"Herd",art:"der",pl:"Herde",l:10,t:"cocina (electrodoméstico)"},
+  {w:"Schreibtisch",art:"der",pl:"Schreibtische",l:10,t:"escritorio"},
+  {w:"Balkon",art:"der",pl:"Balkone",l:10,t:"balcón"},
+  {w:"Flur",art:"der",pl:"Flure",l:10,t:"pasillo / recibidor"},
+  {w:"Blick",art:"der",pl:"Blicke",l:10,t:"vista / mirada"},
+  {w:"Bild",art:"das",pl:"Bilder",l:10,t:"cuadro / imagen"},
+  {w:"Sofa",art:"das",pl:"Sofas",l:10,t:"sofá"},
+  {w:"Regal",art:"das",pl:"Regale",l:10,t:"estantería"},
+  {w:"Bett",art:"das",pl:"Betten",l:10,t:"cama"},
+  {w:"Bad",art:"das",pl:"Bäder",l:10,t:"baño (habitación)"},
+  {w:"Schlafzimmer",art:"das",pl:"Schlafzimmer",l:10,t:"dormitorio"},
+  {w:"Wohnzimmer",art:"das",pl:"Wohnzimmer",l:10,t:"salón"},
+  {w:"Arbeitszimmer",art:"das",pl:"Arbeitszimmer",l:10,t:"despacho"},
+  {w:"Kinderzimmer",art:"das",pl:"Kinderzimmer",l:10,t:"habitación infantil"},
+  {w:"Ding",art:"das",pl:"Dinge",l:10,t:"cosa"},
+  {w:"hängen",art:"verb",pl:"",l:10,t:"colgar"},
+  {w:"stellen",art:"verb",pl:"",l:10,t:"poner (de pie)"},
+  {w:"legen",art:"verb",pl:"",l:10,t:"poner (tumbado)"},
+  {w:"stehen",art:"verb",pl:"",l:10,t:"estar de pie / estar colocado"},
+  {w:"liegen",art:"verb",pl:"",l:10,t:"estar tumbado / estar situado"},
+  // ── L11 ── Mode und Kleidung / Perfekt Präteritum
+  {w:"Hose",art:"die",pl:"Hosen",l:11,t:"pantalón"},
+  {w:"Jeans",art:"die",pl:"Jeans",l:11,t:"vaqueros"},
+  {w:"Fliege",art:"die",pl:"Fliegen",l:11,t:"pajarita"},
+  {w:"Jacke",art:"die",pl:"Jacken",l:11,t:"chaqueta"},
+  {w:"Kleid",art:"das",pl:"Kleider",l:11,t:"vestido"},
+  {w:"Hemd",art:"das",pl:"Hemden",l:11,t:"camisa"},
+  {w:"Pullover",art:"der",pl:"Pullover",l:11,t:"jersey / sudadera"},
+  {w:"Anzug",art:"der",pl:"Anzüge",l:11,t:"traje (de hombre)"},
+  {w:"Hut",art:"der",pl:"Hüte",l:11,t:"sombrero"},
+  {w:"Schuh",art:"der",pl:"Schuhe",l:11,t:"zapato"},
+  {w:"Rock",art:"der",pl:"Röcke",l:11,t:"falda"},
+  {w:"anziehen",art:"verb",pl:"",l:11,t:"ponerse (ropa)"},
+  {w:"gefallen",art:"verb",pl:"",l:11,t:"gustar (estéticamente)"},
+  {w:"stehen",art:"verb",pl:"",l:11,t:"sentar bien (ropa)"},
+  {w:"passen",art:"verb",pl:"",l:11,t:"quedar bien / caber"},
 ];
 
 const FILL_INS=[
@@ -1336,6 +1494,12 @@ const FILL_INS=[
   {q:"Der Arzt sagt, ich ___ viel trinken.",ans:"soll",hint:"sollen: ich soll"},
   {q:"Mach ___ ! (aufmachen, du)",ans:"auf",hint:"trennbar: aufmachen → auf"},
   {q:"Mein Kopf tut ___.",ans:"weh",hint:"wehtun: es tut weh"},
+  {q:"Ich ___ gestern viel gelernt.",ans:"habe",hint:"Perfekt mit haben: ich habe gelernt"},
+  {q:"Sie ___ mit dem Zug gefahren.",ans:"ist",hint:"Perfekt mit sein: fahren → ist gefahren"},
+  {q:"Das Sofa steht ___ dem Fenster.",ans:"vor",hint:"Wo? Dativ: vor dem Fenster"},
+  {q:"Stell den Stuhl ___ den Tisch!",ans:"neben",hint:"Wohin? Akkusativ: neben den Tisch"},
+  {q:"Die Jacke ___ dir sehr gut.",ans:"steht",hint:"stehen = sentar bien la ropa"},
+  {q:"Ich ___ letztes Jahr in Madrid gearbeitet.",ans:"habe",hint:"Perfekt: habe gearbeitet"},
 ];
 
 // ── STORIES ──
@@ -1350,6 +1514,8 @@ const STORIES=[
   text:"<p>Luis macht ein <hw>Praktikum</hw> in einer kleinen <hw>Firma</hw>. Es ist sein erster Tag.</p> <p>Seine <hw>Kollegen</hw> sind sehr nett. „Hallo, ich bin Maria\", sagt eine Frau.</p> <p>Um zehn Uhr gibt es eine <hw>Besprechung</hw>. Luis versteht nicht alles, aber er lernt schnell.</p> <p>Um zwölf macht Luis <hw>Pause</hw> und isst ein Sandwich. „Schmeckt das gut?\" fragt Maria.</p> <p>Am Abend <hw>bleibt</hw> Luis bis sechs Uhr. Er macht nur einen kleinen <hw>Fehler</hw>, aber das ist normal!</p>"},
   {id:4,emoji:"🏠",title:"Meine Familie",desc:"Julia presenta a su familia. Vocabulario L3.",lection:3,words:["Bruder","Schwester","Sohn","Tochter","Arzt","Wochenende","arbeiten"],
   text:"<p>Ich heiße Julia und habe eine große Familie.</p> <p>Mein <hw>Bruder</hw> heißt Tom. Er ist 25 Jahre alt und <hw>arbeitet</hw> als <hw>Arzt</hw>.</p> <p>Meine <hw>Schwester</hw> heißt Anna. Sie ist Lehrerin und hat eine <hw>Tochter</hw>, die kleine Sophie.</p> <p>Am <hw>Wochenende</hw> treffen wir uns immer. Wir essen zusammen und spielen Spiele.</p> <p>Ich liebe meine Familie sehr!</p>"},
+  {id:6,emoji:"💼",title:"Das Vorstellungsgespräch",desc:"Ana busca trabajo. Vocabulario L9 — Perfekt.",lection:9,words:["Stelle","Anzeige","Job","studieren","treffen","verdienen"],
+  text:"<p>Ana sucht eine neue <hw>Stelle</hw>. Sie hat eine <hw>Anzeige</hw> in der Zeitung gesehen.</p> <p>\"Guten Tag! Mein Name ist Ana Müller. Ich habe Ihre <hw>Anzeige</hw> gelesen und möchte mich für den <hw>Job</hw> bewerben.\", sagt sie am Telefon.</p> <p>Dann hat Ana eine Chefin <hw>getroffen</hw>. \"Wo haben Sie <hw>studiert</hw>?\" fragt die Chefin. \"Ich habe in Barcelona Wirtschaft <hw>studiert</hw>\", antwortet Ana.</p> <p>Am Ende fragt Ana: \"Wie viel <hw>verdient</hw> man in dieser Position?\"</p> <p>Drei Tage später hat Ana ein E-Mail bekommen: Sie hat den Job!</p>"},
   {id:5,emoji:"🏥",title:"Beim Arzt",desc:"Tom tiene fiebre y va al médico. Vocabulario L8.",lection:8,words:["Fieber","Kopf","Bein","Salbe","Tablette","dürfen","sollen"],
   text:"<p>Tom fühlt sich heute nicht gut. Er hat <hw>Fieber</hw> und sein <hw>Kopf</hw> tut sehr weh.</p> <p>Er geht zur Ärztin. \"Wie geht es Ihnen?\" fragt sie. \"Mir ist schlecht. Mein Kopf tut weh und ich habe Bauchschmerzen\", sagt Tom.</p> <p>\"Ich schreibe Ihnen ein Rezept für <hw>Tabletten</hw>. Nehmen Sie die Tabletten morgens und abends.\", sagt die Ärztin.</p> <p>\"Sie <hw>dürfen</hw> heute nicht zur Arbeit gehen. Sie <hw>sollen</hw> zu Hause bleiben und viel trinken. Hier ist auch eine <hw>Salbe</hw> für das <hw>Bein</hw>.\", erklärt sie.</p> <p>Tom geht nach Hause. Gute Besserung!</p>"},
 ];
@@ -1443,6 +1609,26 @@ const CONJ={
   wechseln:{ich:"wechsle",du:"wechselst",er:"wechselt",wir:"wechseln",ihr:"wechselt",sie:"wechseln"},
   rauchen:{ich:"rauche",du:"rauchst",er:"raucht",wir:"rauchen",ihr:"raucht",sie:"rauchen"},
   husten:{ich:"huste",du:"hustest",er:"hustet",wir:"husten",ihr:"hustet",sie:"husten"},
+  recherchieren:{ich:"recherchiere",du:"recherchierst",er:"recherchiert",wir:"recherchieren",ihr:"recherchiert",sie:"recherchieren",note:"Verb auf -ieren: kein ge- im Partizip II"},
+  verdienen:{ich:"verdiene",du:"verdienst",er:"verdient",wir:"verdienen",ihr:"verdient",sie:"verdienen"},
+  verbinden:{ich:"verbinde",du:"verbindest",er:"verbindet",wir:"verbinden",ihr:"verbindet",sie:"verbinden"},
+  buchstabieren:{ich:"buchstabiere",du:"buchstabierst",er:"buchstabiert",wir:"buchstabieren",ihr:"buchstabiert",sie:"buchstabieren"},
+  planen:{ich:"plane",du:"planst",er:"plant",wir:"planen",ihr:"plant",sie:"planen"},
+  diskutieren:{ich:"diskutiere",du:"diskutierst",er:"diskutiert",wir:"diskutieren",ihr:"diskutiert",sie:"diskutieren"},
+  studieren:{ich:"studiere",du:"studierst",er:"studiert",wir:"studieren",ihr:"studiert",sie:"studieren",note:"Verb auf -ieren: kein ge- im Partizip II"},
+  treffen:{ich:"treffe",du:"triffst",er:"trifft",wir:"treffen",ihr:"trefft",sie:"treffen",note:"du/er: trifft (irregular)"},
+  bekommen:{ich:"bekomme",du:"bekommst",er:"bekommt",wir:"bekommen",ihr:"bekommt",sie:"bekommen"},
+  verkaufen:{ich:"verkaufe",du:"verkaufst",er:"verkauft",wir:"verkaufen",ihr:"verkauft",sie:"verkaufen"},
+  mitbringen:{ich:"bringe … mit",du:"bringst … mit",er:"bringt … mit",wir:"bringen … mit",ihr:"bringt … mit",sie:"bringen … mit",note:"Trennbar + irregular: mitgebracht"},
+  fernsehen:{ich:"sehe … fern",du:"siehst … fern",er:"sieht … fern",wir:"sehen … fern",ihr:"seht … fern",sie:"sehen … fern",note:"Trennbar + du/er: sieht"},
+  haengen:{ich:"hänge",du:"hängst",er:"hängt",wir:"hängen",ihr:"hängt",sie:"hängen"},
+  stellen:{ich:"stelle",du:"stellst",er:"stellt",wir:"stellen",ihr:"stellt",sie:"stellen"},
+  legen:{ich:"lege",du:"legst",er:"legt",wir:"legen",ihr:"legt",sie:"legen"},
+  stehen:{ich:"stehe",du:"stehst",er:"steht",wir:"stehen",ihr:"steht",sie:"stehen"},
+  liegen:{ich:"liege",du:"liegst",er:"liegt",wir:"liegen",ihr:"liegt",sie:"liegen"},
+  anziehen:{ich:"ziehe … an",du:"ziehst … an",er:"zieht … an",wir:"ziehen … an",ihr:"zieht … an",sie:"ziehen … an",note:"Trennbar: an— al final"},
+  gefallen:{ich:"gefalle",du:"gefällst",er:"gefällt",wir:"gefallen",ihr:"gefallt",sie:"gefallen",note:"mir gefällt = me gusta (estéticamente)"},
+  passen:{ich:"passe",du:"passt",er:"passt",wir:"passen",ihr:"passt",sie:"passen"},
 };
 const PROS=["ich","du","er/sie","wir","ihr","sie/Sie"];
 const PKEYS=["ich","du","er","wir","ihr","sie"];
@@ -1487,6 +1673,9 @@ L5:Profesiones — números grandes — conjugación completa — plurales
 L6:Países/nacionalidades — saludos — presentaciones
 L7:Vida laboral — Dativ con mit — konnektoren und/oder/aber
 L8:Salud y cuerpo — partes del cuerpo (Kopf/Arm/Bein...) — beim Arzt — Imperativ mit du/ihr/Sie — Modalverben dürfen/sollen
+L9:Estudios y trabajo — Perfekt (han/sein+Partizip II) — verbos irregulares — hablar por teléfono — profesiones
+L10:Mi piso — muebles — Wechselpräpositionen (Wohin? Akkusativ/Wo? Dativ) — describir una habitación
+L11:Ropa y moda — prendas (Hose/Kleid/Hemd...) — gefallen/passen/stehen — colores
 REGLAS: Responde siempre en español. Usa alemán solo para ejemplos. Usa **negrita** para palabras alemanas clave. Respuestas concisas.`;
 
 const SYS_WRITE=`Eres un corrector de alemán A1. El alumno escribe en alemán y tú corriges sus errores.
@@ -1502,6 +1691,7 @@ Sé amable y constructivo. Vocabulario y estructuras solo A1-A2.`;
 // ════════════════════════════════════════════
 function init(){
   renderVocab();
+  renderVerbs();
   initEjercicios();
   renderPron();
   renderStories();
@@ -1528,6 +1718,7 @@ function setMode(mode,btn){
     }
   });
   if(mode==='vocab') renderVocab();
+  if(mode==='verbs') renderVerbs();
   if(mode==='quiz') startQuiz();
 }
 
@@ -2100,7 +2291,7 @@ function newFib(){
 function renderFib(){
   document.getElementById('fib-result').className = 'ej-result';
   document.getElementById('fib-list').innerHTML = fibQs.map((q, i) => {
-    var sentence = q.s.replace('___', '<input class="fib-inp" id="fib-'+i+'" placeholder="___" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" onkeydown="if(event.key==\'Enter\')checkFib()">');
+    var sentence = q.s.replace('___', '<input class="fib-inp" id="fib-'+i+'" placeholder="___" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" onkeydown="if(event.key===\'Enter\')checkFib()">');
     return '<div class="fib-item">'
       + '<div class="fib-sentence">' + sentence + '</div>'
       + '<div class="fib-hint">💡 ' + q.hint + '</div>'
@@ -2388,19 +2579,146 @@ function initEjercicios(){
 // ════════════════════════════════════════════
 // VERBOS
 // ════════════════════════════════════════════
+var verbLekFilter = 'all';
+var openVerbId = null;
 
+var EXTRA_VERBS = [
+  // Common A1 verbs not in VOCAB but useful to show
+  {w:'sein',     art:'verb', l:1, t:'ser / estar',   special:{ich:'bin',du:'bist',er:'ist',wir:'sind',ihr:'seid',sie:'sind',note:'Unregelmäßig — sehr wichtig!'}},
+  {w:'haben',    art:'verb', l:1, t:'tener',          special:{ich:'habe',du:'hast',er:'hat',wir:'haben',ihr:'habt',sie:'haben',note:'Unregelmäßig — sehr wichtig!'}},
+  {w:'werden',   art:'verb', l:1, t:'llegar a ser / se va a',  special:{ich:'werde',du:'wirst',er:'wird',wir:'werden',ihr:'werdet',sie:'werden',note:'Unregelmäßig'}},
+  {w:'machen',   art:'verb', l:1, t:'hacer',          special:{ich:'mache',du:'machst',er:'macht',wir:'machen',ihr:'macht',sie:'machen'}},
+  {w:'sagen',    art:'verb', l:2, t:'decir',          special:{ich:'sage',du:'sagst',er:'sagt',wir:'sagen',ihr:'sagt',sie:'sagen'}},
+  {w:'finden',   art:'verb', l:2, t:'encontrar',      special:{ich:'finde',du:'findest',er:'findet',wir:'finden',ihr:'findet',sie:'finden'}},
+  {w:'brauchen', art:'verb', l:2, t:'necesitar'},
+  {w:'geben',    art:'verb', l:3, t:'dar',            special:{ich:'gebe',du:'gibst',er:'gibt',wir:'geben',ihr:'gebt',sie:'geben',note:'du/er: gibt (irregular)'}},
+  {w:'wissen',   art:'verb', l:3, t:'saber (un hecho)',special:{ich:'weiß',du:'weißt',er:'weiß',wir:'wissen',ihr:'wisst',sie:'wissen',note:'ich/er: weiß (irregular)'}},
+  {w:'anrufen',  art:'verb', l:7, t:'llamar por teléfono', special:{ich:'rufe … an',du:'rufst … an',er:'ruft … an',wir:'rufen … an',ihr:'ruft … an',sie:'rufen … an',note:'Trennbar: an— al final'}},
+  {w:'aufmachen',art:'verb', l:7, t:'abrir',          special:{ich:'mache … auf',du:'machst … auf',er:'macht … auf',wir:'machen … auf',ihr:'macht … auf',sie:'machen … auf',note:'Trennbar: auf— al final'}},
+  {w:'laufen',   art:'verb', l:8, t:'correr / caminar',special:{ich:'laufe',du:'läufst',er:'läuft',wir:'laufen',ihr:'lauft',sie:'laufen',note:'du/er: Umlaut ä'}},
+];
 
+function getVerbConj(verbName) {
+  // Check CONJ object first
+  var c = CONJ[verbName.toLowerCase()];
+  if (c) return c;
+  // Check EXTRA_VERBS
+  var extra = EXTRA_VERBS.find(function(v){ return v.w.toLowerCase() === verbName.toLowerCase(); });
+  if (extra && extra.special) return extra.special;
+  return null;
+}
 
+function buildVerbCardHTML(verb, idx) {
+  var conj = getVerbConj(verb.w);
+  var lkClass = verb.l <= 3 ? 'var(--blue)' : verb.l <= 6 ? 'var(--accent2)' : 'var(--purple)';
 
+  var conjHTML = '';
+  if (conj) {
+    var PRONS = ['ich','du','er/sie','wir','ihr','sie/Sie'];
+    var KEYS  = ['ich','du','er','wir','ihr','sie'];
+    var rows = '';
+    KEYS.forEach(function(p, i) {
+      var f = conj[p] || '';
+      // Irregular forms highlighted
+      var isIrr = (p === 'du' || p === 'er' || p === 'ich') &&
+                  (f !== (conj['wir'] || '').replace(/en$/,'e').replace(/n$/,'') ) &&
+                  IRR.has(verb.w.toLowerCase());
+      rows += '<span class="pr">' + PRONS[i] + '</span>'
+            + '<span class="' + (isIrr ? 'vi' : 'vf') + '">' + f + '</span>';
+    });
+    conjHTML = '<div class="vc-conj">' + rows + '</div>';
+    if (conj.note) {
+      conjHTML += '<div class="vc-note">⚡ ' + conj.note + '</div>';
+    }
+  } else {
+    // Generate regular conjugation automatically
+    var stem = verb.w.replace(/en$/, '').replace(/n$/, '');
+    var rows = '';
+    var endings = ['e','st','t','en','t','en'];
+    var prons = ['ich','du','er/sie','wir','ihr','sie/Sie'];
+    endings.forEach(function(e, i) {
+      var f = stem + e;
+      // -ten verbs add e before ending
+      if ((stem.endsWith('t') || stem.endsWith('d')) && (e === 'st' || e === 't')) {
+        f = stem + 'e' + e;
+      }
+      rows += '<span class="pr">' + prons[i] + '</span><span class="vf">' + f + '</span>';
+    });
+    conjHTML = '<div class="vc-conj">' + rows + '</div>';
+    conjHTML += '<div class="vc-note">Regular — terminaciones estándar</div>';
+  }
 
+  return '<div class="verb-card" id="vcard-' + idx + '" onclick="toggleVerbCard(' + idx + ')">'
+    + '<div class="vc-head">'
+    + '<div>'
+    + '<div class="vc-name">' + verb.w + '</div>'
+    + '<div class="vc-trans">' + verb.t + '</div>'
+    + '</div>'
+    + '<div style="display:flex;align-items:center;gap:8px;">'
+    + '<span class="vc-lk2">L' + verb.l + '</span>'
+    + '<span class="vc-arrow">▼</span>'
+    + '</div>'
+    + '</div>'
+    + '<div class="vc-body">' + conjHTML + '</div>'
+    + '</div>';
+}
 
+function toggleVerbCard(idx) {
+  var card = document.getElementById('vcard-' + idx);
+  if (!card) return;
+  var wasOpen = card.classList.contains('open');
+  // close all
+  document.querySelectorAll('.verb-card.open').forEach(function(c){ c.classList.remove('open'); });
+  // toggle
+  if (!wasOpen) card.classList.add('open');
+}
 
+function renderVerbs() {
+  var search = (document.getElementById('verb-search') || {value:''}).value.toLowerCase().trim();
+  
+  // Combine VOCAB verbs + EXTRA_VERBS (deduplicated)
+  var vocabVerbs = VOCAB.filter(function(v){ return v.art === 'verb'; });
+  var extraFiltered = EXTRA_VERBS.filter(function(ev){
+    return !vocabVerbs.find(function(v){ return v.w.toLowerCase() === ev.w.toLowerCase(); });
+  });
+  var allVerbs = vocabVerbs.concat(extraFiltered);
+  
+  // Sort alphabetically
+  allVerbs.sort(function(a,b){ return a.w.localeCompare(b.w, 'de'); });
+  
+  // Filter by lektion
+  if (verbLekFilter !== 'all') {
+    allVerbs = allVerbs.filter(function(v){ return v.l == verbLekFilter; });
+  }
+  
+  // Filter by search
+  if (search) {
+    allVerbs = allVerbs.filter(function(v){
+      return v.w.toLowerCase().includes(search) || v.t.toLowerCase().includes(search);
+    });
+  }
+  
+  var grid = document.getElementById('verb-grid');
+  var count = document.getElementById('verb-count');
+  if (!grid) return;
+  
+  if (count) count.textContent = allVerbs.length + ' verbos';
+  
+  grid.innerHTML = allVerbs.map(function(v, i) {
+    return buildVerbCardHTML(v, i);
+  }).join('');
+}
 
+function filterVerbs() {
+  renderVerbs();
+}
 
-
-
-
-
+function filterVerbLek(lek, btn) {
+  verbLekFilter = lek;
+  document.querySelectorAll('.verb-filter-btn').forEach(function(b){ b.classList.remove('active'); });
+  if (btn) btn.classList.add('active');
+  renderVerbs();
+}
 
 // ════════════════════════════════════════════
 init();
