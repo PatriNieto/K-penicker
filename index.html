@@ -330,6 +330,11 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
   transform:translateY(-6px);
   box-shadow:0 16px 32px rgba(0,0,0,.35);
 }
+.vc:not(.is-verb):hover{
+  border-color: var(--border);
+  transform: none;
+  box-shadow: 0 4px 14px rgba(0,0,0,.22);
+}
 /* color strip top */
 .vc::before{
   content:'';
@@ -387,22 +392,21 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
   opacity:.55;transition:opacity .2s;
 }
 .vc:hover .vc-lk{opacity:1;color:var(--accent);}
+.vc:not(.is-verb):hover .vc-lk{opacity:.55;color:var(--muted);}
 /* translation — highlighted */
 .vc-tr{
   font-size:1.05rem;font-weight:600;
-  color:var(--accent2);
+  color:var(--text);
   line-height:1.5;
   word-break:break-word;
   padding:10px 14px;
-  background:rgba(232,125,62,.08);
   border-radius:8px;
-  border-left:3px solid var(--accent2);
 }
 
 /* ── VERB FLIP ── */
 .vc.is-verb{cursor:pointer;}
 .vc.is-verb .vc-tr{
-  color:var(--purple);
+  color:var(--text);
   background:rgba(155,127,232,.08);
   border-left-color:var(--purple);
 }
@@ -1525,23 +1529,53 @@ const DIALOGS=[
   {id:0,emoji:"🍽️",title:"Im Restaurant",desc:"Pide comida y paga la cuenta",
    role:"Kellner/in (camarero/a)",
    hint:"Eres el cliente. Pide algo de comer y beber, pregunta el precio y pide la cuenta al final. Frases útiles: <strong>Ich möchte… · Was kostet…? · Die Rechnung, bitte.</strong>",
-   system:"Eres un camarero alemán en un restaurante. Habla SOLO en alemán A1. Saluda, toma el pedido, di los precios (sencillos), responde preguntas. Si el alumno se equivoca, corrige brevemente entre paréntesis. Frases típicas: Guten Abend! Was möchten Sie? / Möchten Sie auch etwas trinken? / Das macht X Euro. Vocabulario A1 únicamente."},
+   botResponses: [
+     "Guten Abend! Was möchten Sie?",
+     "Möchten Sie auch etwas trinken?",
+     "Die Pizza kostet 8 Euro. Das Bier kostet 3 Euro.",
+     "Alles zusammen macht 11 Euro.",
+     "Vielen Dank! Auf Wiedersehen!"
+   ]},
   {id:1,emoji:"🛍️",title:"Im Geschäft",desc:"Compra ropa o artículos en una tienda",
    role:"Verkäufer/in (dependiente/a)",
    hint:"Eres el cliente. Pregunta por productos, precios y tallas. Frases útiles: <strong>Ich suche… · Was kostet…? · Haben Sie das in…?</strong>",
-   system:"Eres un dependiente de tienda alemán. Habla SOLO en alemán A1. Saluda, ayuda al cliente a encontrar productos, di precios sencillos. Si el alumno comete errores gramaticales, corrígelos brevemente entre paréntesis. Mantén vocabulario A1."},
+   botResponses: [
+     "Guten Tag! Wie kann ich Ihnen helfen?",
+     "Wir haben das Hemd in Größe M und L.",
+     "Das Hemd kostet 25 Euro.",
+     "Möchten Sie es kaufen?",
+     "Vielen Dank für Ihren Einkauf!"
+   ]},
   {id:2,emoji:"🗺️",title:"Nach dem Weg fragen",desc:"Pregunta y da direcciones por la ciudad",
    role:"Passant (transeúnte)",
    hint:"Pregunta cómo llegar a un lugar. Frases útiles: <strong>Entschuldigung, wo ist…? · Wie komme ich zu…? · Gehen Sie rechts/links/geradeaus.</strong>",
-   system:"Eres un transeúnte alemán en la calle. Habla SOLO en alemán A1. Da indicaciones simples con rechts, links, geradeaus, dann, neben, gegenüber. Si el alumno se equivoca, corrígelo brevemente. Vocabulario A1 únicamente."},
+   botResponses: [
+     "Entschuldigung, wohin möchten Sie?",
+     "Gehen Sie geradeaus, dann rechts.",
+     "Das Museum ist neben der Kirche.",
+     "Es ist nicht weit, etwa 5 Minuten.",
+     "Gern geschehen!"
+   ]},
   {id:3,emoji:"📅",title:"Einen Termin vereinbaren",desc:"Pide y confirma una cita",
    role:"Arzt-Rezeption (recepción médica)",
    hint:"Llama para pedir cita al médico. Frases útiles: <strong>Ich hätte gern einen Termin. · Geht es am…? · Um wie viel Uhr?</strong>",
-   system:"Eres la recepcionista de un médico alemán. Habla SOLO en alemán A1. Gestiona la cita: pregunta el nombre, propón días y horas, confirma. Si el alumno se equivoca, corrígelo entre paréntesis. Vocabulario A1 únicamente."},
+   botResponses: [
+     "Praxis Dr. Müller, guten Tag!",
+     "Wann passt es Ihnen? Am Donnerstag um 10 Uhr?",
+     "Ja, der Termin ist frei.",
+     "Ihr Name bitte?",
+     "Auf Wiederhören!"
+   ]},
   {id:4,emoji:"🏠",title:"Sich vorstellen",desc:"Preséntate y habla de ti",
    role:"Neuer Nachbar (nuevo vecino)",
    hint:"Preséntate a tu nuevo vecino. Frases útiles: <strong>Ich heiße… · Ich komme aus… · Ich wohne in… · Ich arbeite als…</strong>",
-   system:"Eres un vecino alemán curioso y amable. Habla SOLO en alemán A1. Preséntate, haz preguntas sencillas sobre nombre, origen, trabajo, hobbies. Corrige errores brevemente entre paréntesis. Vocabulario A1 únicamente."},
+   botResponses: [
+     "Hallo! Ich bin Ihr neuer Nachbar.",
+     "Wie heißen Sie?",
+     "Woher kommen Sie?",
+     "Was machen Sie beruflich?",
+     "Schön, Sie kennenzulernen!"
+   ]},
 ];
 
 // ── WRITING PROMPTS ──
@@ -1762,7 +1796,7 @@ async function callAPI(system,messages,max=900){
   const r=await fetch('/api/chat',{
     method:'POST',
     headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:max,system,messages})
+    body:JSON.stringify({model:'claude-3-5-sonnet-20241022',max_tokens:max,system,messages})
   });
   const d=await r.json();
   if(!r.ok||d.error) throw new Error(d.error?.message||'HTTP '+r.status);

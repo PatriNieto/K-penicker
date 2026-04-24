@@ -1,52 +1,48 @@
 // api/chat.js
-export default async function handler(req, res) {
-  const apiKey = process.env.GEMINI_API_KEY; // Asegúrate de poner tu clave en las variables de entorno de Vercel
-  
-  const { system, messages } = req.body;
+module.exports = async function handler(req, res) {
+  const apiKey = process.env.ANTHROPIC_API_KEY; // Clave de Anthropic
+  const { model, system, messages = [], max_tokens } = req.body;
 
-  // Transformamos el historial al formato que entiende Gemini
-  // Nota: Gemini prefiere que los mensajes alternen Usuario -> Modelo
-  const contents = messages.map(m => ({
-    role: m.role === 'assistant' ? 'model' : 'user',
-    parts: [{ text: m.content }]
-  }));
+  if (!apiKey) {
+    return res.status(500).json({ error: 'Falta ANTHROPIC_API_KEY en las variables de entorno.' });
+  }
+
+  const claudeMessages = Array.isArray(messages)
+    ? messages.map(m => ({ role: m.role, content: m.content }))
+    : [];
 
   const payload = {
-    contents: contents,
-    system_instruction: { 
-      parts: [{ text: system || "Eres un tutor de alemán." }] 
-    },
-    generationConfig: {
-      temperature: 0.7,
-      maxOutputTokens: 1000,
-    }
+    model: model || 'claude-3-5-sonnet-20241022',
+    max_tokens: max_tokens || 1000,
+    system: system || 'Eres un tutor de alemán.',
+    messages: claudeMessages
   };
 
   try {
-    // Usamos el modelo 1.5 Flash que es gratuito y muy rápido
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+    const url = 'https://api.anthropic.com/v1/messages';
 
     const response = await fetch(url, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01'
+      },
+      body: JSON.stringify(payload)
     });
 
     const data = await response.json();
 
     if (data.error) {
-       return res.status(data.error.code || 500).json({ error: data.error.message });
+      return res.status(data.error.code || 500).json({ error: data.error.message });
     }
 
-    const text = data.candidates[0].content.parts[0].text;
+    const text = data.content?.[0]?.text || 'Sin respuesta.';
 
-    // Devolvemos el formato que tu HTML ya espera para no romper el frontend
     return res.status(200).json({
-      content: [{ text: text }]
+      content: [{ text }]
     });
-
   } catch (err) {
-    return res.status(500).json({ error: "Error de conexión con la IA" });
+    return res.status(500).json({ error: 'Error de conexión con la IA' });
   }
-}
-
+};
