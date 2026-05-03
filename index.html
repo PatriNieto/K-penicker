@@ -245,6 +245,17 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
   .pc-ex .pe-es{font-size:0.82rem;}
   .pc-tip{font-size:0.82rem;}
 
+  /* ── GLOSARIO ── */
+  .glos-controls{flex-direction:column;}
+  .glos-search,.glos-filter{font-size:17px;padding:12px 14px;width:100%;}
+  .glos-grid{grid-template-columns:1fr;}
+  .glos-entry{padding:12px;}
+  .glos-entry-de{font-size:1rem;margin-bottom:6px;}
+  .glos-entry-art{font-size:0.7rem;margin-bottom:8px;}
+  .glos-entry-es{font-size:0.9rem;margin-bottom:8px;}
+  .glos-entry-cap{font-size:0.72rem;padding-top:8px;}
+
+
   /* ── WRITING ── */
   .write-wrap{max-width:100%;}
   .wp-tag{font-size:0.72rem;}
@@ -696,6 +707,22 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
 .pc-ex .pe-de{font-family:'DM Mono',monospace;font-size:.78rem;color:var(--accent);}
 .pc-ex .pe-es{font-size:.72rem;color:var(--muted);}
 .pc-tip{font-size:.72rem;color:var(--muted);margin-top:8px;padding-top:8px;border-top:1px solid var(--border);line-height:1.4;}
+
+/* ── GLOSARIO ── */
+.glos-controls{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;}
+.glos-search{flex:1;min-width:150px;background:var(--surface2);border:1px solid var(--border);border-radius:9px;padding:9px 12px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.87rem;outline:none;}
+.glos-search:focus{border-color:var(--accent);}
+.glos-search::placeholder{color:var(--muted);}
+.glos-filter{background:var(--surface2);border:1px solid var(--border);border-radius:9px;padding:9px 12px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.87rem;outline:none;cursor:pointer;}
+.glos-filter:focus{border-color:var(--accent);}
+.glos-count{font-size:.78rem;color:var(--muted);margin-bottom:12px;font-family:'DM Mono',monospace;}
+.glos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;}
+.glos-entry{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:14px;transition:all .2s;cursor:pointer;}
+.glos-entry:hover{border-color:var(--accent);background:var(--surface);}
+.glos-entry-de{font-family:'DM Mono',monospace;font-size:.95rem;color:var(--accent);font-weight:600;margin-bottom:5px;}
+.glos-entry-art{font-size:.65rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);font-family:'DM Mono',monospace;margin-bottom:8px;}
+.glos-entry-es{font-size:.85rem;color:var(--text);line-height:1.5;margin-bottom:8px;}
+.glos-entry-cap{font-size:.68rem;color:var(--muted);font-style:italic;padding-top:8px;border-top:1px solid var(--border);}
 </style>
 </head>
 <body>
@@ -731,6 +758,7 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
   <button class="mode-btn" onclick="setMode('verbs',this)"><span class="ico">🔤</span>Verbos</button>
   <button class="mode-btn" onclick="setMode('grammar',this)"><span class="ico">📐</span>Gramática</button>
   <button class="mode-btn" onclick="setMode('pron',this)"><span class="ico">🔊</span>Pronunciación</button>
+  <button class="mode-btn" onclick="setMode('glosario',this)"><span class="ico">📖</span>Glosario</button>
   <div class="sb-title">Evaluar</div>
   <button class="mode-btn" onclick="setMode('ejercicios',this)"><span class="ico">📝</span>Ejercicios</button>
   <button class="mode-btn" onclick="setMode('quiz',this)"><span class="ico">🎯</span>Quiz</button>
@@ -879,8 +907,6 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
       <button class="gtab" onclick="setGTab('durfen',this)">dürfen/sollen</button>
       <button class="gtab" onclick="setGTab('perfekt',this)">Perfekt</button>
       <button class="gtab" onclick="setGTab('wechsel',this)">Wechselpräp.</button>
-      <button class="gtab" onclick="setGTab('perfekt',this)">Perfekt</button>
-      <button class="gtab" onclick="setGTab('wechsel',this)">Wechselpräp.</button>
     </div>
     <div class="gsec active" id="gsec-artikel">
       <p class="section-title">Artikel</p><p class="section-sub">Artículos definidos, indefinidos y negativos</p>
@@ -940,6 +966,7 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
       <tr><td>du</td><td>warst</td><td>hattest</td></tr>
       <tr><td>er/sie</td><td class="hl">war</td><td class="hl">hatte</td></tr>
       <tr><td>wir</td><td>waren</td><td>hatten</td></tr>
+      <tr><td>ihr</td><td>wart</td><td>hattet</td></tr>
       <tr><td>sie/Sie</td><td>waren</td><td>hatten</td></tr></table>
     </div>
     <div class="gsec" id="gsec-trennb">
@@ -1066,6 +1093,33 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
   </div>
 </div>
 
+<!-- ══ GLOSARIO ══ -->
+<div class="panel" id="panel-glosario">
+  <div class="scroll-inner">
+    <div class="section-title">Glosario A1</div>
+    <div class="section-sub">Vocabulario completo del libro Netzwerk neu A1 (Deutsch-Español)</div>
+    <div class="glos-controls">
+      <input type="text" id="glos-search" placeholder="Buscar palabra..." class="glos-search" onkeyup="filterGlosario()">
+      <select id="glos-filter" class="glos-filter" onchange="filterGlosario()">
+        <option value="all">Todos los capítulos</option>
+        <option value="1">Capítulo 1: Guten Tag!</option>
+        <option value="2">Capítulo 2: Freunde, Kollegen und ich</option>
+        <option value="3">Capítulo 3: In Hamburg</option>
+        <option value="4">Capítulo 4: Guten Appetit!</option>
+        <option value="5">Capítulo 5: Alltag und Familie</option>
+        <option value="6">Capítulo 6: Zeit mit Freunden</option>
+        <option value="7">Capítulo 7: Arbeitsalltag</option>
+        <option value="8">Capítulo 8: Fit und gesund</option>
+        <option value="9">Capítulo 9: Meine Wohnung</option>
+        <option value="10">Capítulo 10: Studium und Beruf</option>
+        <option value="11">Capítulo 11: Die Jacke gefällt mir!</option>
+        <option value="12">Capítulo 12: Ab in den Urlaub!</option>
+      </select>
+    </div>
+    <div class="glos-count" id="glos-count"></div>
+    <div class="glos-grid" id="glos-grid"></div>
+  </div>
+</div>
 
 <!-- ══ EJERCICIOS SIN IA ══ -->
 <div class="panel" id="panel-ejercicios">
@@ -1188,6 +1242,9 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
   </button>
   <button class="mob-nav-btn" onclick="setMode('pron',this)" data-mode="pron">
     <span class="mico">🔊</span>Sonidos
+  </button>
+  <button class="mob-nav-btn" onclick="setMode('glosario',this)" data-mode="glosario">
+    <span class="mico">📖</span>Glosario
   </button>
   <button class="mob-nav-btn" onclick="setMode('ejercicios',this)" data-mode="ejercicios">
     <span class="mico">📝</span>Ejercicios
@@ -1721,11 +1778,488 @@ Si no hay errores, felicítale y añade una variante más avanzada.
 Sé amable y constructivo. Vocabulario y estructuras solo A1-A2.`;
 
 // ════════════════════════════════════════════
+// GLOSARIO DATA
+// ════════════════════════════════════════════
+const GLOSARIO = [
+  // CAP 1
+  {c:1, de:"Bulgarisch", es:"búlgaro (idioma)"},
+  {c:1, de:"Deutsch", es:"alemán (idioma)"},
+  {c:1, de:"Englisch", es:"inglés (idioma)"},
+  {c:1, de:"gut", es:"bueno/a, bien"},
+  {c:1, de:"Guten Tag", es:"buenos días"},
+  {c:1, de:"Indonesisch", es:"indonesio (idioma)"},
+  {c:1, de:"international", es:"internacional"},
+  {c:1, de:"Italienisch", es:"italiano (idioma)"},
+  {c:1, de:"Japanisch", es:"japonés (idioma)"},
+  {c:1, de:"Russisch", es:"ruso (idioma)"},
+  {c:1, de:"Serbisch", es:"serbio (idioma)"},
+  {c:1, de:"Sie", es:"usted(es)"},
+  {c:1, de:"Türkisch", es:"turco (idioma)"},
+  {c:1, de:"Ungarisch", es:"húngaro (idioma)"},
+  {c:1, de:"was", es:"¿qué?"},
+  {c:1, de:"zuordnen", es:"clasificar"},
+  {c:1, de:"zusammengehören", es:"hacer pareja, pertenecer al mismo grupo"},
+  {c:1, de:"die Autobahn", es:"la autopista"},
+  {c:1, de:"das Butterbrot", es:"la rebanada de pan, el montado"},
+  {c:1, de:"das (artículo)", es:"lo (artículo neutro)"},
+  {c:1, de:"der (artículo)", es:"el (artículo masculino)"},
+  {c:1, de:"die (artículo)", es:"la (artículo femenino)"},
+  {c:1, de:"die Flasche", es:"la botella"},
+  {c:1, de:"das Handtuch", es:"la toalla"},
+  {c:1, de:"der Kindergarten", es:"la guardería"},
+  {c:1, de:"der Koffer", es:"la maleta"},
+  {c:1, de:"der/die Kranke", es:"el/la enfermo/a"},
+  {c:1, de:"die Nudel", es:"el fideo, la pasta"},
+  {c:1, de:"das Würstchen", es:"la salchicha"},
+  {c:1, de:"das Wüstel", es:"la salchicha (Austria)"},
+  {c:1, de:"auf", es:"aquí: en"},
+  {c:1, de:"heißen", es:"llamarse, es"},
+  {c:1, de:"Ihr, Ihre", es:"su (de usted/ustedes)"},
+  {c:1, de:"in", es:"en"},
+  {c:1, de:"Spanisch", es:"español (idioma)"},
+  {c:1, de:"die Sprache", es:"la lengua, el idioma"},
+  {c:1, de:"wie", es:"como, cómo"},
+  {c:1, de:"das Wort", es:"la palabra"},
+  {c:1, de:"andere, anderer", es:"otros/as"},
+  {c:1, de:"deutsch", es:"alemán"},
+  {c:1, de:"ein, eine", es:"un, una"},
+  {c:1, de:"kennen", es:"conocer"},
+  {c:1, de:"das Kursplakat", es:"el poster (hecho en clase)"},
+  {c:1, de:"machen", es:"hacer"},
+  {c:1, de:"sammeln", es:"coleccionar, juntar"},
+  {c:1, de:"und", es:"y"},
+  // CAP 2
+  {c:2, de:"Hallo! Tschüs!", es:"¡Hola! ¡Adiós!"},
+  {c:2, de:"auch", es:"también"},
+  {c:2, de:"bis bald", es:"hasta pronto"},
+  {c:2, de:"ciao", es:"hasta luego"},
+  {c:2, de:"danke", es:"gracias"},
+  {c:2, de:"die (pronombre)", es:"los/las"},
+  {c:2, de:"dir", es:"a ti (dativo de tú)"},
+  {c:2, de:"du", es:"tú"},
+  {c:2, de:"die Entschuldigung", es:"la disculpa, el perdón"},
+  {c:2, de:"ganz", es:"aquí: bastante"},
+  {c:2, de:"gehen", es:"ir"},
+  {c:2, de:"gut", es:"bien, bueno/a"},
+  {c:2, de:"hallo", es:"hola"},
+  {c:2, de:"heißen", es:"llamarse"},
+  {c:2, de:"hören", es:"escuchar, oír"},
+  {c:2, de:"ich", es:"yo"},
+  {c:2, de:"lesen", es:"leer"},
+  {c:2, de:"die Person", es:"la persona"},
+  {c:2, de:"sehr", es:"muy, mucho"},
+  {c:2, de:"sein", es:"ser, estar"},
+  {c:2, de:"tschüs", es:"adiós, hasta luego"},
+  {c:2, de:"wer", es:"¿quién?"},
+  {c:2, de:"die Situation", es:"la situación"},
+  {c:2, de:"spielen", es:"jugar, interpretar"},
+  {c:2, de:"bekannt", es:"conocido/a"},
+  {c:2, de:"der Name", es:"el nombre, el apellido"},
+  {c:2, de:"oder", es:"o"},
+  // CAP 3
+  {c:3, de:"auf Wiedersehen", es:"adiós"},
+  {c:3, de:"das (demostrativo)", es:"esto/a"},
+  {c:3, de:"es", es:"lo, ello"},
+  {c:3, de:"Frau", es:"la señora, la mujer"},
+  {c:3, de:"gute Nacht", es:"buenas noches"},
+  {c:3, de:"guten Abend", es:"buenas tardes"},
+  {c:3, de:"guten Morgen", es:"buenos días"},
+  {c:3, de:"Herr", es:"el señor"},
+  {c:3, de:"Ihnen", es:"usted(es) (en dativo)"},
+  {c:3, de:"mein, meine", es:"mi"},
+  {c:3, de:"formell", es:"formal"},
+  {c:3, de:"informell", es:"informal"},
+  {c:3, de:"der Nachname", es:"el apellido"},
+  {c:3, de:"das Personalpronomen", es:"el pronombre personal"},
+  {c:3, de:"das Verb", es:"el verbo"},
+  {c:3, de:"der Vorname", es:"el nombre de pila"},
+  // CAP 4 - Woher kommen Sie?
+  {c:4, de:"die Antwort", es:"la respuesta"},
+  {c:4, de:"aus", es:"de"},
+  {c:4, de:"Deutschland", es:"Alemania"},
+  {c:4, de:"in", es:"en"},
+  {c:4, de:"kommen", es:"venir/ser de"},
+  {c:4, de:"der Reiseführer", es:"el guía turística (persona y libro)"},
+  {c:4, de:"die Reiseführerin", es:"la guía turística (persona)"},
+  {c:4, de:"sprechen", es:"hablar"},
+  {c:4, de:"das Telefon", es:"el teléfono"},
+  {c:4, de:"welche, welcher", es:"¿cuál?"},
+  {c:4, de:"wo", es:"¿dónde?"},
+  {c:4, de:"woher", es:"¿de dónde?"},
+  {c:4, de:"wohnen", es:"vivir, residir"},
+  {c:4, de:"der Aussagesatz", es:"la frase afirmativa"},
+  {c:4, de:"den", es:"el/la (en acusativo)"},
+  {c:4, de:"das Interview", es:"la entrevista"},
+  {c:4, de:"variieren", es:"variar, cambiar"},
+  {c:4, de:"die W-Frage", es:"la pregunta (con palabra interrogativa)"},
+  {c:4, de:"er", es:"él"},
+  {c:4, de:"ergänzen", es:"completar"},
+  {c:4, de:"sie", es:"ella"},
+  {c:4, de:"notieren", es:"apuntar, anotar"},
+  {c:4, de:"wie", es:"como, al igual que"},
+  {c:4, de:"zwei", es:"dos"},
+  {c:4, de:"der Partner", es:"el compañero, la pareja"},
+  {c:4, de:"die Partnerin", es:"la compañera, la pareja"},
+  {c:4, de:"raten", es:"adivinar"},
+  {c:4, de:"vorstellen", es:"presentar"},
+  // CAP 5 - Zahlen und Buchstaben
+  {c:5, de:"acht", es:"ocho"},
+  {c:5, de:"achtzehn", es:"dieciocho"},
+  {c:5, de:"der Buchstabe", es:"la letra"},
+  {c:5, de:"dann", es:"luego, después"},
+  {c:5, de:"drei", es:"tres"},
+  {c:5, de:"dreizehn", es:"trece"},
+  {c:5, de:"eins", es:"uno"},
+  {c:5, de:"elf", es:"once"},
+  {c:5, de:"fünf", es:"cinco"},
+  {c:5, de:"fünfzehn", es:"quince"},
+  {c:5, de:"laut", es:"alto, en voz alta"},
+  {c:5, de:"mitsprechen", es:"decir en voz alta"},
+  {c:5, de:"neun", es:"nueve"},
+  {c:5, de:"neunzehn", es:"diecinueve"},
+  {c:5, de:"null", es:"cero"},
+  {c:5, de:"sechs", es:"seis"},
+  {c:5, de:"sechzehn", es:"dieciséis"},
+  {c:5, de:"sieben", es:"siete"},
+  {c:5, de:"siebzehn", es:"diecisiete"},
+  {c:5, de:"vier", es:"cuatro"},
+  {c:5, de:"vierzehn", es:"catorce"},
+  {c:5, de:"die Zahl", es:"el número"},
+  {c:5, de:"zehn", es:"diez"},
+  {c:5, de:"zwanzig", es:"veinte"},
+  {c:5, de:"zwölf", es:"doce"},
+  {c:5, de:"die Handynummer", es:"el número de móvil"},
+  {c:5, de:"das Alphabet", es:"el alfabeto"},
+  {c:5, de:"mitlesen", es:"leer (al mismo tiempo)"},
+  {c:5, de:"zuerst", es:"primero"},
+  {c:5, de:"die E-Mail-Adresse", es:"la dirección de correo electrónico"},
+  {c:5, de:"das Gespräch", es:"la conversación"},
+  {c:5, de:"man", es:"se, uno (pronombre impersonal)"},
+  {c:5, de:"minus", es:"menos"},
+  {c:5, de:"der Punkt", es:"el punto"},
+  {c:5, de:"sagen", es:"decir"},
+  {c:5, de:"schreiben", es:"escribir"},
+  {c:5, de:"der Unterstrich", es:"el subrayado"},
+  {c:5, de:"bitte", es:"por favor"},
+  {c:5, de:"buchstabieren", es:"deletrear"},
+  {c:5, de:"der Dialog", es:"el diálogo"},
+  {c:5, de:"ein bisschen", es:"un poco"},
+  {c:5, de:"langsam", es:"despacio, lento/a"},
+  {c:5, de:"nicht", es:"no (negación de verbos)"},
+  {c:5, de:"noch einmal", es:"otra vez, de nuevo"},
+  {c:5, de:"verstehen", es:"entender"},
+  // CAP 6 - Länder und Sprachen
+  {c:6, de:"Algerien", es:"Algeria"},
+  {c:6, de:"Arabisch", es:"árabe (idioma)"},
+  {c:6, de:"Brasilien", es:"Brasil"},
+  {c:6, de:"der (preposición)", es:"el (artículo masculino en dativo)"},
+  {c:6, de:"Französisch", es:"francés (idioma)"},
+  {c:6, de:"Japan", es:"Japón"},
+  {c:6, de:"das Land", es:"el país"},
+  {c:6, de:"lernen", es:"aprender, estudiar"},
+  {c:6, de:"Österreich", es:"Austria"},
+  {c:6, de:"Portugiesisch", es:"portugués (idioma)"},
+  {c:6, de:"die Schweiz", es:"Suiza"},
+  {c:6, de:"sie (plural)", es:"ellos"},
+  {c:6, de:"die Tabelle", es:"la tabla, el cuadro"},
+  {c:6, de:"die USA", es:"EEUU"},
+  {c:6, de:"Frankreich", es:"Francia"},
+  {c:6, de:"Griechenland", es:"Grecia"},
+  {c:6, de:"Italien", es:"Italia"},
+  {c:6, de:"Mexiko", es:"México"},
+  {c:6, de:"Portugal", es:"Portugal"},
+  {c:6, de:"Thailand", es:"Tailandia"},
+  {c:6, de:"Polen", es:"Polonia"},
+  {c:6, de:"Polnisch", es:"polaco (idioma)"},
+  {c:6, de:"Rätoromanisch", es:"retorrománico (idioma)"},
+  {c:6, de:"Russland", es:"Rusia"},
+  {c:6, de:"Spanien", es:"España"},
+  {c:6, de:"die Türkei", es:"Turquía"},
+  {c:6, de:"die Ukraine", es:"Ucrania"},
+  {c:6, de:"zu", es:"aquí: en grupos de"},
+  {c:6, de:"zweit", es:"dos personas"},
+  {c:6, de:"kurz", es:"corto/a"},
+  {c:6, de:"die Stadt", es:"la ciudad"},
+  {c:6, de:"der Text", es:"el texto"},
+  {c:6, de:"das Befinden", es:"el estado (salud, ánimo)"},
+  {c:6, de:"darauf", es:"aquí: a ello"},
+  {c:6, de:"die Grammatik", es:"la gramática"},
+  {c:6, de:"grüßen", es:"saludar"},
+  {c:6, de:"reagieren", es:"reaccionar, responder"},
+  {c:6, de:"das Redemittel", es:"el giro, la frase hecha"},
+  {c:6, de:"das Subjekt", es:"el sujeto"},
+  {c:6, de:"über", es:"sobre, de"},
+  {c:6, de:"verabschieden", es:"despedir"},
+  {c:6, de:"das W-Wort", es:"palabra interrogativa que empieza con W"},
+  // CAP 7 - Arbeitsalltag
+  {c:7, de:"der Arbeitsalltag", es:"el día a día en el trabajo"},
+  {c:7, de:"annehmen", es:"recibir, coger"},
+  {c:7, de:"mitnehmen", es:"llevarse, llevar"},
+  {c:7, de:"das Paket", es:"el paquete"},
+  {c:7, de:"der Ticketkauf", es:"la venta de entradas"},
+  {c:7, de:"bis dann", es:"hasta luego"},
+  {c:7, de:"doch", es:"aquí: sí"},
+  {c:7, de:"klar", es:"aquí: bien"},
+  {c:7, de:"die Reihenfolge", es:"el orden"},
+  {c:7, de:"später", es:"después, más tarde"},
+  {c:7, de:"einkaufen gehen", es:"hacer la compra, ir de compras"},
+  {c:7, de:"der Nachbar", es:"el vecino"},
+  {c:7, de:"die Nachbarin", es:"la vecina"},
+  {c:7, de:"als", es:"que, a (en comparaciones)"},
+  {c:7, de:"anders", es:"diferente, distinto"},
+  {c:7, de:"bedeuten", es:"significar"},
+  {c:7, de:"der Blog", es:"el blog"},
+  {c:7, de:"die Computerarbeit", es:"el trabajo con el ordenador"},
+  {c:7, de:"endlich", es:"por fin, de una vez"},
+  {c:7, de:"erklären", es:"explicar"},
+  {c:7, de:"der Fehler", es:"el fallo, la falta, el error"},
+  {c:7, de:"das Leben", es:"la vida"},
+  {c:7, de:"leicht", es:"fácil"},
+  {c:7, de:"das Lied", es:"la canción"},
+  {c:7, de:"die Pause", es:"la pausa"},
+  {c:7, de:"das Praktikum", es:"las prácticas"},
+  {c:7, de:"supernett", es:"muy majo/a"},
+  {c:7, de:"zu", es:"a, al, a la"},
+  {c:7, de:"die Apfelschorle", es:"el agua con gas con zumo de manzana"},
+  {c:7, de:"verwenden", es:"utilizar, emplear"},
+  {c:7, de:"der Kundenbesuch", es:"la visita a un cliente"},
+  {c:7, de:"der Mitarbeiter", es:"el empleado"},
+  {c:7, de:"die Mitarbeiterin", es:"la empleada"},
+  {c:7, de:"das Sommerfest", es:"la fiesta de verano"},
+  {c:7, de:"der Urlaub", es:"las vacaciones"},
+  {c:7, de:"der Dativ", es:"el dativo"},
+  {c:7, de:"wem", es:"¿a quién?"},
+  {c:7, de:"die Aussprache", es:"la pronunciación"},
+  {c:7, de:"der Silbenanfang", es:"el principio de la sílaba"},
+  {c:7, de:"der Wortanfang", es:"el principio de la palabra"},
+  {c:7, de:"das Wortinnere", es:"en el medio de la palabra"},
+  {c:7, de:"wohin", es:"¿a dónde?"},
+  {c:7, de:"nach Hause", es:"a casa"},
+  {c:7, de:"der Automat", es:"la máquina expendedora"},
+  {c:7, de:"bar", es:"en efectivo"},
+  {c:7, de:"genug", es:"suficiente"},
+  {c:7, de:"holen", es:"ir a por algo"},
+  {c:7, de:"das Konto", es:"la cuenta"},
+  {c:7, de:"die Kontonummer", es:"el número de la cuenta bancaria"},
+  {c:7, de:"die Kreditkarte", es:"la tarjeta de crédito"},
+  {c:7, de:"überweisen", es:"transferir, hacer una transferencia"},
+  {c:7, de:"die Bank", es:"el banco"},
+  {c:7, de:"der Bericht", es:"el informe, el reportaje"},
+  {c:7, de:"dauern", es:"durar"},
+  {c:7, de:"korrigieren", es:"corregir"},
+  {c:7, de:"die Post", es:"(la oficina de) correos"},
+  {c:7, de:"so", es:"aquí: menudo/a"},
+  {c:7, de:"der Zufall", es:"la casualidad"},
+  {c:7, de:"die Kurzform", es:"la forma abreviada"},
+  {c:7, de:"die Ortsangabe", es:"la indicación de un lugar"},
+  {c:7, de:"der Zahnarzt", es:"el dentista"},
+  {c:7, de:"die Zahnärztin", es:"la dentista"},
+  {c:7, de:"der Bäcker", es:"la panadería"},
+  {c:7, de:"der Hausmeister", es:"el conserje, el portero"},
+  {c:7, de:"die Hausmeisterin", es:"la conserje, la portera"},
+  {c:7, de:"der Akku", es:"la batería"},
+  {c:7, de:"anmachen", es:"encender"},
+  {c:7, de:"ausmachen", es:"apagar"},
+  {c:7, de:"die Datei", es:"el archivo"},
+  {c:7, de:"drucken", es:"imprimir"},
+  {c:7, de:"der Drucker", es:"la impresora"},
+  {c:7, de:"eingeben", es:"poner, introducir"},
+  {c:7, de:"hochfahren", es:"encender"},
+  {c:7, de:"leer", es:"vacío/a"},
+  {c:7, de:"die Medien", es:"los medios (de comunicación)"},
+  {c:7, de:"Mist", es:"la mierda (coloquial)"},
+  {c:7, de:"das Netz", es:"la red, la cobertura"},
+  {c:7, de:"offline", es:"sin conexión a internet"},
+  {c:7, de:"öffnen", es:"abrir"},
+  {c:7, de:"das Passwort", es:"la contraseña"},
+  {c:7, de:"speichern", es:"guardar"},
+  {c:7, de:"das WLAN", es:"el wifi"},
+  // CAP 8 - Fit und gesund
+  {c:8, de:"leben", es:"vivir"},
+  {c:8, de:"die Chips", es:"las patatas fritas"},
+  {c:8, de:"das Experiment", es:"el experimento"},
+  {c:8, de:"wegräumen", es:"recoger"},
+  {c:8, de:"das Bett", es:"la cama"},
+  {c:8, de:"egal", es:"da igual"},
+  {c:8, de:"der/die Erste", es:"el primero, la primera"},
+  {c:8, de:"faul", es:"vago/o"},
+  {c:8, de:"fit", es:"en (buena) forma"},
+  {c:8, de:"die Freizeit", es:"el tiempo libre/de ocio"},
+  {c:8, de:"hungrig", es:"con hambre"},
+  {c:8, de:"hurra", es:"aquí: guay"},
+  {c:8, de:"losgehen", es:"comenzar, empezar"},
+  {c:8, de:"müde", es:"cansado/a"},
+  {c:8, de:"regelmäßig", es:"de forma regular"},
+  {c:8, de:"richtig", es:"realmente, aquí: mucho"},
+  {c:8, de:"schaffen", es:"conseguir, lograr"},
+  {c:8, de:"sicher", es:"seguramente, seguro/a"},
+  {c:8, de:"die Süßigkeit", es:"el dulce"},
+  {c:8, de:"täglich", es:"a diario, todos los días"},
+  {c:8, de:"gefährlich", es:"peligroso/a"},
+  {c:8, de:"gerade", es:"justo, en este momento"},
+  {c:8, de:"die Sprachnachricht", es:"el mensaje de voz"},
+  {c:8, de:"vergessen", es:"olvidar"},
+  {c:8, de:"vermissen", es:"echar de menos"},
+  {c:8, de:"aktiv", es:"activo/a"},
+  {c:8, de:"anziehen", es:"poner(se), vestir"},
+  {c:8, de:"der Comic", es:"el cómic"},
+  {c:8, de:"die Fitness-App", es:"la aplicación de fitness"},
+  {c:8, de:"geben", es:"dar"},
+  {c:8, de:"holen", es:"ir a buscar, traer"},
+  {c:8, de:"mindestens", es:"al menos, por lo menos"},
+  {c:8, de:"rausgehen", es:"salir de casa"},
+  {c:8, de:"sportlich", es:"deportista"},
+  {c:8, de:"der Sportschuh", es:"la zapatilla deportiva"},
+  {c:8, de:"weitermachen", es:"seguir"},
+  {c:8, de:"die Aufforderung", es:"la petición"},
+  {c:8, de:"die App", es:"la aplicación"},
+  {c:8, de:"ruhig", es:"tranquilo/a, callado/a"},
+  {c:8, de:"aufmachen", es:"abrir"},
+  {c:8, de:"aufschreiben", es:"apuntar, anotar"},
+  {c:8, de:"das Fenster", es:"la ventana"},
+  {c:8, de:"leise", es:"callado/a, silencioso/a"},
+  {c:8, de:"die Tafel", es:"la pizarra"},
+  {c:8, de:"vorlesen", es:"leer en voz alta"},
+  {c:8, de:"wiederholen", es:"repetir"},
+  {c:8, de:"wiegen", es:"pesar"},
+  {c:8, de:"das Alter", es:"la edad"},
+  {c:8, de:"das Gewicht", es:"el peso"},
+  {c:8, de:"die Größe", es:"la talla"},
+  {c:8, de:"schwer", es:"pesado"},
+  {c:8, de:"der Bauch", es:"la barriga, la tripa"},
+  {c:8, de:"das Bein", es:"la pierna"},
+  {c:8, de:"der Finger", es:"el dedo"},
+  {c:8, de:"der Fuß", es:"el pie"},
+  {c:8, de:"der Hals", es:"el cuello"},
+  {c:8, de:"die Hand", es:"la mano"},
+  {c:8, de:"das Knie", es:"la rodilla"},
+  {c:8, de:"der Kopf", es:"la cabeza"},
+  {c:8, de:"der Körper", es:"el cuerpo"},
+  {c:8, de:"der Rücken", es:"la espalda"},
+  {c:8, de:"der Körperteil", es:"la parte del cuerpo"},
+  {c:8, de:"abwechseln", es:"turnarse"},
+  {c:8, de:"das Auge", es:"el ojo"},
+  {c:8, de:"das Gesicht", es:"la cara"},
+  {c:8, de:"das Haar", es:"el pelo"},
+  {c:8, de:"der Mund", es:"la boca"},
+  {c:8, de:"die Nase", es:"la nariz"},
+  {c:8, de:"das Ohr", es:"la oreja"},
+  {c:8, de:"der Zahn", es:"el diente, la muela"},
+  {c:8, de:"riechen", es:"oler"},
+  {c:8, de:"bekommen", es:"recibir, obtener"},
+  {c:8, de:"der Doktor", es:"Doctor, doctor"},
+  {c:8, de:"die Doktorin", es:"Doctora, doctora"},
+  {c:8, de:"das Rezept", es:"la receta"},
+  {c:8, de:"die Salbe", es:"la pomada, la crema"},
+  {c:8, de:"der Unfall", es:"el accidente"},
+  {c:8, de:"der Verband", es:"el vendaje"},
+  {c:8, de:"verletzt", es:"herido/a"},
+  {c:8, de:"die Apotheke", es:"la farmacia"},
+  {c:8, de:"bewegen", es:"mover"},
+  {c:8, de:"gute Besserung", es:"¡Que te mejores!"},
+  {c:8, de:"hinlegen", es:"tumbar(se)"},
+  {c:8, de:"die Kontrolle", es:"el control"},
+  {c:8, de:"kontrollieren", es:"controlar, comprobar"},
+  {c:8, de:"sauber machen", es:"limpiar"},
+  {c:8, de:"sich", es:"se"},
+  {c:8, de:"wehtun", es:"doler"},
+  {c:8, de:"die Wunde", es:"la herida"},
+  {c:8, de:"der Arztbesuch", es:"la cita médica"},
+  {c:8, de:"sofort", es:"enseguida, de inmediato"},
+  {c:8, de:"sollen", es:"deber, ser aconsejable"},
+  // CAP 9 - Alltag und Familie
+  {c:9, de:"der Alltag", es:"la vida diaria"},
+  {c:9, de:"besuchen", es:"visitar"},
+  {c:9, de:"die Bibliothek", es:"la biblioteca"},
+  {c:9, de:"duschen", es:"ducharse"},
+  {c:9, de:"die Familie", es:"la familia"},
+  {c:9, de:"die Mensa", es:"el comedor universitario"},
+  {c:9, de:"die Oma", es:"la abuela (familiar)"},
+  {c:9, de:"treffen", es:"encontrar(se con), quedar con"},
+  {c:9, de:"die Uni", es:"la uni (universidad)"},
+  {c:9, de:"nummerieren", es:"numerar, ordenar"},
+  {c:9, de:"lange", es:"mucho tiempo"},
+  {c:9, de:"die Zeitung", es:"el periódico"},
+  {c:9, de:"zu Mittag essen", es:"comer (a mediodía)"},
+  {c:9, de:"abwechselnd", es:"por turnos"},
+  {c:9, de:"das Büro", es:"la oficina"},
+  {c:9, de:"inoffiziell", es:"no oficial"},
+  {c:9, de:"kurz", es:"corto/a, aquí: justo"},
+  {c:9, de:"nach", es:"después, pasado"},
+  {c:9, de:"offiziell", es:"oficial, oficialmente"},
+  {c:9, de:"spät", es:"tarde"},
+  {c:9, de:"Uhr", es:"la hora"},
+  {c:9, de:"das Viertel", es:"un cuarto"},
+  {c:9, de:"der Englisch-Test", es:"el test/examen de inglés"},
+  {c:9, de:"der Geburtstag", es:"el cumpleaños"},
+  {c:9, de:"die Geige", es:"el violín"},
+  {c:9, de:"der Geigenunterricht", es:"la clase de violín"},
+  {c:9, de:"der Kalender", es:"la agenda"},
+  {c:9, de:"der Mathe-Test", es:"el examen de matemáticas"},
+  {c:9, de:"die Mutter", es:"la madre"},
+  {c:9, de:"der Onkel", es:"el tío"},
+  {c:9, de:"das Spiel", es:"el juego; aquí: el partido"},
+  {c:9, de:"das Training", es:"el entrenamiento, el deporte"},
+  {c:9, de:"die Trompete", es:"la trompeta"},
+  {c:9, de:"wie lange", es:"¿cuánto tiempo?"},
+  {c:9, de:"bleiben", es:"quedarse"},
+  {c:9, de:"die Eltern", es:"los padres"},
+  {c:9, de:"falsch", es:"falso/a, equivocado/a"},
+  {c:9, de:"das Kind", es:"el niño/la niña"},
+  {c:9, de:"krank", es:"enfermo/a"},
+  {c:9, de:"die Musikschule", es:"la escuela de música"},
+  {c:9, de:"der Sohn", es:"el hijo"},
+  {c:9, de:"telefonieren", es:"hablar por teléfono"},
+  {c:9, de:"die Tochter", es:"la hija"},
+  {c:9, de:"der Trompetenunterricht", es:"la clase de trompeta"},
+  {c:9, de:"der Vater", es:"el padre"},
+  {c:9, de:"zu Hause", es:"en casa"},
+  // CAP 10
+  {c:10, de:"das Studium", es:"los estudios, la carrera universitaria"},
+  {c:10, de:"betreuen", es:"ocuparse de, cuidar"},
+  {c:10, de:"geben", es:"dar"},
+  {c:10, de:"malen", es:"pintar, dibujar"},
+  {c:10, de:"segeln", es:"navegar (a vela)"},
+  {c:10, de:"der Unterricht", es:"la clase"},
+  {c:10, de:"der Künstler", es:"el artista"},
+  {c:10, de:"die Künstlerin", es:"la artista"},
+  {c:10, de:"die Radiosendung", es:"el programa de radio"},
+  {c:10, de:"der Segellehrer", es:"el profesor de vela"},
+  {c:10, de:"die Segellehrerin", es:"la profesora de vela"},
+  {c:10, de:"der Arbeitsplatz", es:"el puesto de trabajo"},
+  {c:10, de:"die Baustelle", es:"la zona de obras"},
+  {c:10, de:"das Kaufhaus", es:"los grandes almacenes"},
+  {c:10, de:"die Werkstatt", es:"el taller"},
+  {c:10, de:"die Karriere", es:"la carrera (profesional)"},
+  {c:10, de:"der Punkt", es:"el punto"},
+  {c:10, de:"verdienen", es:"ganar"},
+  {c:10, de:"die Kursstatistik", es:"la estadística de clase"},
+  {c:10, de:"der Feierabend", es:"el final de la jornada laboral"},
+  {c:10, de:"fleißig", es:"trabajador/a, aplicado/a"},
+  {c:10, de:"haben", es:"aquí: verbo auxiliar para formar el pasado"},
+  {c:10, de:"laufen", es:"ir"},
+  {c:10, de:"leer", es:"vacío/a"},
+  {c:10, de:"letzte", es:"último/a"},
+  {c:10, de:"mal", es:"aquí: entonces"},
+  {c:10, de:"der Professor", es:"el catedrático"},
+  {c:10, de:"die Professorin", es:"la catedrática"},
+  {c:10, de:"das Projekt", es:"el proyecto"},
+  {c:10, de:"das Semester", es:"el semestre"},
+  {c:10, de:"vorbei sein", es:"haber pasado"},
+  {c:10, de:"ebenso", es:"igual, igualmente"},
+  {c:10, de:"das Partizip", es:"el participio"},
+  {c:10, de:"das Perfekt", es:"el perfecto (tiempo verbal)"},
+  {c:10, de:"sein", es:"aquí: verbo auxiliar para formar el pasado"},
+  // Completar con más...
+];
+
+// ════════════════════════════════════════════
 // INIT
 // ════════════════════════════════════════════
 function init(){
   renderVocab();
   renderVerbs();
+  renderGlosario();
   initEjercicios();
   renderPron();
   renderStories();
@@ -1753,6 +2287,7 @@ function setMode(mode,btn){
   });
   if(mode==='vocab') renderVocab();
   if(mode==='verbs') renderVerbs();
+  if(mode==='glosario') renderGlosario();
   if(mode==='quiz') startQuiz();
 }
 
@@ -1764,6 +2299,45 @@ function setLek(n,btn){
   if(sel) sel.value=(n==='all')?'all':String(n);
   renderVocab();
   startQuiz();
+}
+
+// ════════════════════════════════════════════
+// GLOSARIO
+// ════════════════════════════════════════════
+function renderGlosario(){
+  const search=(document.getElementById('glos-search')||{value:''}).value.toLowerCase().trim();
+  const filter=(document.getElementById('glos-filter')||{value:'all'}).value;
+  
+  let filtered=GLOSARIO;
+  
+  if(filter!=='all'){
+    filtered=filtered.filter(g=>g.c===parseInt(filter));
+  }
+  
+  if(search){
+    filtered=filtered.filter(g=>
+      g.de.toLowerCase().includes(search) || g.es.toLowerCase().includes(search)
+    );
+  }
+  
+  const grid=document.getElementById('glos-grid');
+  const count=document.getElementById('glos-count');
+  
+  if(!grid) return;
+  
+  if(count) count.textContent=filtered.length+' palabras';
+  
+  grid.innerHTML=filtered.map(g=>`
+    <div class="glos-entry">
+      <div class="glos-entry-art">Capítulo ${g.c}</div>
+      <div class="glos-entry-de">${g.de}</div>
+      <div class="glos-entry-es">${g.es}</div>
+    </div>
+  `).join('');
+}
+
+function filterGlosario(){
+  renderGlosario();
 }
 
 // ════════════════════════════════════════════
@@ -2104,21 +2678,22 @@ function retryWrong(){
 
 function buildQs(type){
   const lf=v=>currentLek==='all'||v.l==currentLek;
-  const nouns=VOCAB.filter(v=>v.art!=='verb'&&v.t&&lf(v));
-  const pool=nouns.length>=4?nouns:VOCAB.filter(v=>v.art!=='verb'&&v.t);
-  if(type==='vocab') return shuf(pool.slice()).slice(0,15).map(v=>({type:'mc',q:v.w,tag:'ALEMÁN → ESPAÑOL',hint:(v.art+' '+v.w),correct:v.t,options:shuf([v.t,...rndT(v.t,3)])}));
-  if(type==='vocabDE') return shuf(pool.slice()).slice(0,15).map(v=>({type:'mc',q:v.t,tag:'ESPAÑOL → ALEMÁN',hint:'('+v.art+' ___)',correct:v.w,options:shuf([v.w,...rndW(v.w,3)])}));
+  const pool=VOCAB.filter(v=>v.t&&lf(v));
+  const fallback=VOCAB.filter(v=>v.t);
+  const source=pool.length>=15?pool:fallback;
+  if(type==='vocab') return shuf(source.slice()).slice(0,15).map(v=>({type:'mc',q:v.w,tag:'ALEMÁN → ESPAÑOL',hint:(v.art?'('+v.art+') ':'')+v.w,correct:v.t,options:shuf([v.t,...rndT(v.t,3)])}));
+  if(type==='vocabDE') return shuf(source.slice()).slice(0,15).map(v=>({type:'mc',q:v.t,tag:'ESPAÑOL → ALEMÁN',hint:(v.art?'('+v.art+') ':'')+v.t,correct:v.w,options:shuf([v.w,...rndW(v.w,3)])}));
   if(type==='article'){
-    const ap=pool.filter(v=>['der','die','das'].includes(v.art));
-    const af=ap.length>=4?ap:VOCAB.filter(v=>['der','die','das'].includes(v.art));
+    const ap=VOCAB.filter(v=>['der','die','das'].includes(v.art)&&lf(v));
+    const af=ap.length>=15?ap:VOCAB.filter(v=>['der','die','das'].includes(v.art));
     return shuf(af.slice()).slice(0,15).map(v=>({type:'mc',q:'___ '+v.w,tag:'ARTÍCULO',hint:'('+v.t+')',correct:v.art,options:['der','die','das','ein']}));
   }
   if(type==='fill') return shuf(FILL_INS.slice()).slice(0,10).map(f=>({type:'fill',q:f.q,tag:'COMPLETA LA FRASE',hint:f.hint,correct:f.ans}));
 }
 
 function shuf(a){return a.sort(()=>Math.random()-.5);}
-function rndT(ex,n){return shuf([...new Set(VOCAB.filter(v=>v.t&&v.t!==ex&&v.art!=='verb').map(v=>v.t))]).slice(0,n);}
-function rndW(ex,n){return shuf(VOCAB.filter(v=>v.w!==ex&&v.art!=='verb').map(v=>v.w)).slice(0,n);}
+function rndT(ex,n){return shuf([...new Set(VOCAB.filter(v=>v.t&&v.t!==ex).map(v=>v.t))]).slice(0,n);}
+function rndW(ex,n){return shuf(VOCAB.filter(v=>v.w!==ex&&v.t).map(v=>v.w)).slice(0,n);}
 
 function showQ(){
   if(quizIdx>=quizQs.length){showResults();return;}
