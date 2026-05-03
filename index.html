@@ -570,6 +570,15 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
 .dial-hint{background:rgba(91,141,238,.08);border:1px solid rgba(91,141,238,.2);border-radius:8px;padding:10px 14px;font-size:.8rem;color:var(--text);margin:16px 28px 0;flex-shrink:0;line-height:1.5;}
 .dial-hint strong{color:var(--blue);}
 .dial-msgs{flex:1;overflow-y:auto;padding:16px 28px;display:flex;flex-direction:column;gap:14px;scrollbar-width:thin;scrollbar-color:var(--border) transparent;}
+.dial-line{display:flex;align-items:flex-start;gap:12px;line-height:1.6;}
+.dial-line .line-tag{min-width:70px;font-weight:700;text-transform:uppercase;font-size:.78rem;letter-spacing:.03em;}
+.dial-line .line-text{flex:1;padding:12px 14px;border-radius:14px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.08);}
+.dial-line.A .line-tag{color:#2f6ecd;}
+.dial-line.A .line-text{background:rgba(47,110,205,.08);border-color:rgba(47,110,205,.18);}
+.dial-line.B .line-tag{color:#d35400;}
+.dial-line.B .line-text{background:rgba(211,84,0,.08);border-color:rgba(211,84,0,.18);}
+.dial-line.Kellner .line-tag,.dial-line.Arzt .line-tag,.dial-line.Patient .line-tag,.dial-line.Verkäufer .line-tag,.dial-line.Kunde .line-tag{color:#0f8650;}
+.dial-line.Kellner .line-text,.dial-line.Arzt .line-text,.dial-line.Patient .line-text,.dial-line.Verkäufer .line-text,.dial-line.Kunde .line-text{background:rgba(15,134,80,.08);border-color:rgba(15,134,80,.18);}
 .dial-footer{border-top:1px solid var(--border);padding:14px 28px;background:var(--surface);display:flex;gap:10px;}
 .dial-input{flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:11px;padding:11px 15px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.87rem;resize:none;outline:none;max-height:90px;}
 .dial-input:focus{border-color:var(--blue);}
@@ -895,10 +904,12 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
   <div class="scroll-inner">
     <div class="gtabs">
       <button class="gtab active" onclick="setGTab('artikel',this)">Artikel</button>
+      <button class="gtab" onclick="setGTab('welche',this)">Welche / diese</button>
       <button class="gtab" onclick="setGTab('akkusativ',this)">Akkusativ</button>
       <button class="gtab" onclick="setGTab('dativ',this)">Dativ</button>
       <button class="gtab" onclick="setGTab('modal',this)">Modalverben</button>
       <button class="gtab" onclick="setGTab('satz',this)">Satzstellung</button>
+      <button class="gtab" onclick="setGTab('prasens',this)">Präsens</button>
       <button class="gtab" onclick="setGTab('praet',this)">Präteritum</button>
       <button class="gtab" onclick="setGTab('trennb',this)">Trennbare V.</button>
       <button class="gtab" onclick="setGTab('possessiv',this)">Possessiv</button>
@@ -916,6 +927,16 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
       <tr><td>Feminin</td><td class="hl">die</td><td class="hl">eine</td><td class="hl">keine</td><td>die Kirche / eine Kirche / keine Kirche</td></tr>
       <tr><td>Plural</td><td class="hl">die</td><td class="mu">–</td><td class="hl">keine</td><td>die Autos / – / keine Autos</td></tr></table>
       <div class="gnote">💡 <b>Color:</b> <span style="color:var(--blue)">der=azul</span> · <span style="color:var(--accent2)">die=naranja</span> · <span style="color:var(--green)">das=verde</span>. Aprende siempre el sustantivo con su artículo.</div>
+    </div>
+    <div class="gsec" id="gsec-welche">
+      <p class="section-title">Welche / diese</p><p class="section-sub">Declinación de preguntas y demostrativos</p>
+      <table class="gt"><tr><th>Caso</th><th>masc.</th><th>fem.</th><th>neut.</th><th>pl.</th></tr>
+      <tr><td>Nominativ</td><td class="hl">welcher / dieser</td><td class="hl">welche / diese</td><td class="hl">welches / dieses</td><td class="hl">welche / diese</td></tr>
+      <tr><td>Akkusativ</td><td class="hl">welchen / diesen</td><td class="hl">welche / diese</td><td class="hl">welches / dieses</td><td class="hl">welche / diese</td></tr>
+      <tr><td>Dativ</td><td class="hl">welchem / diesem</td><td class="hl">welcher / dieser</td><td class="hl">welchem / diesem</td><td class="hl">welchen / diesen</td></tr></table>
+      <div class="gnote">💡 <b>Welche</b> = ¿cuál? / ¿qué? · <b>Diese</b> = este/esta/estos/estas. Ambas palabras se declinan igual en los casos.</div>
+      <div class="gex"><div class="gde">Welche Frau kommt? · Diese Frau kommt.</div><div class="ges">¿Qué mujer viene? · Esta mujer viene.</div></div>
+      <div class="gex"><div class="gde">Welchen Zug nimmst du? · Diesen Zug nehme ich.</div><div class="ges">¿Qué tren tomas? · Tomo este tren.</div></div>
     </div>
     <div class="gsec" id="gsec-akkusativ">
       <p class="section-title">Akkusativ</p><p class="section-sub">Objeto directo — solo el masculino cambia</p>
@@ -958,6 +979,17 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
       <tr><td>Ja/Nein-Frage</td><td class="hl">Kommst</td><td>du</td><td>aus Spanien?</td></tr>
       <tr><td>W-Frage</td><td>Wo</td><td class="hl">wohnst</td><td>du?</td></tr>
       <tr><td>Trennbares Verb</td><td>Ich</td><td class="hl">stehe</td><td>um 6 Uhr <em style="color:var(--accent2)">auf</em>.</td></tr></table>
+    </div>
+    <div class="gsec" id="gsec-prasens">
+      <p class="section-title">Präsens</p><p class="section-sub">Conjugación regular del presente</p>
+      <table class="gt"><tr><th>Persona</th><th>Terminación</th><th>arbeiten</th><th>gehen</th></tr>
+      <tr><td>ich</td><td class="hl">-e</td><td class="hl">arbeite</td><td class="hl">gehe</td></tr>
+      <tr><td>du</td><td>-st</td><td>arbeitest</td><td>gehst</td></tr>
+      <tr><td>er/sie</td><td class="hl">-t</td><td class="hl">arbeitet</td><td class="hl">geht</td></tr>
+      <tr><td>wir</td><td class="hl">-en</td><td class="hl">arbeiten</td><td class="hl">gehen</td></tr>
+      <tr><td>ihr</td><td class="hl">-t</td><td class="hl">arbeitet</td><td class="hl">geht</td></tr>
+      <tr><td>sie/Sie</td><td class="hl">-en</td><td class="hl">arbeiten</td><td class="hl">gehen</td></tr></table>
+      <div class="gnote">💡 <b>ihr</b> comparte la terminación <b>-t</b> con <b>er/sie</b> en el presente.</div>
     </div>
     <div class="gsec" id="gsec-praet">
       <p class="section-title">Präteritum</p><p class="section-sub">Pasado de sein y haben</p>
@@ -1022,11 +1054,20 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
       <b>müssen</b> = necesidad propia (yo debo porque lo necesito)</div>
       <div class="gex"><div class="gde">Sie dürfen nicht rauchen. · Du darfst viel Tee trinken.</div><div class="ges">→ No le está permitido fumar. · Puedes beber mucho té.</div></div>
       <div class="gex"><div class="gde">Ich soll das Bein wenig bewegen. · Du sollst zu Hause bleiben.</div><div class="ges">→ (El médico dice que) debo mover poco la pierna.</div></div>
+    </div>
 
     <div class="gsec" id="gsec-perfekt">
       <p class="section-title">Perfekt</p><p class="section-sub">Pasado conversacional — haben/sein + Partizip II al final</p>
       <div class="gnote">💡 <b>Estructura:</b> sujeto + <b>haben/sein</b> (pos.2) + ... + <b>Partizip II</b> (al final)<br>
       Ej: Daniel <b>hat</b> sechs Stunden <b>gelernt</b>. · Claudia <b>ist</b> zur Arbeit <b>gefahren</b>.</div>
+      <div class="gnote"><b>Verben ohne Präfix</b> (verbos sin prefijo):</div>
+      <div class="gnote">finden → gefunden · kaufen → gekauft · passen → gepasst · machen → gemacht</div>
+      <div class="gnote"><b>Verben mit Präfix</b></div>
+      <div class="gnote">nicht trennbar (no separables → SIN “ge-”)<br>📌 Prefijos: <b>be-, emp(f)-, ent-, er-, ge-, ver-, zer-</b></div>
+      <div class="gnote">bestellen → bestellt · empfehlen → empfohlen · erzählen → erzählt · entdecken → entdeckt · bezahlen → bezahlt · verstehen → verstanden</div>
+      <div class="gnote">🔸 trennbar (separables → CON “ge-”)<br>📌 Prefijos: <b>ab-, an-, auf-, aus-, ein-, mit-, zu-, zurück- …</b></div>
+      <div class="gnote">aussehen → ausgesehen · ankommen → angekommen · zurückschicken → zurückgeschickt · umtauschen → umgetauscht</div>
+      <div class="gnote">💡 Regla rápida: Sin prefijo → ge + verbo · Prefijo NO separable → ❌ sin ge · Prefijo separable → ge va en medio</div>
       <table class="gt"><tr><th>Tipo Partizip II</th><th>Regla</th><th>Ejemplos</th></tr>
       <tr><td>Regular</td><td class="hl">ge…t</td><td>machen→<b>gemacht</b> · planen→<b>geplant</b></td></tr>
       <tr><td>Verbos en -ten/-den</td><td class="hl">ge…et</td><td>arbeiten→<b>gearbeitet</b> · warten→<b>gewartet</b></td></tr>
@@ -1040,7 +1081,14 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
       <tr><td>studieren</td><td class="hl">hat studiert</td><td>kommen</td><td class="hl">ist gekommen</td></tr>
       <tr><td>treffen</td><td class="hl">hat getroffen</td><td>bleiben</td><td class="hl">ist geblieben</td></tr>
       <tr><td>finden</td><td class="hl">hat gefunden</td><td>aufstehen</td><td class="hl">ist aufgestanden</td></tr>
-      <tr><td>einladen</td><td class="hl">hat eingeladen</td><td>passieren</td><td class="hl">ist passiert</td></tr></table>
+      <tr><td>einladen</td><td class="hl">hat eingeladen</td><td>passieren</td><td class="hl">ist passiert</td></tr>
+      <tr><td>arbeiten</td><td class="hl">hat gearbeitet</td><td>fernsehen</td><td class="hl">hat ferngesehen</td></tr>
+      <tr><td>bezahlen</td><td class="hl">hat bezahlt</td><td>verkaufen</td><td class="hl">hat verkauft</td></tr>
+      <tr><td>mitbringen</td><td class="hl">hat mitgebracht</td><td>einkaufen</td><td class="hl">hat eingekauft</td></tr>
+      <tr><td>anrufen</td><td class="hl">hat angerufen</td><td>besuchen</td><td class="hl">hat besucht</td></tr>
+      <tr><td>bestellen</td><td class="hl">hat bestellt</td><td>empfehlen</td><td class="hl">hat empfohlen</td></tr>
+      <tr><td>erzählen</td><td class="hl">hat erzählt</td><td>entdecken</td><td class="hl">hat entdeckt</td></tr>
+      <tr><td>verstehen</td><td class="hl">hat verstanden</td><td>bekommen</td><td class="hl">hat bekommen</td></tr></table>
       <div class="gex"><div class="gde">Was hast du heute gemacht? — Ich habe gearbeitet und Kunden getroffen.</div></div>
       <div class="gex"><div class="gde">Wie bist du zur Arbeit gefahren? — Ich bin mit dem Zug gefahren.</div></div>
     </div>
@@ -1633,6 +1681,296 @@ const DIALOGS=[
      "Was machen Sie beruflich?",
      "Schön, Sie kennenzulernen!"
    ]},
+  {id:5,emoji:"🏨",title:"Im Hotel einchecken",desc:"Reserva una habitación y pide servicios",
+   role:"Rezeptionist/in (recepcionista de hotel)",
+   hint:"Eres el huésped. Di que tienes una reserva, pregunta por la habitación y los servicios. Frases útiles: <strong>Ich habe eine Reservierung. · Haben Sie ein Zimmer frei? · Ist Frühstück inklusive? · Gibt es WLAN?</strong>",
+   system:"Eres un recepcionista de hotel en Alemania. Responde en alemán A1 con frases cortas y amables.",
+   botResponses: [
+     "Guten Tag! Haben Sie eine Reservierung?",
+     "Ihr Zimmer ist im dritten Stock.",
+     "Das Frühstück gibt es von 7 bis 10 Uhr.",
+     "Ja, WLAN ist im ganzen Hotel verfügbar.",
+     "Hier ist Ihre Schlüsselkarte."
+   ]},
+  {id:6,emoji:"🚕",title:"Ein Taxi zum Flughafen bestellen",desc:"Pide un taxi para ir al aeropuerto",
+   role:"Taxifahrer/in",
+   hint:"Necesitas un taxi. Di desde dónde sales, a qué aeropuerto vas y pregunta el precio. Frases útiles: <strong>Ich brauche ein Taxi. · Zum Flughafen bitte. · Wie viel kostet es?</strong>",
+   system:"Eres un taxista en Alemania. Responde en alemán A1, ofrece la ruta y el precio.",
+   botResponses: [
+     "Guten Tag! Wohin möchten Sie fahren?",
+     "Zum Flughafen bitte. Wir fahren in 30 Minuten los.",
+     "Das kostet ungefähr 40 Euro.",
+     "Bitte steig ein. Deine Adresse?",
+     "Wir sind in 25 Minuten da."
+   ]},
+  {id:7,emoji:"🎫",title:"Am Bahnhof ein Ticket kaufen",desc:"Compra un billete de tren o autobús",
+   role:"Schalterbeamte/r (taquillero/a)",
+   hint:"Pregunta por una conexión y compra un billete sencillo o de ida y vuelta. Frases útiles: <strong>Ein Ticket nach … bitte. · Wann fährt der nächste Zug? · Ist das Platzreservierung?</strong>",
+   system:"Eres el empleado de la estación. Responde en alemán A1 y ayuda a comprar un ticket.",
+   botResponses: [
+     "Guten Tag! Wohin möchten Sie fahren?",
+     "Der nächste Zug fährt in 15 Minuten.",
+     "Ein Ticket kostet 12 Euro.",
+     "Möchten Sie eine Sitzplatzreservierung?",
+     "Der Zug fährt von Gleis 3 ab."
+   ]},
+  {id:8,emoji:"☁️",title:"Über das Wetter sprechen",desc:"Habla del clima y cómo te sientes",
+   role:"Freund/in oder Bekannte/r",
+   hint:"Comenta el tiempo y tu opinión. Frases útiles: <strong>Es ist heute sonnig/regnerisch. · Mir ist kalt/warm. · Ich mag das Wetter nicht.</strong>",
+   system:"Eres un amigo/a hablando sobre el tiempo. Responde en alemán A1 con frases claras y sencillas.",
+   botResponses: [
+     "Heute ist es sehr sonnig.",
+     "Es regnet und ist kalt.",
+     "Ich mag diesen Herbst.",
+     "Bist du warm genug gekleidet?",
+     "Morgen soll es besser werden."
+   ]},
+  {id:9,emoji:"🤒",title:"Ich bin krank",desc:"Explica que te sientes mal y pide ayuda",
+   role:"Arzt/in oder Apotheker/in",
+   hint:"Diles que no te sientes bien y describe tus síntomas. Frases útiles: <strong>Ich habe Kopfschmerzen. · Mir ist übel. · Ich brauche Medikamente.</strong>",
+   system:"Eres un médico o farmacéutico que escucha a un paciente. Responde en alemán A1 y ofrece ayuda.",
+   botResponses: [
+     "Was fehlt Ihnen?",
+     "Haben Sie Fieber?",
+     "Nehmen Sie diese Tabletten zweimal am Tag.",
+     "Ruhe dich aus und trinke viel Wasser.",
+     "Wenn es nicht besser wird, kommen Sie bitte wieder."
+   ]},
+  {id:10,emoji:"✈️",title:"Am Flughafen einchecken",desc:"Check-in y pregunta por el equipaje",
+   role:"Check-in-Mitarbeiter/in",
+   hint:"Eres pasajero. Di tu destino, pregunta por el mostrador y el equipaje. Frases útiles: <strong>Ich habe einen Flug nach … · Wo ist der Check-in? · Ich habe Gepäck.</strong>",
+   system:"Eres un agente de check-in en el aeropuerto. Responde en alemán A1 y da instrucciones claras.",
+   botResponses: [
+     "Guten Tag! Wohin fliegen Sie?",
+     "Bitte zeigen Sie Ihren Reisepass.",
+     "Ihr Gepäck darf 23 kg wiegen.",
+     "Hier ist Ihre Bordkarte.",
+     "Das Gate ist A12, bitte seien Sie rechtzeitig da."
+   ]},
+  {id:11,emoji:"🍽️",title:"Im Café etwas bestellen",desc:"Pide comida o bebida en un café",
+   role:"Kellner/in",
+   hint:"Pide algo para beber o comer y pregunta por recomendaciones. Frases útiles: <strong>Ich möchte einen Kaffee. · Haben Sie Kuchen? · Was empfehlen Sie?</strong>",
+   system:"Eres un camarero de café. Responde en alemán A1 y describe el menú brevemente.",
+   botResponses: [
+     "Guten Morgen! Was darf es sein?",
+     "Wir haben Kaffee, Tee und Kuchen.",
+     "Der Apfelkuchen ist sehr beliebt.",
+     "Möchten Sie auch etwas trinken?",
+     "Das macht 6 Euro bitte."
+   ]},
+  {id:12,emoji:"📍",title:"Nach dem Weg zum Museum fragen",desc:"Pregunta cómo llegar a un lugar turístico",
+   role:"Passant/in (transeúnte)",
+   hint:"Pide indicaciones precisas en la ciudad. Frases útiles: <strong>Entschuldigung, wo ist das Museum? · Gehen Sie geradeaus, dann links. · Ist es weit?</strong>",
+   system:"Eres un transeúnte que da direcciones. Responde en alemán A1 con instrucciones claras.",
+   botResponses: [
+     "Gehen Sie geradeaus und dann links.",
+     "Es ist nur 5 Minuten entfernt.",
+     "Das Museum ist neben dem Rathaus.",
+     "Auf der rechten Seite sehen Sie ein großes Hotel.",
+     "Sie können es nicht verfehlen."
+   ]},
+  {id:13,emoji:"☀️",title:"Dein Morgen",desc:"Lee un diálogo sobre la rutina matutina",
+   role:"Conversación A/B",
+   hint:"Lee los turnos A y B en alemán y reconoce la rutina de la mañana.",
+   script:[
+     {speaker:"A",text:"Hallo! Wie geht’s dir heute?"},
+     {speaker:"B",text:"Hallo! Mir geht’s gut, und dir?"},
+     {speaker:"A",text:"Auch gut, aber ich bin ein bisschen müde."},
+     {speaker:"B",text:"Warum bist du müde?"},
+     {speaker:"A",text:"Ich habe gestern lange gearbeitet, dann bin ich spät ins Bett gegangen."},
+     {speaker:"B",text:"Ah! Was machst du normalerweise am Morgen?"},
+     {speaker:"A",text:"Zuerst stehe ich um 7 Uhr auf, dann dusche ich und putze meine Zähne. Danach frühstücke ich."},
+     {speaker:"B",text:"Was hast du heute gefrühstückt?"},
+     {speaker:"A",text:"Ich habe Brot mit Käse gegessen und Kaffee getrunken. Und du?"},
+     {speaker:"B",text:"Ich habe nur Kaffee getrunken, dann hatte ich keine Zeit."},
+     {speaker:"A",text:"Was ziehst du morgens an?"},
+     {speaker:"B",text:"Das Wetter ist kalt, deshalb trage ich eine Jeans, einen Pullover und eine Jacke."},
+     {speaker:"A",text:"Ich auch. Danach gehe ich zur Arbeit und nehme den Bus."},
+     {speaker:"B",text:"Ich fahre mit der U-Bahn, dann komme ich um 8:30 Uhr an."},
+     {speaker:"A",text:"Was magst du gern am Wochenende?"},
+     {speaker:"B",text:"Am Wochenende schlafe ich länger, danach treffe ich meine Freunde oder gehe spazieren."},
+     {speaker:"A",text:"Ich auch, aber manchmal arbeite ich, dann bin ich sehr müde."}
+   ]},
+  {id:14,emoji:"💼",title:"Dein Arbeitstag",desc:"Lee un diálogo sobre el trabajo diario",
+   role:"Conversación A/B",
+   hint:"Lee las preguntas y respuestas sobre trabajo, transporte y vestimenta.",
+   script:[
+     {speaker:"A",text:"Hallo! Ich habe gehört, du hast einen neuen Job."},
+     {speaker:"B",text:"Ja, stimmt! Ich habe letzte Woche angefangen."},
+     {speaker:"A",text:"Super! Wo arbeitest du?"},
+     {speaker:"B",text:"Ich arbeite in einem Büro, und ich finde den Job interessant."},
+     {speaker:"A",text:"Was ist für dich wichtig im Beruf?"},
+     {speaker:"B",text:"Für mich sind gute Kollegen wichtig, und auch ein gutes Gehalt. Auch möchte ich kein Stress haben."},
+     {speaker:"A",text:"Ja, das finde ich auch. Für mich ist Freizeit auch wichtig."},
+     {speaker:"B",text:"Was machst du bei der Arbeit?"},
+     {speaker:"A",text:"Ich arbeite am Computer, ich schreibe viele E-Mails und telefoniere mit Kunden."},
+     {speaker:"B",text:"Ich habe gestern viele E-Mails geschrieben, dann hatte ich Kopfschmerzen."},
+     {speaker:"A",text:"Ja, das passiert oft, der Kopf ist müde."},
+     {speaker:"B",text:"Wie kommst du zur Arbeit?"},
+     {speaker:"A",text:"Ich fahre mit dem Bus, danach gehe ich ein bisschen zu Fuß."},
+     {speaker:"B",text:"Ich bin gestern mit dem Zug gefahren, und ich bin pünktlich angekommen."},
+     {speaker:"A",text:"Was trägst du bei der Arbeit?"},
+     {speaker:"B",text:"Ich trage eine Hose, ein Hemd und manchmal eine Jacke. Und du?"},
+     {speaker:"A",text:"Ich trage oft bequeme Kleidung, dann fühle ich mich besser."}
+   ]},
+  {id:15,emoji:"🍎",title:"Gesund leben",desc:"Lee un diálogo sobre hábitos saludables",
+   role:"Conversación A/B",
+   hint:"Lee cómo hablan sobre dieta, ejercicio y planes para pasear.",
+   script:[
+     {speaker:"A",text:"Hallo! Wie geht’s dir heute?"},
+     {speaker:"B",text:"Gut, danke! Und dir?"},
+     {speaker:"A",text:"Auch gut, danke."},
+     {speaker:"B",text:"Sag mal, lebst du gesund?"},
+     {speaker:"A",text:"Ja, ich versuche gesund zu leben. Ich esse viel Obst und Gemüse und trinke viel Wasser."},
+     {speaker:"B",text:"Das ist gut! Machst du auch Sport?"},
+     {speaker:"A",text:"Ja, ich gehe zweimal pro Woche joggen und manchmal mache ich Yoga. Und du?"},
+     {speaker:"B",text:"Ich mache auch Sport, aber nicht so oft. Ich gehe einmal pro Woche ins Fitnessstudio."},
+     {speaker:"A",text:"Das ist auch gut. Was machst du am Wochenende?"},
+     {speaker:"B",text:"Am Wochenende gehe ich oft spazieren oder fahre Fahrrad."},
+     {speaker:"A",text:"Super! Ich gehe auch gern spazieren."},
+     {speaker:"B",text:"Wir können zusammen etwas machen."},
+     {speaker:"A",text:"Gute Idee! Wollen wir morgen nach der Arbeit spazieren gehen?"},
+     {speaker:"B",text:"Ja, gern! Um wie viel Uhr?"},
+     {speaker:"A",text:"Um 18 Uhr?"},
+     {speaker:"B",text:"Perfekt! Dann treffen wir uns im Park."},
+     {speaker:"A",text:"Super, bis morgen!"},
+     {speaker:"B",text:"Bis morgen! Tschüss!"}
+   ]},
+  {id:16,emoji:"🩺",title:"Beim Arzt",desc:"Lee el diálogo entre médico y paciente",
+   role:"Arzt/Patient",
+   hint:"Lee el diálogo médico exacto con preguntas de síntomas y consejos.",
+   script:[
+     {speaker:"Arzt",text:"Guten Tag! Wie kann ich Ihnen helfen?"},
+     {speaker:"Patient",text:"Guten Tag, Herr Doktor."},
+     {speaker:"Arzt",text:"Was ist Ihr Problem?"},
+     {speaker:"Patient",text:"Ich habe hart Kopfschmerzen, und mein Bauch tut weh. Auch habe ich Fieber."},
+     {speaker:"Arzt",text:"Seit wann haben Sie das?"},
+     {speaker:"Patient",text:"Seit drei Tagen, und gestern habe ich nicht gearbeitet."},
+     {speaker:"Arzt",text:"Was haben Sie gemacht?"},
+     {speaker:"Patient",text:"Ich bin zu Hause geblieben, dann habe ich viel geschlafen."},
+     {speaker:"Arzt",text:"Haben Sie Medikamente genommen?"},
+     {speaker:"Patient",text:"Ja, ich habe Tabletten genommen, aber es war nicht besser."},
+     {speaker:"Arzt",text:"Trinken Sie genug Wasser?"},
+     {speaker:"Patient",text:"Nein, nicht viel."},
+     {speaker:"Arzt",text:"Sie müssen viel Wasser trinken, dann bleiben Sie zu Hause und ruhen Sie sich aus."},
+     {speaker:"Patient",text:"Muss ich im Bett bleiben?"},
+     {speaker:"Arzt",text:"Ja, ein paar Tage. Danach können Sie spazieren gehen."},
+     {speaker:"Patient",text:"Kann ich arbeiten?"},
+     {speaker:"Arzt",text:"Nein, Ihr Körper ist müde, deshalb brauchen Sie Ruhe."},
+     {speaker:"Patient",text:"Danke schön für Ihre Hilfe."},
+     {speaker:"Arzt",text:"Gern. Gute Besserung!"}
+   ]},
+  {id:17,emoji:"🏠",title:"Die neue Wohnung",desc:"Lee un diálogo de presentación del hogar",
+   role:"Conversación A/B",
+   hint:"Lee cómo se muestra y se describe una nueva casa.",
+   script:[
+     {speaker:"A",text:"Hallo! Willkommen in meiner neuen Wohnung!"},
+     {speaker:"B",text:"Danke! Sie ist wirklich schön."},
+     {speaker:"A",text:"Komm, zuerst zeige ich dir das Wohnzimmer."},
+     {speaker:"B",text:"Oh, das ist groß und hell!"},
+     {speaker:"A",text:"Hier gibt es ein Sofa, einen Tisch und eine Lampe. Ich habe gestern hier mit Freunden gegessen."},
+     {speaker:"B",text:"Sehr gemütlich!"},
+     {speaker:"A",text:"Danach gehen wir in die Küche."},
+     {speaker:"B",text:"Die Küche ist modern, und sie gefällt mir sehr."},
+     {speaker:"A",text:"Ich koche hier oft, und ich esse hier jeden Tag."},
+     {speaker:"B",text:"Super!"},
+     {speaker:"A",text:"Das ist mein Schlafzimmer."},
+     {speaker:"B",text:"Sehr ruhig. Was machst du hier gern?"},
+     {speaker:"A",text:"Ich schlafe hier und lese Bücher, dann entspanne ich mich."},
+     {speaker:"B",text:"Was ist dein Lieblingszimmer?"},
+     {speaker:"A",text:"Das Wohnzimmer, deshalb bleibe ich viel Zeit hier."},
+     {speaker:"B",text:"Ich verstehe, es ist sehr komfortabel."}
+   ]},
+  {id:18,emoji:"🌴",title:"Dein letzter Urlaub",desc:"Lee un diálogo sobre las vacaciones recientes",
+   role:"Conversación A/B",
+   hint:"Lee el relato de viaje, clima y compras durante las vacaciones.",
+   script:[
+     {speaker:"A",text:"Hallo! Schön dich zu sehen! Wie geht’s dir?"},
+     {speaker:"B",text:"Hallo! Mir geht’s gut, danke. Ich bin letzte Woche aus dem Urlaub zurückgekommen."},
+     {speaker:"A",text:"Oh, super! Wohin bist du gefahren?"},
+     {speaker:"B",text:"Ich bin nach Deutschland gefahren, und ich habe dort eine Woche verbracht."},
+     {speaker:"A",text:"Mit wem bist du gefahren?"},
+     {speaker:"B",text:"Ich bin mit meiner Familie gefahren, und wir hatten viel Spaß."},
+     {speaker:"A",text:"Was hast du im Urlaub gemacht?"},
+     {speaker:"B",text:"Zuerst habe ich die Stadt besucht, dann bin ich jeden Tag schwimmen gegangen. Danach habe ich oft im Restaurant gegessen."},
+     {speaker:"A",text:"Das klingt sehr gut! Wie war das Wetter?"},
+     {speaker:"B",text:"Das Wetter war sehr schön, es war sonnig und warm, deshalb habe ich oft T-Shirts und Shorts getragen."},
+     {speaker:"A",text:"Hast du auch etwas gekauft?"},
+     {speaker:"B",text:"Ja, ich habe ein Kleid und neue Schuhe gekauft, und ich habe auch Souvenirs für meine Freunde gekauft."},
+     {speaker:"A",text:"Sehr schön! Was hat dir am besten gefallen?"},
+     {speaker:"B",text:"Das Meer hat mir sehr gefallen, und auch das Essen war fantastisch."},
+     {speaker:"A",text:"Was dir nicht gefallen hat?"},
+     {speaker:"B",text:"Ja, es war manchmal sehr heiß, dann war ich müde."},
+     {speaker:"A",text:"Und am Ende vom Urlaub?"},
+     {speaker:"B",text:"Am Ende war ich sehr froh, aber auch ein bisschen traurig, weil der Urlaub zu kurz war."}
+   ]},
+  {id:19,emoji:"🛍️",title:"Shoppen",desc:"Lee un diálogo en una tienda",
+   role:"Verkäufer/Kunde",
+   hint:"Lee el diálogo de compra con talla, precio y probadores.",
+   script:[
+     {speaker:"Verkäufer",text:"Guten Tag! Kann ich Ihnen helfen?"},
+     {speaker:"Kunde",text:"Guten Tag! Ja, ich suche eine warme Jacke für den Winter."},
+     {speaker:"Verkäufer",text:"Welche Größe brauchen Sie?"},
+     {speaker:"Kunde",text:"Größe M, bitte."},
+     {speaker:"Verkäufer",text:"Hier ist eine Jacke, sie ist sehr warm."},
+     {speaker:"Kunde",text:"Danke. Ich probiere sie an."},
+     {speaker:"Verkäufer",text:"Und, wie ist sie?"},
+     {speaker:"Kunde",text:"Sie passt gut, und sie gefällt mir, aber sie ist ein bisschen teuer."},
+     {speaker:"Verkäufer",text:"Wir haben auch eine andere Jacke, sie ist nicht so teuer."},
+     {speaker:"Kunde",text:"Gut, dann probiere ich diese an."},
+     {speaker:"Verkäufer",text:"Wie finden Sie sie?"},
+     {speaker:"Kunde",text:"Diese Jacke ist auch gut, deshalb nehme ich sie."},
+     {speaker:"Verkäufer",text:"Perfekt!"},
+     {speaker:"Kunde",text:"Ich habe letzte Woche auch online Kleidung bestellt."},
+     {speaker:"Verkäufer",text:"Was haben Sie bestellt?"},
+     {speaker:"Kunde",text:"Ich habe Schuhe und ein T-Shirt bestellt, und sie sind gestern angekommen."},
+     {speaker:"Verkäufer",text:"Hier ist ihn."},
+     {speaker:"Kunde",text:"Vielen Dank."}
+   ]},
+  {id:20,emoji:"☕",title:"Geburtstag + Café",desc:"Lee un diálogo sobre planear una fiesta de cumpleaños",
+   role:"A/B/Kellner",
+   hint:"Lee el diálogo en el café y la planificación del cumpleaños.",
+   script:[
+     {speaker:"A",text:"Hallo B! Schön, dich zu sehen."},
+     {speaker:"B",text:"Hallo A! Mir geht’s gut, und dir?"},
+     {speaker:"A",text:"Gut, danke. Wollen wir ins Café gehen?"},
+     {speaker:"B",text:"Ja, gern!"},
+     {speaker:"Kellner",text:"Guten Tag! Was möchten Sie?"},
+     {speaker:"A",text:"Ich möchte einen Kaffee, bitte."},
+     {speaker:"B",text:"Ich nehme einen Cappuccino und ein Stück Kuchen."},
+     {speaker:"Kellner",text:"Möchten Sie noch etwas?"},
+     {speaker:"A",text:"Nein, danke."},
+     {speaker:"B",text:"Also, du hast bald Geburtstag, oder?"},
+     {speaker:"A",text:"Ja, am Samstag. Ich möchte eine Party machen."},
+     {speaker:"B",text:"Super! Wen lädst du ein?"},
+     {speaker:"A",text:"Ich lade meine Freunde, meine Familie und ein paar Kollegen ein."},
+     {speaker:"B",text:"Wie viele Leute kommen?"},
+     {speaker:"A",text:"Vielleicht 15 bis 20 Personen."},
+     {speaker:"B",text:"Wo ist die Party?"},
+     {speaker:"A",text:"Bei mir zu Hause. Ich habe genug Platz."},
+     {speaker:"B",text:"Wann beginnt die Party?"},
+     {speaker:"A",text:"Um 18 Uhr, aber die Leute können auch später kommen."},
+     {speaker:"B",text:"Was brauchst du für die Party?"},
+     {speaker:"A",text:"Ich brauche Essen, Getränke und Musik."},
+     {speaker:"B",text:"Was möchtest du essen?"},
+     {speaker:"A",text:"Ich denke: Pizza, Chips, Salat und Kuchen."},
+     {speaker:"B",text:"Und Getränke?"},
+     {speaker:"A",text:"Wasser, Saft, Cola und vielleicht etwas Bier."},
+     {speaker:"B",text:"Brauchst du Hilfe?"},
+     {speaker:"A",text:"Ja, bitte! Kannst du Musik bringen?"},
+     {speaker:"B",text:"Klar! Ich bringe eine Playlist und einen Lautsprecher."},
+     {speaker:"A",text:"Super!"},
+     {speaker:"B",text:"Möchtest du auch Spiele oder Aktivitäten machen?"},
+     {speaker:"A",text:"Ja, vielleicht ein paar Spiele oder wir tanzen zusammen."},
+     {speaker:"B",text:"Gute Idee!"},
+     {speaker:"Kellner",text:"Das macht 7 Euro."},
+     {speaker:"B",text:"Ich zahle heute."},
+     {speaker:"A",text:"Danke!"},
+     {speaker:"A",text:"Kommst du zur Party?"},
+     {speaker:"B",text:"Ja, natürlich! Ich freue mich schon!"},
+     {speaker:"A",text:"Ich auch! Bis Samstag!"},
+     {speaker:"B",text:"Bis Samstag! Tschüss!"}
+   ]}
 ];
 
 // ── WRITING PROMPTS ──
@@ -2565,6 +2903,13 @@ function openDial(id){
   document.getElementById('dh-sub').textContent='Rol de Claude: '+currentDial.role;
   document.getElementById('dial-hint').innerHTML=currentDial.hint;
   document.getElementById('dial-msgs').innerHTML='';
+  const footer=document.querySelector('#dial-chat-view .dial-footer');
+  if(currentDial.script && currentDial.script.length){
+    footer.style.display='none';
+    currentDial.script.forEach(line=>addDialLine(line.speaker,line.text));
+    return;
+  }
+  footer.style.display='flex';
   // bot opens the dialog
   addDialMsg('bot','…');
   setTimeout(async()=>{
@@ -2589,6 +2934,15 @@ function addDialMsg(role,text){
   const d=document.createElement('div');
   d.className='msg '+role;
   d.innerHTML=`<div class="av">${role==='bot'?'🎭':'👤'}</div><div class="bubble">${fmt(text)}</div>`;
+  c.appendChild(d); c.scrollTop=c.scrollHeight;
+}
+
+function addDialLine(speaker,text){
+  const c=document.getElementById('dial-msgs');
+  const d=document.createElement('div');
+  const cls=speaker.replace(/\W/g,'');
+  d.className='dial-line '+cls;
+  d.innerHTML=`<div class="line-tag">${fmt(speaker)}</div><div class="line-text">${fmt(text)}</div>`;
   c.appendChild(d); c.scrollTop=c.scrollHeight;
 }
 
