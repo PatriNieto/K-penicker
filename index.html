@@ -31,10 +31,10 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
 .mode-btn:hover{background:var(--surface2);color:var(--text);}
 .mode-btn.active{background:rgba(245,200,66,.12);color:var(--accent);}
 .mode-btn .ico{font-size:1rem;width:18px;text-align:center;flex-shrink:0;}
-.content{display:flex;flex-direction:column;overflow:hidden;}
-.panel{display:none;flex:1;flex-direction:column;overflow:hidden;}
+.content{display:flex;flex-direction:column;overflow:hidden;min-width:0;}
+.panel{display:none;flex:1;flex-direction:column;overflow:hidden;min-width:0;width:100%;}
 .panel.active{display:flex;}
-.scroll-inner{flex:1;overflow-y:auto;padding:24px 28px;scrollbar-width:thin;scrollbar-color:var(--border) transparent;}
+.scroll-inner{flex:1;overflow-y:auto;padding:24px 28px;scrollbar-width:thin;scrollbar-color:var(--border) transparent;min-width:0;width:100%;}
 
 /* ── MOBILE NAV BAR (hidden on desktop) ── */
 .mob-nav{display:none;}
@@ -673,8 +673,8 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
 
 
 /* ── VERBOS ── */
-.verb-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;}
-.verb-card{background:var(--surface2);border:1.5px solid var(--border);border-radius:14px;cursor:pointer;transition:all .28s cubic-bezier(.34,.1,.64,1);position:relative;overflow:hidden;}
+.verb-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;align-items:start;}
+.verb-card{background:var(--surface2);border:1.5px solid var(--border);border-radius:14px;cursor:pointer;transition:all .28s cubic-bezier(.34,.1,.64,1);position:relative;overflow:hidden;min-height:118px;}
 .verb-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--purple),rgba(155,127,232,.4));}
 .verb-card:hover{border-color:var(--purple);transform:translateY(-4px);box-shadow:0 12px 24px rgba(0,0,0,.3);}
 .verb-card.open{border-color:var(--purple);box-shadow:0 0 0 2px rgba(155,127,232,.2);}
@@ -692,18 +692,75 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
 .vc-conj .vi{color:var(--accent2);font-weight:700;}
 .vc-note{font-size:.75rem;color:var(--muted);padding:7px 11px;background:rgba(245,200,66,.07);border-radius:6px;border-left:2px solid var(--accent);}
 .verb-filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;align-items:center;}
-.verb-filter-btn{background:transparent;border:1px solid var(--border);color:var(--muted);border-radius:20px;padding:4px 12px;font-size:.75rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;}
+.verb-filter-btn{background:transparent;border:1px solid var(--border);color:var(--muted);border-radius:20px;padding:4px 12px;font-size:.75rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;flex-shrink:0;}
 .verb-filter-btn:hover,.verb-filter-btn.active{border-color:var(--purple);color:var(--purple);background:rgba(155,127,232,.08);}
-.verb-search{background:var(--surface2);border:1.5px solid var(--border);border-radius:10px;padding:9px 14px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.88rem;outline:none;flex:1;min-width:160px;transition:all .2s;}
+.verb-search{background:var(--surface2);border:1.5px solid var(--border);border-radius:10px;padding:9px 14px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.88rem;outline:none;flex:1 1 220px;max-width:360px;transition:all .2s;}
 .verb-search:focus{border-color:var(--purple);}
 .verb-search::placeholder{color:var(--muted);}
 .verb-count{font-family:'DM Mono',monospace;font-size:.8rem;color:var(--muted);align-self:center;}
+@media(min-width:1000px){
+  .verb-grid{grid-template-columns:repeat(3,minmax(0,1fr));}
+}
 @media(max-width:700px){
   .verb-grid{grid-template-columns:1fr 1fr;gap:10px;}
   .vc-name{font-size:1rem;}
   .vc-head{padding:12px 14px;}
   .vc-body{padding:11px 14px 13px;}
   .vc-conj{font-size:.78rem;gap:4px 10px;}
+}
+
+/* ── PASADO / PARTICIPIOS ── */
+.past-header-row{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:18px;}
+.past-practice-btn{background:linear-gradient(135deg,var(--accent),#f9d75b);border:none;border-radius:10px;padding:10px 16px;color:#111;font-weight:700;cursor:pointer;box-shadow:0 10px 18px rgba(245,200,66,.22);transition:transform .2s ease, box-shadow .2s ease;font-size:.8rem;letter-spacing:.2px;}
+.past-practice-btn:hover{transform:translateY(-2px);box-shadow:0 14px 22px rgba(245,200,66,.28);}
+.past-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;align-items:stretch;}
+.past-card{background:linear-gradient(180deg,var(--surface2),rgba(17,17,21,.9));border:1px solid var(--border);border-radius:14px;padding:16px;position:relative;overflow:hidden;transition:all .25s ease;}
+.past-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--accent),var(--purple));}
+.past-card:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 12px 24px rgba(0,0,0,.25);}
+.past-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:12px;}
+.past-inf{font-size:1.15rem;font-weight:700;color:var(--text);line-height:1.2;}
+.past-lvl{font-family:'DM Mono',monospace;font-size:.62rem;color:var(--accent);background:rgba(245,200,66,.08);border:1px solid rgba(245,200,66,.18);padding:3px 7px;border-radius:6px;flex-shrink:0;}
+.past-row{display:grid;grid-template-columns:1fr;gap:6px;}
+.past-box{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:8px 10px;}
+.past-label{display:block;font-family:'DM Mono',monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:1.4px;color:var(--muted);margin-bottom:4px;}
+.past-value{font-size:.97rem;font-weight:700;color:var(--accent);line-height:1.4;}
+.past-value.part{color:var(--accent2);}
+.practice-wrap{max-width:780px;margin:20px auto 0;display:flex;flex-direction:column;gap:16px;}
+.practice-status{display:flex;justify-content:space-between;align-items:center;gap:12px;font-family:'DM Mono',monospace;font-size:.75rem;color:var(--muted);}
+.practice-badge{padding:6px 10px;border-radius:999px;border:1px solid rgba(245,200,66,.25);background:rgba(245,200,66,.08);color:var(--accent);}
+.practice-card{background:linear-gradient(180deg,var(--surface2),rgba(17,17,21,.9));border:1px solid var(--border);border-radius:20px;padding:18px;box-shadow:0 18px 32px rgba(0,0,0,.18);}
+.practice-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px;}
+.practice-level{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-family:'DM Mono',monospace;}
+.practice-streak{padding:6px 10px;border-radius:999px;background:rgba(155,127,232,.12);color:var(--purple);border:1px solid rgba(155,127,232,.22);font-family:'DM Mono',monospace;font-size:.7rem;}
+.practice-verb{font-family:'DM Serif Display',serif;font-size:clamp(2.1rem,7vw,3.2rem);color:var(--text);margin:8px 0 18px;text-align:center;letter-spacing:.02em;}
+.practice-verb-bubble{padding:16px 18px;border-radius:18px;background:linear-gradient(135deg,rgba(245,200,66,.12),rgba(155,127,232,.10));border:1px solid rgba(245,200,66,.18);}
+.practice-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px;}
+.practice-answer-group{display:flex;flex-direction:column;gap:10px;}
+.practice-label{font-size:.68rem;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:1.2px;color:var(--muted);}
+.practice-choice{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 10px;color:var(--text);font-weight:600;font-size:.88rem;text-align:center;cursor:pointer;transition:all .18s ease;}
+.practice-choice:hover{border-color:var(--accent);transform:translateY(-1px);}
+.practice-choice.selected{border-color:var(--accent);background:rgba(245,200,66,.08);box-shadow:0 0 0 2px rgba(245,200,66,.08);}
+.practice-choice.correct{border-color:var(--green);background:rgba(76,175,130,.08);color:var(--green);}
+.practice-choice.wrong{border-color:var(--red);background:rgba(224,92,92,.08);color:var(--red);}
+.practice-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;}
+.practice-btn{border:none;border-radius:10px;padding:11px 18px;cursor:pointer;font-weight:700;font-size:.84rem;transition:all .2s ease;}
+.practice-btn.pri{background:linear-gradient(135deg,var(--accent),#f9d75b);color:#111;box-shadow:0 10px 18px rgba(245,200,66,.2);}
+.practice-btn.pri:hover{transform:translateY(-2px);}
+.practice-btn.sec{background:transparent;border:1px solid var(--border);color:var(--text);}
+.practice-btn.sec:hover{border-color:var(--accent2);color:var(--accent2);}
+.practice-feedback{font-size:.9rem;line-height:1.55;padding:12px 14px;border-radius:12px;border:1px solid var(--border);background:var(--surface2);}
+.practice-feedback.ok{border-color:rgba(76,175,130,.35);color:var(--green);background:rgba(76,175,130,.08);}
+.practice-feedback.ko{border-color:rgba(224,92,92,.35);color:var(--red);background:rgba(224,92,92,.08);}
+@media(max-width:700px){
+  .past-header-row{flex-direction:column;align-items:stretch;}
+  .past-practice-btn{width:100%;}
+  .past-grid{grid-template-columns:1fr 1fr;gap:10px;}
+  .past-inf{font-size:1rem;}
+  .past-card{padding:12px;}
+  .past-box{padding:7px 9px;}
+  .practice-card{padding:14px;}
+  .practice-grid{grid-template-columns:1fr;}
+  .practice-choice{padding:11px 8px;}
 }
 
 /* ── PRONUNCIACIÓN ── */
@@ -766,6 +823,7 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
   <div class="sb-title">Estudiar</div>
   <button class="mode-btn" onclick="setMode('vocab',this)"><span class="ico">📚</span>Vocabulario</button>
   <button class="mode-btn" onclick="setMode('verbs',this)"><span class="ico">🔤</span>Verbos</button>
+  <button class="mode-btn" onclick="setMode('past',this)"><span class="ico">🕒</span>Pasado</button>
   <button class="mode-btn" onclick="setMode('grammar',this)"><span class="ico">📐</span>Gramática</button>
   <button class="mode-btn" onclick="setMode('pron',this)"><span class="ico">🔊</span>Pronunciación</button>
   <button class="mode-btn" onclick="setMode('glosario',this)"><span class="ico">📖</span>Glosario</button>
@@ -1108,8 +1166,6 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
     </div>
     </div>
   </div>
-</div>
-
 
 <!-- ══ VERBOS ══ -->
 <div class="panel" id="panel-verbs">
@@ -1130,6 +1186,33 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
       <span class="verb-count" id="verb-count"></span>
     </div>
     <div class="verb-grid" id="verb-grid"></div>
+  </div>
+</div>
+
+<!-- ══ PASADO Y PARTICIPIOS ══ -->
+<div class="panel" id="panel-past">
+  <div class="scroll-inner">
+    <div class="past-header-row">
+      <div>
+        <div class="section-title">Pasado y participios</div>
+        <div class="section-sub">Infinitivo, Präteritum y Partizip II de los verbos irregulares más usados.</div>
+      </div>
+      <button class="past-practice-btn" onclick="setMode('practice',this)">Practicar</button>
+    </div>
+    <div class="past-grid" id="past-grid"></div>
+  </div>
+</div>
+
+<!-- ══ PRÁCTICA DE PASADO ══ -->
+<div class="panel" id="panel-practice">
+  <div class="scroll-inner">
+    <div class="section-title">Juego: pasado y participios</div>
+    <div class="section-sub">Escribe el Präteritum y el Partizip II para cada verbo.</div>
+    <div class="practice-wrap">
+      <div class="practice-status" id="practice-status"></div>
+      <div class="practice-card" id="practice-card"></div>
+      <div class="practice-actions" id="practice-actions"></div>
+    </div>
   </div>
 </div>
 
@@ -1285,6 +1368,9 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
   </button>
   <button class="mob-nav-btn" onclick="setMode('verbs',this)" data-mode="verbs">
     <span class="mico">🔤</span>Verbos
+  </button>
+  <button class="mob-nav-btn" onclick="setMode('past',this)" data-mode="past">
+    <span class="mico">🕒</span>Pasado
   </button>
   <button class="mob-nav-btn" onclick="setMode('grammar',this)" data-mode="grammar">
     <span class="mico">📐</span>Gramática
@@ -2598,6 +2684,7 @@ const GLOSARIO = [
 function init(){
   renderVocab();
   renderVerbs();
+  renderPastVerbs();
   renderGlosario();
   initEjercicios();
   renderPron();
@@ -2615,10 +2702,9 @@ function setMode(mode,btn){
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.mode-btn').forEach(b=>b.classList.remove('active'));
   document.querySelectorAll('.mob-nav-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.past-practice-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById('panel-'+mode).classList.add('active');
-  // activate whichever button was clicked (sidebar or mobile nav)
   if(btn) btn.classList.add('active');
-  // also sync the other nav (sidebar ↔ mobile)
   document.querySelectorAll('.mode-btn, .mob-nav-btn').forEach(b=>{
     if(b!==btn && (b.getAttribute('onclick')||'').includes("'"+mode+"'")){
       b.classList.add('active');
@@ -2626,6 +2712,8 @@ function setMode(mode,btn){
   });
   if(mode==='vocab') renderVocab();
   if(mode==='verbs') renderVerbs();
+  if(mode==='past') renderPastVerbs();
+  if(mode==='practice') startPastPractice();
   if(mode==='glosario') renderGlosario();
   if(mode==='quiz') startQuiz();
 }
@@ -3562,6 +3650,196 @@ var EXTRA_VERBS = [
   {w:'laufen',   art:'verb', l:8, t:'correr / caminar',special:{ich:'laufe',du:'läufst',er:'läuft',wir:'laufen',ihr:'lauft',sie:'laufen',note:'du/er: Umlaut ä'}},
 ];
 
+var IRREGULAR_VERBS = [
+  {w:'abfahren', pr:'fuhr ab', pp:'ist abgefahren', l:1, t:'salir / irse'},
+  {w:'abgeben', pr:'gab ab', pp:'hat abgegeben', l:1, t:'entregar'},
+  {w:'abheben', pr:'hob ab', pp:'hat abgehoben', l:1, t:'retirar / levantar'},
+  {w:'abschließen', pr:'schloss ab', pp:'hat abgeschlossen', l:1, t:'cerrar / terminar'},
+  {w:'anbieten', pr:'bot an', pp:'hat angeboten', l:1, t:'ofrecer'},
+  {w:'anfangen', pr:'fing an', pp:'hat angefangen', l:1, t:'empezar'},
+  {w:'ankommen', pr:'kam an', pp:'ist angekommen', l:1, t:'llegar'},
+  {w:'annehmen', pr:'nahm an', pp:'hat angenommen', l:1, t:'aceptar'},
+  {w:'ansehen', pr:'sah an', pp:'hat angesehen', l:1, t:'mirar'},
+  {w:'anziehen', pr:'zog an', pp:'hat angezogen', l:1, t:'ponerse'},
+  {w:'aufschreiben', pr:'schrieb auf', pp:'hat aufgeschrieben', l:1, t:'anotar'},
+  {w:'aufstehen', pr:'stand auf', pp:'ist aufgestanden', l:1, t:'levantarse'},
+  {w:'ausgeben', pr:'gab aus', pp:'hat ausgegeben', l:1, t:'gastar'},
+  {w:'ausgehen', pr:'ging aus', pp:'ist ausgegangen', l:1, t:'salir'},
+  {w:'ausschlafen', pr:'schlief aus', pp:'hat ausgeschlafen', l:1, t:'dormir bien'},
+  {w:'aussehen', pr:'sah aus', pp:'hat ausgesehen', l:1, t:'verse / parecer'},
+  {w:'aussteigen', pr:'stieg aus', pp:'ist ausgestiegen', l:1, t:'bajar'},
+  {w:'ausziehen', pr:'zog aus', pp:'hat ausgezogen', l:1, t:'mudarse / quitarse'},
+  {w:'bekommen', pr:'bekam', pp:'hat bekommen', l:1, t:'recibir'},
+  {w:'bergen', pr:'barg', pp:'hat geborgen', l:1, t:'rescatar'},
+  {w:'beschreiben', pr:'beschrieb', pp:'hat beschrieben', l:1, t:'describir'},
+  {w:'bestehen', pr:'bestand', pp:'hat bestanden', l:1, t:'aprobar / consistir'},
+  {w:'bewerben', pr:'bewarb', pp:'hat beworben', l:1, t:'solicitar / presentar'},
+  {w:'bitten', pr:'bat', pp:'hat gebeten', l:1, t:'pedir'},
+  {w:'bleiben', pr:'blieb', pp:'ist geblieben', l:1, t:'quedarse'},
+  {w:'bringen', pr:'brachte', pp:'hat gebracht', l:1, t:'traer'},
+  {w:'denken', pr:'dachte', pp:'hat gedacht', l:1, t:'pensar'},
+  {w:'einfallen', pr:'fiel ein', pp:'ist eingefallen', l:1, t:'ocurrirse'},
+  {w:'eingeben', pr:'gab ein', pp:'hat eingegeben', l:1, t:'introducir'},
+  {w:'einhalten', pr:'hielt ein', pp:'hat eingehalten', l:1, t:'cumplir'},
+  {w:'einladen', pr:'lud ein', pp:'hat eingeladen', l:1, t:'invitar'},
+  {w:'einschlafen', pr:'schlief ein', pp:'ist eingeschlafen', l:1, t:'dormirse'},
+  {w:'einsteigen', pr:'stieg ein', pp:'ist eingestiegen', l:1, t:'subirse'},
+  {w:'empfangen', pr:'empfing', pp:'hat empfangen', l:1, t:'recibir'},
+  {w:'empfehlen', pr:'empfahl', pp:'hat empfohlen', l:1, t:'recomendar'},
+  {w:'entscheiden', pr:'entschied', pp:'hat entschieden', l:1, t:'decidir'},
+  {w:'erkennen', pr:'erkannte', pp:'hat erkannt', l:1, t:'reconocer'},
+  {w:'erscheinen', pr:'erschien', pp:'ist erschienen', l:1, t:'aparecer'},
+  {w:'essen', pr:'aß', pp:'hat gegessen', l:1, t:'comer'},
+  {w:'fahren', pr:'fuhr', pp:'ist gefahren', l:1, t:'ir en vehículo'},
+  {w:'fallen', pr:'fiel', pp:'ist gefallen', l:1, t:'caer'},
+  {w:'finden', pr:'fand', pp:'hat gefunden', l:1, t:'encontrar'},
+  {w:'fliegen', pr:'flog', pp:'ist geflogen', l:1, t:'volar'},
+  {w:'geben', pr:'gab', pp:'hat gegeben', l:1, t:'dar'},
+  {w:'gehen', pr:'ging', pp:'ist gegangen', l:1, t:'ir'},
+  {w:'gelingen', pr:'gelang', pp:'ist gelungen', l:1, t:'salir bien'},
+  {w:'genießen', pr:'genoss', pp:'hat genossen', l:1, t:'disfrutar'},
+  {w:'gewinnen', pr:'gewann', pp:'hat gewonnen', l:1, t:'ganar'},
+  {w:'helfen', pr:'half', pp:'hat geholfen', l:1, t:'ayudar'},
+  {w:'heißen', pr:'hieß', pp:'hat geheißen', l:1, t:'llamarse'},
+  {w:'kennen', pr:'kannte', pp:'hat gekannt', l:1, t:'conocer'},
+  {w:'klingen', pr:'klang', pp:'hat geklungen', l:1, t:'sonar'},
+  {w:'kommen', pr:'kam', pp:'ist gekommen', l:1, t:'venir'},
+  {w:'laufen', pr:'lief', pp:'ist gelaufen', l:1, t:'correr'},
+  {w:'lesen', pr:'las', pp:'hat gelesen', l:1, t:'leer'},
+  {w:'mitbringen', pr:'brachte mit', pp:'hat mitgebracht', l:1, t:'traer'},
+  {w:'mithelfen', pr:'half mit', pp:'hat mitgeholfen', l:1, t:'ayudar'},
+  {w:'mitnehmen', pr:'nahm mit', pp:'hat mitgenommen', l:1, t:'llevarse'},
+  {w:'nehmen', pr:'nahm', pp:'hat genommen', l:1, t:'tomar'},
+  {w:'nennen', pr:'nannte', pp:'hat genannt', l:1, t:'nombrar'},
+  {w:'rausgehen', pr:'ging raus', pp:'ist rausgegangen', l:1, t:'salir'},
+  {w:'reiten', pr:'ritt', pp:'ist geritten', l:1, t:'montar a caballo'},
+  {w:'rufen', pr:'rief', pp:'hat gerufen', l:1, t:'llamar'},
+  {w:'schlafen', pr:'schlief', pp:'hat geschlafen', l:1, t:'dormir'},
+  {w:'schlagen', pr:'schlug', pp:'hat geschlagen', l:1, t:'golpear'},
+  {w:'schreiben', pr:'schrieb', pp:'hat geschrieben', l:1, t:'escribir'},
+  {w:'schwimmen', pr:'schwamm', pp:'ist geschwommen', l:1, t:'nadar'},
+  {w:'sehen', pr:'sah', pp:'hat gesehen', l:1, t:'ver'},
+  {w:'sein', pr:'war', pp:'ist gewesen', l:1, t:'ser / estar'},
+  {w:'singen', pr:'sang', pp:'hat gesungen', l:1, t:'cantar'},
+  {w:'sitzen', pr:'saß', pp:'hat gesessen', l:1, t:'estar sentado'},
+  {w:'sprechen', pr:'sprach', pp:'hat gesprochen', l:1, t:'hablar'},
+  {w:'springen', pr:'sprang', pp:'ist gesprungen', l:1, t:'saltar'},
+  {w:'stehen', pr:'stand', pp:'ist gestanden', l:1, t:'estar de pie'},
+  {w:'tragen', pr:'trug', pp:'hat getragen', l:1, t:'llevar'},
+  {w:'treffen', pr:'traf', pp:'hat getroffen', l:1, t:'encontrarse'},
+  {w:'trinken', pr:'trank', pp:'hat getrunken', l:1, t:'beber'},
+  {w:'tun', pr:'tat', pp:'hat getan', l:1, t:'hacer'},
+  {w:'überweisen', pr:'überwies', pp:'hat überwiesen', l:1, t:'transferir'},
+  {w:'umsehen', pr:'sah um', pp:'hat umgesehen', l:1, t:'mirar alrededor'},
+  {w:'umsteigen', pr:'stieg um', pp:'ist umgestiegen', l:1, t:'cambiar de transporte'},
+  {w:'unterhalten', pr:'unterhielt', pp:'hat unterhalten', l:1, t:'entretener'},
+  {w:'unterrichten', pr:'unterrichtete', pp:'hat unterrichtet', l:1, t:'enseñar'},
+  {w:'verbinden', pr:'verband', pp:'hat verbunden', l:1, t:'conectar'},
+  {w:'vergessen', pr:'vergaß', pp:'hat vergessen', l:1, t:'olvidar'},
+  {w:'vergleichen', pr:'verglich', pp:'hat verglichen', l:1, t:'comparar'},
+  {w:'vergleichen', pr:'verglich', pp:'hat verglichen', l:1, t:'comparar'},
+  {w:'verlassen', pr:'verließ', pp:'hat verlassen', l:1, t:'dejar / salir'},
+  {w:'verschlafen', pr:'verschlief', pp:'hat verschlafen', l:1, t:'dormirse demasiado'},
+  {w:'verstehen', pr:'verstand', pp:'hat verstanden', l:1, t:'entender'},
+  {w:'wachsen', pr:'wuchs', pp:'ist gewachsen', l:1, t:'crecer'},
+  {w:'waschen', pr:'wusch', pp:'hat gewaschen', l:1, t:'lavar'},
+  {w:'werden', pr:'wurde', pp:'ist geworden', l:1, t:'volverse / llegar a ser'},
+  {w:'wissen', pr:'wusste', pp:'hat gewusst', l:1, t:'saber'},
+  {w:'ziehen', pr:'zog', pp:'hat gezogen', l:1, t:'tirar / moverse'},
+  {w:'zuhaben', pr:'hatte zu', pp:'hat zugehaben', l:1, t:'tener algo pendiente'},
+  {w:'zunehmen', pr:'nahm zu', pp:'hat zugenommen', l:1, t:'aumentar'},
+  {w:'zurückfahren', pr:'fuhr zurück', pp:'ist zurückgefahren', l:1, t:'volver en vehículo'},
+  {w:'zurückrufen', pr:'rief zurück', pp:'hat zurückgerufen', l:1, t:'llamar de vuelta'},
+  {w:'anfahren', pr:'fuhr an', pp:'hat angefahren', l:1, t:'acercarse / arrancar'},
+  {w:'freihaben', pr:'hat frei', pp:'hat freigehabt', l:1, t:'tener libre'},
+  {w:'lossein', pr:'war los', pp:'ist los gewesen', l:1, t:'estar libre / sin carga'},
+  {w:'losfahren', pr:'fuhr los', pp:'ist losgefahren', l:1, t:'salir / arrancar'},
+  {w:'losgehen', pr:'ging los', pp:'ist losgegangen', l:1, t:'ponerse en marcha'},
+  {w:'mitsprechen', pr:'sprach mit', pp:'hat mitgesprochen', l:1, t:'hablar junto con'},
+  {w:'nachsprechen', pr:'sprach nach', pp:'hat nachgesprochen', l:1, t:'repetir / imitar'},
+  {w:'stattfinden', pr:'fand statt', pp:'hat stattgefunden', l:1, t:'tener lugar'},
+  {w:'wehtun', pr:'tat weh', pp:'hat wehgetan', l:1, t:'doler'},
+  {w:'abholen', pr:'holte ab', pp:'hat abgeholt', l:1, t:'recoger'},
+  {w:'anrufen', pr:'rief an', pp:'hat angerufen', l:1, t:'llamar'},
+  {w:'aufgeben', pr:'gab auf', pp:'hat aufgegeben', l:1, t:'dejar / rendirse'},
+  {w:'aufhören', pr:'hörte auf', pp:'hat aufgehört', l:1, t:'parar'},
+  {w:'aufladen', pr:'lud auf', pp:'hat aufgeladen', l:1, t:'cargar'},
+  {w:'aufmachen', pr:'machte auf', pp:'hat aufgemacht', l:1, t:'abrir'},
+  {w:'backen', pr:'backte / buk', pp:'hat gebacken', l:1, t:'hornear'},
+  {w:'befehlen', pr:'befahl', pp:'hat befohlen', l:1, t:'ordenar'},
+  {w:'beginnen', pr:'begann', pp:'hat begonnen', l:1, t:'empezar'},
+  {w:'behalten', pr:'behielt', pp:'hat behalten', l:1, t:'mantener'},
+  {w:'bersten', pr:'barst', pp:'ist geborsten', l:1, t:'reventar'},
+  {w:'bieten', pr:'bot', pp:'hat geboten', l:1, t:'ofrecer'},
+  {w:'binden', pr:'band', pp:'hat gebunden', l:1, t:'atado / enlazar'},
+  {w:'braten', pr:'briet', pp:'hat gebraten', l:1, t:'freír'},
+  {w:'brechen', pr:'brach', pp:'hat gebrochen', l:1, t:'romper'},
+  {w:'brennen', pr:'brannte', pp:'hat gebrannt', l:1, t:'arder'},
+  {w:'dürfen', pr:'durfte', pp:'hat gedurft', l:1, t:'tener permiso'},
+  {w:'erfahren', pr:'erfuhr', pp:'hat erfahren', l:1, t:'enterarse'},
+  {w:'ergreifen', pr:'ergriff', pp:'hat ergriffen', l:1, t:'coger / asir'},
+  {w:'erschrecken', pr:'erschrak', pp:'ist erschrocken', l:1, t:'asustarse'},
+  {w:'fangen', pr:'fing', pp:'hat gefangen', l:1, t:'atrapar'},
+  {w:'fassen', pr:'fasste', pp:'hat gefasst', l:1, t:'agarrar'},
+  {w:'fliehen', pr:'floh', pp:'ist geflohen', l:1, t:'huir'},
+  {w:'fließen', pr:'floss', pp:'ist geflossen', l:1, t:'fluir'},
+  {w:'fressen', pr:'fraß', pp:'hat gefressen', l:1, t:'comer (animales)'},
+  {w:'frieren', pr:'fror', pp:'hat gefroren', l:1, t:'tener frío'},
+  {w:'gelten', pr:'galt', pp:'hat gegolten', l:1, t:'valer / contar'},
+  {w:'geschehen', pr:'geschah', pp:'ist geschehen', l:1, t:'pasar / ocurrir'},
+  {w:'gießen', pr:'goss', pp:'hat gegossen', l:1, t:'verter'},
+  {w:'greifen', pr:'griff', pp:'hat gegriffen', l:1, t:'agarrar'},
+  {w:'haben', pr:'hatte', pp:'hat gehabt', l:1, t:'tener'},
+  {w:'halten', pr:'hielt', pp:'hat gehalten', l:1, t:'mantener / aguantar'},
+  {w:'heben', pr:'hob', pp:'hat gehoben', l:1, t:'levantar'},
+  {w:'hängen', pr:'hing', pp:'hat gehangen', l:1, t:'colgar / estar colgado'},
+  {w:'laden', pr:'lud', pp:'hat geladen', l:1, t:'cargar'},
+  {w:'lassen', pr:'ließ', pp:'hat gelassen', l:1, t:'dejar / permitir'},
+  {w:'leiden', pr:'litt', pp:'hat gelitten', l:1, t:'sufrir'},
+  {w:'leihen', pr:'lieh', pp:'hat geliehen', l:1, t:'prestar'},
+  {w:'liegen', pr:'lag', pp:'hat gelegen', l:1, t:'estar tumbado'},
+  {w:'lügen', pr:'log', pp:'hat gelogen', l:1, t:'mentir'},
+  {w:'messen', pr:'maß', pp:'hat gemessen', l:1, t:'medir'},
+  {w:'mitreden', pr:'redete mit', pp:'hat mitgeredet', l:1, t:'hablar junto con'},
+  {w:'mögen', pr:'mochte', pp:'hat gemocht', l:1, t:'gustar / querer'},
+  {w:'müssen', pr:'musste', pp:'hat gemusst', l:1, t:'tener que'},
+  {w:'nachdenken', pr:'dachte nach', pp:'hat nachgedacht', l:1, t:'pensar / reflexionar'},
+  {w:'pfeifen', pr:'pfiff', pp:'hat gepfiffen', l:1, t:'silbar'},
+  {w:'raten', pr:'riet', pp:'hat geraten', l:1, t:'aconsejar / adivinar'},
+  {w:'rennen', pr:'rannte', pp:'ist gerannt', l:1, t:'correr'},
+  {w:'sagen', pr:'sagte', pp:'hat gesagt', l:1, t:'decir'},
+  {w:'schaffen', pr:'schaffte', pp:'hat geschafft', l:1, t:'lograr / crear'},
+  {w:'scheinen', pr:'schien', pp:'hat geschienen', l:1, t:'parecer'},
+  {w:'schieben', pr:'schob', pp:'hat geschoben', l:1, t:'empujar'},
+  {w:'schießen', pr:'schoss', pp:'hat geschossen', l:1, t:'disparar'},
+  {w:'schleichen', pr:'schlich', pp:'ist geschlichen', l:1, t:'deslizarse'},
+  {w:'schließen', pr:'schloss', pp:'hat geschlossen', l:1, t:'cerrar'},
+  {w:'schlingen', pr:'schlang', pp:'hat geschlungen', l:1, t:'envolver'},
+  {w:'schneiden', pr:'schnitt', pp:'hat geschnitten', l:1, t:'cortar'},
+  {w:'schreien', pr:'schrie', pp:'hat geschrien', l:1, t:'gritar'},
+  {w:'senden', pr:'sandte / sendete', pp:'hat gesandt / gesendet', l:1, t:'enviar'},
+  {w:'sinken', pr:'sank', pp:'ist gesunken', l:1, t:'hundirse'},
+  {w:'sollen', pr:'sollte', pp:'hat gesollt', l:1, t:'deber'},
+  {w:'stechen', pr:'stach', pp:'hat gestochen', l:1, t:'pinchar'},
+  {w:'stehlen', pr:'stahl', pp:'hat gestohlen', l:1, t:'robar'},
+  {w:'steigen', pr:'stieg', pp:'ist gestiegen', l:1, t:'subir'},
+  {w:'sterben', pr:'starb', pp:'ist gestorben', l:1, t:'morir'},
+  {w:'stinken', pr:'stank', pp:'hat gestunken', l:1, t:'oler mal'},
+  {w:'stoßen', pr:'stieß', pp:'hat gestoßen', l:1, t:'empujar / chocar'},
+  {w:'streiten', pr:'stritt', pp:'hat gestritten', l:1, t:'discutir'},
+  {w:'umziehen', pr:'zog um', pp:'ist umgezogen', l:1, t:'mudarse'},
+  {w:'verbieten', pr:'verbot', pp:'hat verboten', l:1, t:'prohibir'},
+  {w:'verbringen', pr:'verbrachte', pp:'hat verbracht', l:1, t:'pasar / gastar tiempo'},
+  {w:'verleihen', pr:'verlieh', pp:'hat verliehen', l:1, t:'prestar'},
+  {w:'verlieren', pr:'verlor', pp:'hat verloren', l:1, t:'perder'},
+  {w:'vorschlagen', pr:'schlug vor', pp:'hat vorgeschlagen', l:1, t:'sugerir'},
+  {w:'werfen', pr:'warf', pp:'hat geworfen', l:1, t:'lanzar'},
+  {w:'wiegen', pr:'wog', pp:'hat gewogen', l:1, t:'pesar'},
+  {w:'wollen', pr:'wollte', pp:'hat gewollt', l:1, t:'querer'},
+  {w:'überfahren', pr:'fuhr über', pp:'ist/hat überfahren', l:1, t:'pasar por encima / cruzar'},
+  {w:'übergeben', pr:'gab über', pp:'hat übergeben', l:1, t:'entregar / vomitar'}
+];
+
 function getVerbConj(verbName) {
   // Check CONJ object first
   var c = CONJ[verbName.toLowerCase()];
@@ -3640,12 +3918,16 @@ function toggleVerbCard(idx) {
 function renderVerbs() {
   var search = (document.getElementById('verb-search') || {value:''}).value.toLowerCase().trim();
   
-  // Combine VOCAB verbs + EXTRA_VERBS (deduplicated)
+  // Combine VOCAB verbs + EXTRA_VERBS + IRREGULAR_VERBS (deduplicated)
   var vocabVerbs = VOCAB.filter(function(v){ return v.art === 'verb'; });
   var extraFiltered = EXTRA_VERBS.filter(function(ev){
     return !vocabVerbs.find(function(v){ return v.w.toLowerCase() === ev.w.toLowerCase(); });
   });
-  var allVerbs = vocabVerbs.concat(extraFiltered);
+  var irregularFiltered = IRREGULAR_VERBS.filter(function(ev){
+    return !vocabVerbs.find(function(v){ return v.w.toLowerCase() === ev.w.toLowerCase(); }) &&
+           !extraFiltered.find(function(v){ return v.w.toLowerCase() === ev.w.toLowerCase(); });
+  });
+  var allVerbs = vocabVerbs.concat(extraFiltered).concat(irregularFiltered);
   
   // Sort alphabetically
   allVerbs.sort(function(a,b){ return a.w.localeCompare(b.w, 'de'); });
@@ -3682,6 +3964,188 @@ function filterVerbLek(lek, btn) {
   document.querySelectorAll('.verb-filter-btn').forEach(function(b){ b.classList.remove('active'); });
   if (btn) btn.classList.add('active');
   renderVerbs();
+}
+
+function buildPastCardHTML(verb, idx) {
+  return '<div class="past-card" id="past-card-' + idx + '">'
+    + '<div class="past-head">'
+    + '<div class="past-inf">' + verb.w + '</div>'
+    + '<span class="past-lvl">L' + (verb.l || 1) + '</span>'
+    + '</div>'
+    + '<div class="past-row">'
+    + '<div class="past-box"><span class="past-label">Infinitiv</span><div class="past-value">' + verb.w + '</div></div>'
+    + '<div class="past-box"><span class="past-label">Präteritum</span><div class="past-value">' + (verb.pr || '—') + '</div></div>'
+    + '<div class="past-box"><span class="past-label">Partizip II</span><div class="past-value part">' + (verb.pp || '—') + '</div></div>'
+    + '</div>'
+    + '</div>';
+}
+
+function renderPastVerbs() {
+  var list = IRREGULAR_VERBS.slice().sort(function(a,b){ return a.w.localeCompare(b.w, 'de'); });
+  var grid = document.getElementById('past-grid');
+  if (!grid) return;
+  grid.innerHTML = list.map(function(verb, idx){ return buildPastCardHTML(verb, idx); }).join('');
+}
+
+var pastPracticeState = { verbs: [], index: 0, score: 0, streak: 0, bestStreak: 0, current: { pr: '', pp: '' } };
+
+function shuffleArray(arr) {
+  var a = arr.slice();
+  for (var i = a.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var temp = a[i];
+    a[i] = a[j];
+    a[j] = temp;
+  }
+  return a;
+}
+
+function normalizeAnswer(value) {
+  return (value || '').trim().toLowerCase().replace(/\s+/g, ' ');
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/\"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+function startPastPractice() {
+  var pool = IRREGULAR_VERBS.filter(function(v){ return v && v.pr && v.pp; });
+  pastPracticeState.verbs = shuffleArray(pool).slice(0, Math.min(10, pool.length));
+  pastPracticeState.index = 0;
+  pastPracticeState.score = 0;
+  pastPracticeState.streak = 0;
+  pastPracticeState.bestStreak = 0;
+  pastPracticeState.current = { pr: '', pp: '' };
+  renderPastPractice();
+}
+
+function buildPracticeOptions(verb, field) {
+  var answer = field === 'pr' ? verb.pr : verb.pp;
+  var pool = IRREGULAR_VERBS
+    .filter(function(v){ return v && (field === 'pr' ? v.pr : v.pp) && normalizeAnswer(v.w) !== normalizeAnswer(verb.w); })
+    .map(function(v){ return field === 'pr' ? v.pr : v.pp; });
+
+  var choices = [answer];
+  shuffleArray(pool).slice(0, 3).forEach(function(item){
+    if (normalizeAnswer(item) !== normalizeAnswer(answer) && choices.length < 4) choices.push(item);
+  });
+
+  while (choices.length < 4) {
+    choices.push(answer);
+  }
+
+  return shuffleArray(choices).slice(0, 4);
+}
+
+function pickPastPracticeOption(field, value) {
+  pastPracticeState.current[field] = value;
+  var buttons = document.querySelectorAll('[data-field="' + field + '"]');
+  buttons.forEach(function(btn){
+    var isSelected = btn.getAttribute('data-value') === value;
+    btn.classList.toggle('selected', isSelected);
+  });
+}
+
+function renderPastPractice() {
+  var status = document.getElementById('practice-status');
+  var card = document.getElementById('practice-card');
+  var actions = document.getElementById('practice-actions');
+  if (!status || !card || !actions) return;
+
+  if (pastPracticeState.index >= pastPracticeState.verbs.length) {
+    var accuracy = pastPracticeState.verbs.length ? Math.round((pastPracticeState.score / pastPracticeState.verbs.length) * 100) : 0;
+    status.innerHTML = '<span class="practice-badge">Fin</span><span>Puntuación: ' + pastPracticeState.score + '/' + pastPracticeState.verbs.length + '</span>';
+    card.innerHTML = '<div class="practice-feedback ok">¡Buen trabajo! Has terminado la sesión. <strong>' + accuracy + '%</strong> de acierto y racha máxima: <strong>' + pastPracticeState.bestStreak + '</strong>.</div>';
+    actions.innerHTML = '<button class="practice-btn pri" onclick="startPastPractice()">Repetir</button><button class="practice-btn sec" onclick="setMode(\'past\',document.querySelector(\'.past-practice-btn\'))">Volver</button>';
+    return;
+  }
+
+  var verb = pastPracticeState.verbs[pastPracticeState.index];
+  var prOptions = buildPracticeOptions(verb, 'pr');
+  var ppOptions = buildPracticeOptions(verb, 'pp');
+  pastPracticeState.current = { pr: '', pp: '' };
+
+  status.innerHTML = '<span class="practice-badge">Pregunta ' + (pastPracticeState.index + 1) + '/' + pastPracticeState.verbs.length + '</span><span>Puntuación: ' + pastPracticeState.score + '</span>';
+  card.innerHTML =
+    '<div class="practice-top">' +
+    '<div class="practice-level">Reto rápido</div>' +
+    '<div class="practice-streak">Racha: ' + pastPracticeState.streak + '</div>' +
+    '</div>' +
+    '<div class="practice-verb-bubble"><div class="practice-verb">' + escapeHtml(verb.w) + '</div></div>' +
+    '<div class="practice-grid">' +
+    '<div class="practice-answer-group">' +
+    '<div class="practice-label">Präteritum</div>' +
+    prOptions.map(function(opt){ return '<button class="practice-choice" data-field="pr" data-value="' + escapeHtml(opt) + '" onclick="pickPastPracticeOption(\'pr\', this.getAttribute(\'data-value\'))">' + escapeHtml(opt) + '</button>'; }).join('') +
+    '</div>' +
+    '<div class="practice-answer-group">' +
+    '<div class="practice-label">Partizip II</div>' +
+    ppOptions.map(function(opt){ return '<button class="practice-choice" data-field="pp" data-value="' + escapeHtml(opt) + '" onclick="pickPastPracticeOption(\'pp\', this.getAttribute(\'data-value\'))">' + escapeHtml(opt) + '</button>'; }).join('') +
+    '</div>' +
+    '</div>';
+  actions.innerHTML = '<button class="practice-btn pri" onclick="checkPastPractice()">Comprobar</button><button class="practice-btn sec" onclick="skipPastPractice()">Saltar</button>';
+}
+
+function checkPastPractice() {
+  var verb = pastPracticeState.verbs[pastPracticeState.index];
+  if (!pastPracticeState.current.pr || !pastPracticeState.current.pp) {
+    var status = document.getElementById('practice-status');
+    if (status) status.innerHTML = '<span class="practice-badge">Falta</span><span>Elige las dos respuestas</span>';
+    return;
+  }
+
+  var prOk = normalizeAnswer(pastPracticeState.current.pr) === normalizeAnswer(verb.pr);
+  var ppOk = normalizeAnswer(pastPracticeState.current.pp) === normalizeAnswer(verb.pp);
+  var roundOk = prOk && ppOk;
+
+  if (roundOk) {
+    pastPracticeState.score += 1;
+    pastPracticeState.streak += 1;
+    pastPracticeState.bestStreak = Math.max(pastPracticeState.bestStreak, pastPracticeState.streak);
+  } else {
+    pastPracticeState.streak = 0;
+  }
+
+  document.querySelectorAll('.practice-choice').forEach(function(btn){
+    var field = btn.getAttribute('data-field');
+    var val = btn.getAttribute('data-value');
+    var answer = field === 'pr' ? verb.pr : verb.pp;
+    btn.classList.remove('selected');
+    btn.classList.toggle('correct', normalizeAnswer(val) === normalizeAnswer(answer));
+    btn.classList.toggle('wrong', normalizeAnswer(val) === normalizeAnswer(pastPracticeState.current[field]) && normalizeAnswer(val) !== normalizeAnswer(answer));
+  });
+
+  var answerText = '<div class="practice-feedback ' + (roundOk ? 'ok' : 'ko') + '">';
+  answerText += roundOk ? '¡Perfecto! ' : 'Casi. ';
+  answerText += '<strong>Präteritum:</strong> ' + escapeHtml(verb.pr) + ' · <strong>Partizip II:</strong> ' + escapeHtml(verb.pp);
+  answerText += '</div>';
+
+  var status = document.getElementById('practice-status');
+  if (status) {
+    status.innerHTML = '<span class="practice-badge">Resultado</span><span>Puntuación: ' + pastPracticeState.score + '</span>';
+  }
+  var card = document.getElementById('practice-card');
+  if (card) {
+    card.innerHTML = answerText;
+  }
+  var actions = document.getElementById('practice-actions');
+  if (actions) {
+    actions.innerHTML = '<button class="practice-btn pri" onclick="nextPastPractice()">Siguiente</button>';
+  }
+}
+
+function skipPastPractice() {
+  pastPracticeState.index += 1;
+  renderPastPractice();
+}
+
+function nextPastPractice() {
+  pastPracticeState.index += 1;
+  renderPastPractice();
 }
 
 // ════════════════════════════════════════════
