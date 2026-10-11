@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Deutsch Lernen A1</title>
+<title>Deutsch Lernen</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -18,9 +18,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);hei
 header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;background:var(--surface);flex-shrink:0;gap:8px;flex-wrap:wrap;}
 .logo{font-family:'DM Serif Display',serif;font-size:1.3rem;color:var(--accent);letter-spacing:-0.5px;white-space:nowrap;}
 .logo span{color:var(--accent2);font-style:italic;}
-.lek-bar{display:flex;gap:4px;flex-wrap:wrap;}
-.lek-btn{background:transparent;border:1px solid var(--border);color:var(--muted);border-radius:20px;padding:3px 10px;font-size:0.68rem;cursor:pointer;font-family:'DM Mono',monospace;transition:all .2s;}
-.lek-btn:hover,.lek-btn.active{border-color:var(--accent);color:var(--accent);background:rgba(245,200,66,.07);}
 
 /* ── LAYOUT DESKTOP ── */
 .main{flex:1;display:grid;grid-template-columns:200px 1fr;overflow:hidden;}
@@ -66,18 +63,6 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
     flex-shrink:0;
   }
   .logo{font-size:1.15rem;flex-shrink:0;}
-  .lek-bar{
-    flex:1;flex-wrap:nowrap;
-    overflow-x:auto;scrollbar-width:none;
-    gap:5px;min-width:0;
-    -webkit-overflow-scrolling:touch;
-  }
-  .lek-bar::-webkit-scrollbar{display:none;}
-  .lek-btn{
-    flex-shrink:0;
-    padding:5px 12px;
-    font-size:0.72rem;
-  }
 
   /* ── MAIN LAYOUT ── */
   .main{display:flex;flex-direction:column;flex:1;min-height:0;overflow:hidden;}
@@ -86,8 +71,7 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
   .panel{flex:1;min-height:0;overflow:hidden;}
   .scroll-inner{flex:1;padding:16px 14px;min-height:0;}
 
-  /* ── CHAT ── */
-  .chat-msgs{flex:1;min-height:0;padding:14px;gap:12px;}
+  /* ── DIALOGS ── */
   .bubble{
     max-width:86%;
     font-size:1rem;
@@ -95,27 +79,6 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
     padding:12px 14px;
     border-radius:16px;
   }
-  .chat-footer{
-    flex-shrink:0;
-    padding:10px 14px;
-    padding-bottom:max(10px,env(safe-area-inset-bottom,0px));
-  }
-  .chips{gap:7px;margin-bottom:9px;flex-wrap:wrap;}
-  .chip{padding:8px 14px;font-size:0.82rem;border-radius:22px;}
-  .chat-row{gap:8px;}
-  .chat-input{
-    font-size:17px;
-    padding:12px 14px;
-    border-radius:22px;
-    line-height:1.4;
-  }
-  .send-btn{
-    width:48px;height:48px;
-    border-radius:24px;
-    flex-shrink:0;
-    font-size:1.1rem;
-  }
-
   /* ── BOTTOM NAV ── */
   .mob-nav{
     display:flex;
@@ -198,14 +161,6 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
   /* ── DIALOG chat ── */
   .dial-hint{margin:10px 14px 0;font-size:0.88rem;padding:10px 13px;}
   .dial-msgs{padding:12px 14px;}
-  .dial-msgs .bubble{max-width:86%;font-size:1rem;}
-  .dial-footer{
-    padding:10px 14px;
-    padding-bottom:max(10px,env(safe-area-inset-bottom,0px));
-    gap:8px;
-  }
-  .dial-input{font-size:17px;border-radius:22px;padding:12px 14px;}
-  .dial-send{width:48px;height:48px;border-radius:24px;flex-shrink:0;font-size:1.1rem;}
 
   /* ── VOCAB ── */
   .vocab-controls{gap:10px;}
@@ -218,7 +173,6 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
   .vc-w{font-size:1.15rem;margin-bottom:4px;}
   .vc-pl{font-size:.72rem;margin-bottom:10px;padding-bottom:10px;}
   .vc-tr{font-size:.9rem;padding:8px 11px;}
-  .vc-lk{top:10px;right:11px;font-size:.58rem;}
   .bt{font-size:.65rem;}
   .cg{font-size:.78rem;gap:4px 10px;padding:10px 12px;}
   .bh{font-size:.7rem;}
@@ -247,26 +201,14 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
 
   /* ── GLOSARIO ── */
   .glos-controls{flex-direction:column;}
-  .glos-search,.glos-filter{font-size:17px;padding:12px 14px;width:100%;}
+  .glos-search{font-size:17px;padding:12px 14px;width:100%;}
   .glos-grid{grid-template-columns:1fr;}
   .glos-entry{padding:12px;}
   .glos-entry-de{font-size:1rem;margin-bottom:6px;}
-  .glos-entry-art{font-size:0.7rem;margin-bottom:8px;}
   .glos-entry-es{font-size:0.9rem;margin-bottom:8px;}
   .glos-entry-cap{font-size:0.72rem;padding-top:8px;}
 
 
-  /* ── WRITING ── */
-  .write-wrap{max-width:100%;}
-  .wp-tag{font-size:0.72rem;}
-  .wp-text{font-size:1rem;line-height:1.65;}
-  .wp-hint{font-size:0.88rem;}
-  .write-ta{font-size:17px;padding:14px;min-height:130px;}
-  .write-actions{flex-wrap:wrap;gap:9px;}
-  .w-btn{flex:1;min-width:120px;padding:13px;font-size:0.95rem;}
-  .write-fb{font-size:0.95rem;padding:16px;line-height:1.65;}
-  .pn-btn{font-size:0.88rem;padding:7px 14px;}
-  .pn-count{font-size:0.82rem;}
   .back-btn{font-size:0.9rem;margin-bottom:14px;}
 
 }
@@ -284,8 +226,7 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
 .back-btn{display:flex;align-items:center;gap:7px;background:transparent;border:none;color:var(--muted);cursor:pointer;font-size:0.82rem;font-family:'DM Sans',sans-serif;padding:0;margin-bottom:18px;transition:color .2s;}
 .back-btn:hover{color:var(--accent);}
 
-/* ── CHAT ── */
-.chat-msgs{flex:1;overflow-y:auto;padding:22px 28px;display:flex;flex-direction:column;gap:16px;scrollbar-width:thin;scrollbar-color:var(--border) transparent;}
+/* ── DIALOGS ── */
 .msg{display:flex;gap:11px;animation:fadeUp .3s ease;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
 .msg.user{flex-direction:row-reverse;}
@@ -298,21 +239,6 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
 .bubble strong{color:var(--accent);}
 .bubble em{color:var(--accent2);font-style:normal;font-weight:500;}
 .bubble code{background:rgba(245,200,66,.1);border:1px solid rgba(245,200,66,.2);padding:1px 5px;border-radius:4px;font-family:'DM Mono',monospace;font-size:.78rem;color:var(--accent);}
-.tdot{display:inline-block;width:5px;height:5px;background:var(--muted);border-radius:50%;margin:0 2px;animation:blink 1.2s infinite;}
-.tdot:nth-child(2){animation-delay:.2s;}.tdot:nth-child(3){animation-delay:.4s;}
-@keyframes blink{0%,80%,100%{opacity:.2}40%{opacity:1}}
-.chat-footer{border-top:1px solid var(--border);padding:14px 28px;background:var(--surface);}
-.chips{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:10px;}
-.chip{background:var(--surface2);border:1px solid var(--border);color:var(--muted);border-radius:20px;padding:5px 12px;font-size:.74rem;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif;}
-.chip:hover{border-color:var(--accent);color:var(--accent);}
-.chat-row{display:flex;gap:10px;}
-.chat-input{flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:11px;padding:11px 15px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.87rem;resize:none;outline:none;max-height:100px;}
-.chat-input:focus{border-color:var(--accent);}
-.chat-input::placeholder{color:var(--muted);}
-.send-btn{background:var(--accent);border:none;border-radius:11px;width:44px;height:44px;cursor:pointer;color:#000;font-size:1rem;transition:all .2s;flex-shrink:0;}
-.send-btn:hover{background:#ffd84a;transform:scale(1.05);}
-.send-btn:disabled{opacity:.4;cursor:not-allowed;transform:none;}
-
 /* ── VOCAB ── */
 .vocab-controls{display:flex;gap:14px;margin-bottom:28px;flex-wrap:wrap;align-items:center;}
 .fsel{background:var(--surface2);border:1.5px solid var(--border);color:var(--text);border-radius:10px;padding:12px 18px;font-family:'DM Sans',sans-serif;font-size:.9rem;outline:none;cursor:pointer;transition:all .2s;font-weight:500;}
@@ -395,15 +321,6 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
   margin-bottom:14px;padding-bottom:14px;
   border-bottom:1px solid rgba(255,255,255,.06);
 }
-/* lektion badge */
-.vc-lk{
-  position:absolute;top:12px;right:14px;
-  font-size:.62rem;color:var(--muted);
-  font-family:'DM Mono',monospace;
-  opacity:.55;transition:opacity .2s;
-}
-.vc:hover .vc-lk{opacity:1;color:var(--accent);}
-.vc:not(.is-verb):hover .vc-lk{opacity:.55;color:var(--muted);}
 /* translation — highlighted */
 .vc-tr{
   font-size:1.05rem;font-weight:600;
@@ -528,7 +445,6 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
 .story-desc{font-size:.75rem;color:var(--muted);line-height:1.4;margin-bottom:10px;}
 .story-pills{display:flex;gap:6px;flex-wrap:wrap;}
 .spill{font-size:.62rem;padding:2px 8px;border-radius:20px;font-family:'DM Mono',monospace;}
-.spill.a1{background:rgba(76,175,130,.1);color:var(--green);border:1px solid rgba(76,175,130,.2);}
 .spill.words{background:rgba(245,200,66,.1);color:var(--accent);border:1px solid rgba(245,200,66,.2);}
 /* story reader */
 .story-reader{display:none;flex-direction:column;height:100%;}
@@ -574,44 +490,11 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
 .dial-line{display:flex;align-items:flex-start;gap:12px;line-height:1.6;}
 .dial-line .line-tag{min-width:70px;font-weight:700;text-transform:uppercase;font-size:.78rem;letter-spacing:.03em;}
 .dial-line .line-text{flex:1;padding:12px 14px;border-radius:14px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.08);}
-.dial-line.A .line-tag{color:#2f6ecd;}
-.dial-line.A .line-text{background:rgba(47,110,205,.08);border-color:rgba(47,110,205,.18);}
-.dial-line.B .line-tag{color:#d35400;}
-.dial-line.B .line-text{background:rgba(211,84,0,.08);border-color:rgba(211,84,0,.18);}
-.dial-line.Kellner .line-tag,.dial-line.Arzt .line-tag,.dial-line.Patient .line-tag,.dial-line.Verkäufer .line-tag,.dial-line.Kunde .line-tag{color:#0f8650;}
-.dial-line.Kellner .line-text,.dial-line.Arzt .line-text,.dial-line.Patient .line-text,.dial-line.Verkäufer .line-text,.dial-line.Kunde .line-text{background:rgba(15,134,80,.08);border-color:rgba(15,134,80,.18);}
-.dial-footer{border-top:1px solid var(--border);padding:14px 28px;background:var(--surface);display:flex;gap:10px;}
-.dial-input{flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:11px;padding:11px 15px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.87rem;resize:none;outline:none;max-height:90px;}
-.dial-input:focus{border-color:var(--blue);}
-.dial-input::placeholder{color:var(--muted);}
-.dial-send{background:var(--blue);border:none;border-radius:11px;width:44px;height:44px;cursor:pointer;color:#fff;font-size:1rem;transition:all .2s;flex-shrink:0;}
-.dial-send:hover{background:#7aa8f5;}
-.dial-send:disabled{opacity:.4;cursor:not-allowed;}
-
-/* ── ESCRITURA ── */
-.write-wrap{max-width:620px;}
-.write-prompt{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:18px;margin-bottom:16px;}
-.wp-tag{font-size:.65rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);font-family:'DM Mono',monospace;margin-bottom:8px;}
-.wp-text{font-size:.95rem;color:var(--text);line-height:1.6;}
-.wp-hint{font-size:.75rem;color:var(--muted);margin-top:8px;padding-top:8px;border-top:1px solid var(--border);}
-.write-ta{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:15px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.9rem;resize:vertical;outline:none;min-height:110px;line-height:1.6;margin-bottom:10px;}
-.write-ta:focus{border-color:var(--purple);}
-.write-ta::placeholder{color:var(--muted);}
-.write-actions{display:flex;gap:9px;margin-bottom:18px;}
-.w-btn{padding:10px 20px;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:600;cursor:pointer;border:none;transition:all .2s;}
-.w-btn.pri{background:var(--purple);color:#fff;}
-.w-btn.pri:hover{background:#b09af5;}
-.w-btn.sec{background:transparent;border:1px solid var(--border);color:var(--muted);}
-.w-btn.sec:hover{border-color:var(--accent);color:var(--accent);}
-.w-btn:disabled{opacity:.4;cursor:not-allowed;}
-.write-fb{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:16px;font-size:.87rem;line-height:1.7;display:none;}
-.write-fb.show{display:block;}
-.write-fb strong{color:var(--purple);}
-.write-fb em{color:var(--accent2);font-style:normal;}
-.prompt-nav{display:flex;align-items:center;gap:10px;margin-bottom:16px;}
-.pn-btn{background:var(--surface2);border:1px solid var(--border);color:var(--muted);border-radius:8px;padding:5px 12px;cursor:pointer;font-size:.8rem;font-family:'DM Sans',sans-serif;transition:all .2s;}
-.pn-btn:hover{border-color:var(--accent);color:var(--accent);}
-.pn-count{font-family:'DM Mono',monospace;font-size:.75rem;color:var(--muted);}
+.dial-line.turn-a .line-tag{color:#2f6ecd;}
+.dial-line.turn-a .line-text{background:rgba(47,110,205,.08);border-color:rgba(47,110,205,.18);}
+.dial-line.turn-b .line-tag{color:#d35400;}
+.dial-line.turn-b .line-text{background:rgba(211,84,0,.08);border-color:rgba(211,84,0,.18);}
+.dial-level{display:inline-block;margin-top:10px;padding:3px 8px;border:1px solid rgba(91,141,238,.25);border-radius:20px;color:var(--blue);font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.04em;}
 
 
 /* ── EJERCICIOS SIN IA ── */
@@ -681,7 +564,6 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
 .vc-head{padding:16px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
 .vc-name{font-family:'DM Sans',sans-serif;font-size:1.2rem;font-weight:700;color:var(--text);}
 .vc-trans{font-size:.8rem;color:var(--muted);margin-top:2px;}
-.vc-lk2{font-size:.62rem;color:var(--purple);font-family:'DM Mono',monospace;background:rgba(155,127,232,.12);padding:3px 8px;border-radius:5px;flex-shrink:0;}
 .vc-arrow{font-size:.8rem;color:var(--muted);transition:transform .25s;flex-shrink:0;}
 .verb-card.open .vc-arrow{transform:rotate(180deg);color:var(--purple);}
 .vc-body{display:none;border-top:1px solid var(--border);padding:14px 18px 16px;}
@@ -692,8 +574,6 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
 .vc-conj .vi{color:var(--accent2);font-weight:700;}
 .vc-note{font-size:.75rem;color:var(--muted);padding:7px 11px;background:rgba(245,200,66,.07);border-radius:6px;border-left:2px solid var(--accent);}
 .verb-filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;align-items:center;}
-.verb-filter-btn{background:transparent;border:1px solid var(--border);color:var(--muted);border-radius:20px;padding:4px 12px;font-size:.75rem;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;flex-shrink:0;}
-.verb-filter-btn:hover,.verb-filter-btn.active{border-color:var(--purple);color:var(--purple);background:rgba(155,127,232,.08);}
 .verb-search{background:var(--surface2);border:1.5px solid var(--border);border-radius:10px;padding:9px 14px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.88rem;outline:none;flex:1 1 220px;max-width:360px;transition:all .2s;}
 .verb-search:focus{border-color:var(--purple);}
 .verb-search::placeholder{color:var(--muted);}
@@ -718,8 +598,9 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
 .past-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--accent),var(--purple));}
 .past-card:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 12px 24px rgba(0,0,0,.25);}
 .past-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:12px;}
+.past-title{min-width:0;}
 .past-inf{font-size:1.15rem;font-weight:700;color:var(--text);line-height:1.2;}
-.past-lvl{font-family:'DM Mono',monospace;font-size:.62rem;color:var(--accent);background:rgba(245,200,66,.08);border:1px solid rgba(245,200,66,.18);padding:3px 7px;border-radius:6px;flex-shrink:0;}
+.past-translation{font-size:.78rem;color:var(--muted);margin-top:4px;line-height:1.4;}
 .past-row{display:grid;grid-template-columns:1fr;gap:6px;}
 .past-box{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:8px 10px;}
 .past-label{display:block;font-family:'DM Mono',monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:1.4px;color:var(--muted);margin-bottom:4px;}
@@ -738,7 +619,8 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
 .practice-answer-group{display:flex;flex-direction:column;gap:10px;}
 .practice-label{font-size:.68rem;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:1.2px;color:var(--muted);}
 .practice-choice{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 10px;color:var(--text);font-weight:600;font-size:.88rem;text-align:center;cursor:pointer;transition:all .18s ease;}
-.practice-choice:hover{border-color:var(--accent);transform:translateY(-1px);}
+.practice-choice:hover:not(:disabled){border-color:var(--accent);transform:translateY(-1px);}
+.practice-choice:disabled{cursor:default;}
 .practice-choice.selected{border-color:var(--accent);background:rgba(245,200,66,.08);box-shadow:0 0 0 2px rgba(245,200,66,.08);}
 .practice-choice.correct{border-color:var(--green);background:rgba(76,175,130,.08);color:var(--green);}
 .practice-choice.wrong{border-color:var(--red);background:rgba(224,92,92,.08);color:var(--red);}
@@ -780,14 +662,11 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
 .glos-search{flex:1;min-width:150px;background:var(--surface2);border:1px solid var(--border);border-radius:9px;padding:9px 12px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.87rem;outline:none;}
 .glos-search:focus{border-color:var(--accent);}
 .glos-search::placeholder{color:var(--muted);}
-.glos-filter{background:var(--surface2);border:1px solid var(--border);border-radius:9px;padding:9px 12px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.87rem;outline:none;cursor:pointer;}
-.glos-filter:focus{border-color:var(--accent);}
 .glos-count{font-size:.78rem;color:var(--muted);margin-bottom:12px;font-family:'DM Mono',monospace;}
 .glos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;}
 .glos-entry{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:14px;transition:all .2s;cursor:pointer;}
 .glos-entry:hover{border-color:var(--accent);background:var(--surface);}
 .glos-entry-de{font-family:'DM Mono',monospace;font-size:.95rem;color:var(--accent);font-weight:600;margin-bottom:5px;}
-.glos-entry-art{font-size:.65rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);font-family:'DM Mono',monospace;margin-bottom:8px;}
 .glos-entry-es{font-size:.85rem;color:var(--text);line-height:1.5;margin-bottom:8px;}
 .glos-entry-cap{font-size:.68rem;color:var(--muted);font-style:italic;padding-top:8px;border-top:1px solid var(--border);}
 </style>
@@ -796,30 +675,14 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
 <div class="wtooltip" id="tooltip"></div>
 
 <header>
-  <div class="logo">Deutsch <span>Lernen</span> <span style="font-size:.75rem;color:var(--muted);font-family:'DM Mono',monospace;font-style:normal;">A1</span></div>
-  <div class="lek-bar">
-    <button class="lek-btn active" onclick="setLek('all',this)">Alle</button>
-    <button class="lek-btn" onclick="setLek(1,this)">L1</button>
-    <button class="lek-btn" onclick="setLek(2,this)">L2</button>
-    <button class="lek-btn" onclick="setLek(3,this)">L3</button>
-    <button class="lek-btn" onclick="setLek(4,this)">L4</button>
-    <button class="lek-btn" onclick="setLek(5,this)">L5</button>
-    <button class="lek-btn" onclick="setLek(6,this)">L6</button>
-    <button class="lek-btn" onclick="setLek(7,this)">L7</button>
-    <button class="lek-btn" onclick="setLek(8,this)">L8</button>
-    <button class="lek-btn" onclick="setLek(9,this)">L9</button>
-    <button class="lek-btn" onclick="setLek(10,this)">L10</button>
-    <button class="lek-btn" onclick="setLek(11,this)">L11</button>
-  </div>
+  <div class="logo">Deutsch <span>Lernen</span></div>
 </header>
 
 <div class="main">
 <div class="sidebar">
   <div class="sb-title">Practicar</div>
-  <button class="mode-btn active" onclick="setMode('chat',this)"><span class="ico">💬</span>Conversación</button>
-  <button class="mode-btn" onclick="setMode('dialogs',this)"><span class="ico">🎭</span>Diálogos</button>
+  <button class="mode-btn active" onclick="setMode('dialogs',this)"><span class="ico">🎭</span>Diálogos</button>
   <button class="mode-btn" onclick="setMode('stories',this)"><span class="ico">📖</span>Cuentos</button>
-  <button class="mode-btn" onclick="setMode('write',this)"><span class="ico">✍️</span>Escritura</button>
   <div class="sb-title">Estudiar</div>
   <button class="mode-btn" onclick="setMode('vocab',this)"><span class="ico">📚</span>Vocabulario</button>
   <button class="mode-btn" onclick="setMode('verbs',this)"><span class="ico">🔤</span>Verbos</button>
@@ -835,30 +698,12 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
 <div class="content">
 
 <!-- ══ CHAT ══ -->
-<div class="panel active" id="panel-chat">
-  <div class="chat-msgs" id="chat-msgs"></div>
-  <div class="chat-footer">
-    <div class="chips" id="chips">
-      <button class="chip" onclick="sc('Explícame los artículos der/die/das con ejemplos')">Artículos</button>
-      <button class="chip" onclick="sc('¿Cómo se usa el Akkusativ? Dame la regla y ejemplos')">Akkusativ</button>
-      <button class="chip" onclick="sc('Practica conmigo una conversación en un restaurante')">Restaurante</button>
-      <button class="chip" onclick="sc('Explica los verbos modales müssen, können, wollen')">Modales</button>
-      <button class="chip" onclick="sc('¿Cómo funciona el Dativ con mit? Dame ejemplos')">Dativ+mit</button>
-      <button class="chip" onclick="sc('Explica Satzstellung con ejemplos')">Satzstellung</button>
-    </div>
-    <div class="chat-row">
-      <textarea class="chat-input" id="chat-inp" placeholder="Pregunta en español o alemán…" rows="1" onkeydown="chatKey(event)"></textarea>
-      <button class="send-btn" id="send-btn" onclick="sendChat()">➤</button>
-    </div>
-  </div>
-</div>
-
 <!-- ══ DIÁLOGOS ══ -->
-<div class="panel" id="panel-dialogs">
+<div class="panel active" id="panel-dialogs">
   <div class="dial-list-view" id="dial-list-view">
     <div class="scroll-inner">
-      <div class="section-title">Diálogos guiados</div>
-      <div class="section-sub">Practica situaciones reales del día a día. Claude juega el rol indicado y te corrige.</div>
+      <div class="section-title">Diálogos de examen · Nivel A2</div>
+      <div class="section-sub">Situaciones frecuentes de los exámenes A2, con conversaciones completas y expresiones útiles para practicar.</div>
       <div class="dial-list" id="dial-list"></div>
     </div>
   </div>
@@ -870,10 +715,6 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
     </div>
     <div class="dial-hint" id="dial-hint"></div>
     <div class="dial-msgs" id="dial-msgs"></div>
-    <div class="dial-footer">
-      <textarea class="dial-input" id="dial-inp" placeholder="Escribe tu respuesta en alemán…" rows="1" onkeydown="dialKey(event)"></textarea>
-      <button class="dial-send" id="dial-send-btn" onclick="sendDial()">➤</button>
-    </div>
   </div>
 </div>
 
@@ -881,8 +722,8 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
 <div class="panel" id="panel-stories">
   <div id="story-list-view">
     <div class="scroll-inner">
-      <div class="section-title">Cuentos A1</div>
-      <div class="section-sub">Historias cortas con vocabulario de tus lecciones. Pasa el ratón por las palabras resaltadas para ver su traducción.</div>
+      <div class="section-title">Cuentos</div>
+      <div class="section-sub">Historias cortas para practicar vocabulario. Pasa el ratón por las palabras resaltadas para ver su traducción.</div>
       <div class="story-list" id="story-list"></div>
     </div>
   </div>
@@ -899,51 +740,10 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
   </div>
 </div>
 
-<!-- ══ ESCRITURA ══ -->
-<div class="panel" id="panel-write">
-  <div class="scroll-inner">
-    <div class="write-wrap">
-      <div class="section-title">Ejercicios de escritura</div>
-      <div class="section-sub">Escribe frases en alemán y Claude te corrige con explicaciones detalladas.</div>
-      <div class="prompt-nav">
-        <button class="pn-btn" onclick="prevPrompt()">←</button>
-        <span class="pn-count" id="pn-count">1 / 10</span>
-        <button class="pn-btn" onclick="nextPrompt()">→</button>
-        <button class="pn-btn" onclick="randPrompt()" style="margin-left:4px">🔀</button>
-      </div>
-      <div class="write-prompt">
-        <div class="wp-tag">Ejercicio de escritura · A1</div>
-        <div class="wp-text" id="wp-text"></div>
-        <div class="wp-hint" id="wp-hint"></div>
-      </div>
-      <textarea class="write-ta" id="write-ta" placeholder="Escribe tu respuesta en alemán aquí…"></textarea>
-      <div class="write-actions">
-        <button class="w-btn pri" id="w-check-btn" onclick="checkWriting()">✓ Corregir</button>
-        <button class="w-btn sec" onclick="clearWrite()">Limpiar</button>
-      </div>
-      <div class="write-fb" id="write-fb"></div>
-    </div>
-  </div>
-</div>
-
 <!-- ══ VOCAB ══ -->
 <div class="panel" id="panel-vocab">
   <div class="scroll-inner">
     <div class="vocab-controls">
-      <select class="fsel" id="vl-fil" onchange="renderVocab()">
-        <option value="all">Todas las lecciones</option>
-        <option value="1">L1 — Orte &amp; Verkehr</option>
-        <option value="2">L2 — Essen &amp; Einkaufen</option>
-        <option value="3">L3 — Familie &amp; Zeit</option>
-        <option value="4">L4 — Freizeit &amp; Feiern</option>
-        <option value="5">L5 — Berufe &amp; Hobbys</option>
-        <option value="6">L6 — Länder &amp; Grüßen</option>
-        <option value="7">L7 — Arbeitsalltag</option>
-        <option value="8">L8 — Fit und gesund</option>
-        <option value="9">L9 — Studium und Beruf</option>
-        <option value="10">L10 — Meine Wohnung</option>
-        <option value="11">L11 — Mode und Kleidung</option>
-      </select>
       <select class="fsel" id="vg-fil" onchange="renderVocab()">
         <option value="all">Todos</option>
         <option value="der">der</option>
@@ -963,6 +763,7 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
   <div class="scroll-inner">
     <div class="gtabs">
       <button class="gtab active" onclick="setGTab('artikel',this)">Artikel</button>
+      <button class="gtab" onclick="setGTab('deklinationen',this)">Declinaciones</button>
       <button class="gtab" onclick="setGTab('welche',this)">Welche / diese</button>
       <button class="gtab" onclick="setGTab('akkusativ',this)">Akkusativ</button>
       <button class="gtab" onclick="setGTab('dativ',this)">Dativ</button>
@@ -987,6 +788,16 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
       <tr><td>Plural</td><td class="hl">die</td><td class="mu">–</td><td class="hl">keine</td><td>die Autos / – / keine Autos</td></tr></table>
       <div class="gnote">💡 <b>Color:</b> <span style="color:var(--blue)">der=azul</span> · <span style="color:var(--accent2)">die=naranja</span> · <span style="color:var(--green)">das=verde</span>. Aprende siempre el sustantivo con su artículo.</div>
     </div>
+    <div class="gsec" id="gsec-deklinationen">
+      <p class="section-title">Declinaciones</p>
+      <p class="section-sub">Resumen de los artículos definidos según el caso y el género</p>
+      <table class="gt"><tr><th>Caso</th><th>Masculino</th><th>Femenino</th><th>Neutro</th><th>Plural</th></tr>
+      <tr><td>Nominativ</td><td class="hl">der</td><td class="hl">die</td><td class="hl">das</td><td class="hl">die</td></tr>
+      <tr><td>Akkusativ</td><td class="hl">den</td><td class="hl">die</td><td class="hl">das</td><td class="hl">die</td></tr>
+      <tr><td>Dativ</td><td class="hl">dem</td><td class="hl">der</td><td class="hl">dem</td><td class="hl">den</td></tr>
+      <tr><td>Genitiv</td><td class="hl">des</td><td class="hl">der</td><td class="hl">des</td><td class="hl">der</td></tr></table>
+      <div class="gnote">💡 El <b>Genitiv</b> expresa posesión. En masculino y neutro, el sustantivo suele añadir <b>-s</b> o <b>-es</b>: <code>des Vaters</code>, <code>des Kindes</code>.</div>
+    </div>
     <div class="gsec" id="gsec-welche">
       <p class="section-title">Welche / diese</p><p class="section-sub">Declinación de preguntas y demostrativos</p>
       <table class="gt"><tr><th>Caso</th><th>masc.</th><th>fem.</th><th>neut.</th><th>pl.</th></tr>
@@ -1010,6 +821,12 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
     </div>
     <div class="gsec" id="gsec-dativ">
       <p class="section-title">Dativ</p><p class="section-sub">Posición estática y preposiciones mit/von/zu/bei/seit…</p>
+      <table class="gt"><tr><th>Género</th><th>Nom.</th><th>Dativ def.</th><th>Dativ indef.</th><th>Negativo</th></tr>
+      <tr><td>Maskulin</td><td>der</td><td class="hl">dem</td><td class="hl">einem</td><td class="hl">keinem</td></tr>
+      <tr><td>Neutrum</td><td>das</td><td class="hl">dem</td><td class="hl">einem</td><td class="hl">keinem</td></tr>
+      <tr><td>Feminin</td><td>die</td><td class="hl">der</td><td class="hl">einer</td><td class="hl">keiner</td></tr>
+      <tr><td>Plural</td><td>die</td><td class="hl">den</td><td>—</td><td class="hl">keinen</td></tr></table>
+      <div class="gnote">💡 En plural, el sustantivo suele añadir <b>-n</b> en Dativ: <code>mit den Freunden</code> · <code>mit keinen Freunden</code>. El plural no tiene artículo indefinido.</div>
       <table class="gt"><tr><th>Género</th><th>Nominativ</th><th>Dativ def.</th><th>Dativ indef.</th></tr>
       <tr><td>Maskulin</td><td>der Freund</td><td class="hl">dem Freund</td><td class="hl">einem Freund</td></tr>
       <tr><td>Neutrum</td><td>das Taxi</td><td class="hl">dem Taxi</td><td class="hl">einem Taxi</td></tr>
@@ -1069,14 +886,17 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
       <div class="gnote">💡 Con modal: infinitivo entero al final → <code>Sie wollen Sofia <b>abholen</b>.</code></div>
     </div>
     <div class="gsec" id="gsec-possessiv">
-      <p class="section-title">Possessivartikel</p>
-      <table class="gt"><tr><th></th><th>mask./neutr.</th><th>feminin/Plural</th><th>mask. Akk.</th></tr>
-      <tr><td>ich</td><td class="hl">mein</td><td class="hl">meine</td><td class="hl">meinen</td></tr>
-      <tr><td>du</td><td>dein</td><td>deine</td><td>deinen</td></tr>
-      <tr><td>er/es</td><td>sein</td><td>seine</td><td>seinen</td></tr>
-      <tr><td>sie</td><td>ihr</td><td>ihre</td><td>ihren</td></tr>
-      <tr><td>wir</td><td>unser</td><td>unsere</td><td>unseren</td></tr>
-      <tr><td>sie/Sie</td><td>ihr/Ihr</td><td>ihre/Ihre</td><td>ihren/Ihren</td></tr></table>
+      <p class="section-title">Possessivartikel</p><p class="section-sub">Formas básicas y masculino en Akkusativ</p>
+      <table class="gt"><tr><th>Persona</th><th>masc./neut. Nom.</th><th>fem./plural Nom.</th><th>masc. Akk.</th></tr>
+      <tr><td>ich (yo)</td><td class="hl">mein</td><td class="hl">meine</td><td class="hl">meinen</td></tr>
+      <tr><td><b>du (tú)</b></td><td class="hl"><b>dein</b></td><td class="hl"><b>deine</b></td><td class="hl"><b>deinen</b></td></tr>
+      <tr><td>er (él)</td><td>sein</td><td>seine</td><td>seinen</td></tr>
+      <tr><td>sie (ella)</td><td>ihr</td><td>ihre</td><td>ihren</td></tr>
+      <tr><td>es (ello)</td><td>sein</td><td>seine</td><td>seinen</td></tr>
+      <tr><td>wir (nosotros/as)</td><td>unser</td><td>unsere</td><td>unseren</td></tr>
+      <tr><td>ihr (vosotros/as)</td><td>euer</td><td>eure</td><td>euren</td></tr>
+      <tr><td>sie (ellos/as)</td><td>ihr</td><td>ihre</td><td>ihren</td></tr>
+      <tr><td>Sie (usted/ustedes)</td><td>Ihr</td><td>Ihre</td><td>Ihren</td></tr></table>
     </div>
     <div class="gsec" id="gsec-praep">
       <p class="section-title">Präpositionen</p>
@@ -1171,18 +991,9 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
 <div class="panel" id="panel-verbs">
   <div class="scroll-inner">
     <div class="section-title">Verbos</div>
-    <div class="section-sub">Todos los verbos de tus lecciones. Pulsa cualquiera para ver la conjugación completa en presente.</div>
+    <div class="section-sub">Pulsa cualquier verbo para ver su conjugación completa en presente.</div>
     <div class="verb-filters">
       <input class="verb-search" id="verb-search" placeholder="Buscar verbo…" oninput="filterVerbs()">
-      <button class="verb-filter-btn active" onclick="filterVerbLek('all',this)">Todas</button>
-      <button class="verb-filter-btn" onclick="filterVerbLek(1,this)">L1</button>
-      <button class="verb-filter-btn" onclick="filterVerbLek(2,this)">L2</button>
-      <button class="verb-filter-btn" onclick="filterVerbLek(3,this)">L3</button>
-      <button class="verb-filter-btn" onclick="filterVerbLek(4,this)">L4</button>
-      <button class="verb-filter-btn" onclick="filterVerbLek(5,this)">L5</button>
-      <button class="verb-filter-btn" onclick="filterVerbLek(6,this)">L6</button>
-      <button class="verb-filter-btn" onclick="filterVerbLek(7,this)">L7</button>
-      <button class="verb-filter-btn" onclick="filterVerbLek(8,this)">L8</button>
       <span class="verb-count" id="verb-count"></span>
     </div>
     <div class="verb-grid" id="verb-grid"></div>
@@ -1207,7 +1018,7 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
 <div class="panel" id="panel-practice">
   <div class="scroll-inner">
     <div class="section-title">Juego: pasado y participios</div>
-    <div class="section-sub">Escribe el Präteritum y el Partizip II para cada verbo.</div>
+    <div class="section-sub">Elige el Präteritum y el Partizip II para cada verbo.</div>
     <div class="practice-wrap">
       <div class="practice-status" id="practice-status"></div>
       <div class="practice-card" id="practice-card"></div>
@@ -1228,25 +1039,10 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
 <!-- ══ GLOSARIO ══ -->
 <div class="panel" id="panel-glosario">
   <div class="scroll-inner">
-    <div class="section-title">Glosario A1</div>
-    <div class="section-sub">Vocabulario completo del libro Netzwerk neu A1 (Deutsch-Español)</div>
+    <div class="section-title">Glosario</div>
+    <div class="section-sub">Traducciones del alemán al español.</div>
     <div class="glos-controls">
-      <input type="text" id="glos-search" placeholder="Buscar palabra..." class="glos-search" onkeyup="filterGlosario()">
-      <select id="glos-filter" class="glos-filter" onchange="filterGlosario()">
-        <option value="all">Todos los capítulos</option>
-        <option value="1">Capítulo 1: Guten Tag!</option>
-        <option value="2">Capítulo 2: Freunde, Kollegen und ich</option>
-        <option value="3">Capítulo 3: In Hamburg</option>
-        <option value="4">Capítulo 4: Guten Appetit!</option>
-        <option value="5">Capítulo 5: Alltag und Familie</option>
-        <option value="6">Capítulo 6: Zeit mit Freunden</option>
-        <option value="7">Capítulo 7: Arbeitsalltag</option>
-        <option value="8">Capítulo 8: Fit und gesund</option>
-        <option value="9">Capítulo 9: Meine Wohnung</option>
-        <option value="10">Capítulo 10: Studium und Beruf</option>
-        <option value="11">Capítulo 11: Die Jacke gefällt mir!</option>
-        <option value="12">Capítulo 12: Ab in den Urlaub!</option>
-      </select>
+    <input type="text" id="glos-search" placeholder="Buscar palabra..." class="glos-search" onkeyup="filterGlosario()">
     </div>
     <div class="glos-count" id="glos-count"></div>
     <div class="glos-grid" id="glos-grid"></div>
@@ -1314,10 +1110,7 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
             <option value="article">Artículos (der/die/das)</option>
             <option value="fill">Completa la frase</option>
           </select>
-          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:3px">
-            <div class="qscore">✓ <span id="sc-ok">0</span> &nbsp;✗ <span id="sc-ko">0</span></div>
-            <div id="q-lek-lbl" style="font-family:'DM Mono',monospace;font-size:.65rem;color:var(--accent)"></div>
-          </div>
+          <div class="qscore">✓ <span id="sc-ok">0</span> &nbsp;✗ <span id="sc-ko">0</span></div>
         </div>
         <div class="prog-wrap"><div class="prog-fill" id="qprog" style="width:0%"></div></div>
         <div class="qcard" id="qcard">
@@ -1351,17 +1144,11 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
 
 <!-- MOBILE BOTTOM NAV -->
 <nav class="mob-nav" id="mob-nav">
-  <button class="mob-nav-btn active" onclick="setMode('chat',this)" data-mode="chat">
-    <span class="mico">💬</span>Chat
-  </button>
-  <button class="mob-nav-btn" onclick="setMode('dialogs',this)" data-mode="dialogs">
+  <button class="mob-nav-btn active" onclick="setMode('dialogs',this)" data-mode="dialogs">
     <span class="mico">🎭</span>Diálogos
   </button>
   <button class="mob-nav-btn" onclick="setMode('stories',this)" data-mode="stories">
     <span class="mico">📖</span>Cuentos
-  </button>
-  <button class="mob-nav-btn" onclick="setMode('write',this)" data-mode="write">
-    <span class="mico">✍️</span>Escritura
   </button>
   <button class="mob-nav-btn" onclick="setMode('vocab',this)" data-mode="vocab">
     <span class="mico">📚</span>Vocab
@@ -1549,7 +1336,7 @@ const VOCAB=[
   {w:"drucken",art:"verb",pl:"",l:7,t:"imprimir"},
   {w:"besuchen",art:"verb",pl:"",l:7,t:"visitar"},
   {w:"telefonieren",art:"verb",pl:"",l:7,t:"hablar por teléfono"},
-  // ── L8 ── Fit und gesund / Körper / Beim Arzt
+  // Fit und gesund / Körper / Beim Arzt
   {w:"Bauch",art:"der",pl:"Bäuche",l:8,t:"barriga / estómago"},
   {w:"Finger",art:"der",pl:"Finger",l:8,t:"dedo"},
   {w:"Rücken",art:"der",pl:"Rücken",l:8,t:"espalda"},
@@ -1580,7 +1367,7 @@ const VOCAB=[
   {w:"rauchen",art:"verb",pl:"",l:8,t:"fumar"},
   {w:"husten",art:"verb",pl:"",l:8,t:"toser"},
   {w:"verletzt",art:"–",pl:"",l:8,t:"herido/a (adjetivo)"},
-  // ── L9 ── Studium und Beruf / Perfekt
+  // Studium und Beruf / Perfekt
   {w:"Stelle",art:"die",pl:"Stellen",l:9,t:"puesto de trabajo"},
   {w:"Heimat",art:"die",pl:"Heimaten",l:9,t:"tierra natal / patria"},
   {w:"Anzeige",art:"die",pl:"Anzeigen",l:9,t:"anuncio"},
@@ -1613,7 +1400,7 @@ const VOCAB=[
   {w:"verkaufen",art:"verb",pl:"",l:9,t:"vender"},
   {w:"mitbringen",art:"verb",pl:"",l:9,t:"traer (con uno)"},
   {w:"fernsehen",art:"verb",pl:"",l:9,t:"ver la televisión"},
-  // ── L10 ── Meine Wohnung / Möbel / Wechselpräpositionen
+  // Meine Wohnung / Möbel / Wechselpräpositionen
   {w:"Spülmaschine",art:"die",pl:"Spülmaschinen",l:10,t:"lavavajillas"},
   {w:"Waschmaschine",art:"die",pl:"Waschmaschinen",l:10,t:"lavadora"},
   {w:"Lampe",art:"die",pl:"Lampen",l:10,t:"lámpara"},
@@ -1652,7 +1439,7 @@ const VOCAB=[
   {w:"legen",art:"verb",pl:"",l:10,t:"poner (tumbado)"},
   {w:"stehen",art:"verb",pl:"",l:10,t:"estar de pie / estar colocado"},
   {w:"liegen",art:"verb",pl:"",l:10,t:"estar tumbado / estar situado"},
-  // ── L11 ── Mode und Kleidung / Perfekt Präteritum
+  // Mode und Kleidung / Perfekt Präteritum
   {w:"Hose",art:"die",pl:"Hosen",l:11,t:"pantalón"},
   {w:"Jeans",art:"die",pl:"Jeans",l:11,t:"vaqueros"},
   {w:"Fliege",art:"die",pl:"Fliegen",l:11,t:"pajarita"},
@@ -1700,378 +1487,226 @@ const FILL_INS=[
 
 // ── STORIES ──
 const STORIES=[
-  {id:0,emoji:"🛒",title:"Im Supermarkt",desc:"Anna compra comida para la cena. Vocabulario L2.",lection:2,words:["Supermarkt","Käse","Brot","Milch","Gurke","kaufen","brauchen"],
+  {id:0,emoji:"🛒",title:"Im Supermarkt",desc:"Anna compra comida para la cena.",words:["Supermarkt","Käse","Brot","Milch","Gurke","kaufen","brauchen"],
   text:"<p>Anna geht in den <hw>Supermarkt</hw>. Sie <hw>braucht</hw> Essen für heute Abend.</p> <p>Sie nimmt ein Stück <hw>Käse</hw> und ein <hw>Brot</hw>. Dann sucht sie die <hw>Milch</hw>. Die Milch steht rechts, neben dem Joghurt.</p> <p>„Haben Sie auch <hw>Gurken</hw>?\" fragt Anna. „Ja, dort links\", sagt der Mann.</p> <p>Anna <hw>kauft</hw> alles und geht zur Kasse. Das macht 8,50 Euro. „Danke, auf Wiedersehen!\"</p>"},
-  {id:1,emoji:"🚆",title:"Am Bahnhof",desc:"Max busca el tren correcto. Vocabulario L1.",lection:1,words:["Bahnhof","Zug","Fahrkarte","Straßenbahn","Bus","fahren"],
+  {id:1,emoji:"🚆",title:"Am Bahnhof",desc:"Max busca el tren correcto.",words:["Bahnhof","Zug","Fahrkarte","Straßenbahn","Bus","fahren"],
   text:"<p>Max ist am <hw>Bahnhof</hw>. Er hat eine <hw>Fahrkarte</hw> nach Hamburg.</p> <p>„Entschuldigung, wo <hw>fährt</hw> der <hw>Zug</hw> nach Hamburg ab?\" fragt Max.</p> <p>„Der Zug fährt von Gleis 7 ab. In zehn Minuten!\", sagt die Frau.</p> <p>Max läuft schnell. Er findet Gleis 7 und steigt in den Zug ein. Der Zug fährt pünktlich ab.</p> <p>Neben dem Bahnhof gibt es auch eine <hw>Straßenbahn</hw> und einen <hw>Bus</hw>. Aber heute <hw>fährt</hw> Max mit dem Zug.</p>"},
-  {id:2,emoji:"🎂",title:"Der Geburtstag",desc:"Lisa feiert ihren Geburtstag. Vocabulario L4.",lection:4,words:["Geburtstag","feiern","einladen","schenken","Überraschung","spielen"],
+  {id:2,emoji:"🎂",title:"Der Geburtstag",desc:"Lisa celebra su cumpleaños.",words:["Geburtstag","feiern","einladen","schenken","Überraschung","spielen"],
   text:"<p>Heute ist Lisas <hw>Geburtstag</hw>! Sie <hw>feiert</hw> mit der Familie.</p> <p>Lisa <hw>lädt</hw> ihre Freunde <hw>ein</hw>. Tom, Anna und Max kommen um drei Uhr.</p> <p>Tom <hw>schenkt</hw> Lisa ein Buch. Anna gibt ihr Blumen. Max hat eine <hw>Überraschung</hw>: einen Kuchen mit Schokolade!</p> <p>Alle <hw>spielen</hw> Spiele und essen Kuchen. Lisa ist sehr glücklich.</p> <p>„Herzlichen Glückwunsch zum Geburtstag, Lisa!\"</p>"},
-  {id:3,emoji:"👔",title:"Das Praktikum",desc:"Luis empieza sus prácticas. Vocabulario L7.",lection:7,words:["Praktikum","Firma","Kollege","Pause","Besprechung","bleiben","Fehler"],
+  {id:3,emoji:"👔",title:"Das Praktikum",desc:"Luis empieza sus prácticas.",words:["Praktikum","Firma","Kollege","Pause","Besprechung","bleiben","Fehler"],
   text:"<p>Luis macht ein <hw>Praktikum</hw> in einer kleinen <hw>Firma</hw>. Es ist sein erster Tag.</p> <p>Seine <hw>Kollegen</hw> sind sehr nett. „Hallo, ich bin Maria\", sagt eine Frau.</p> <p>Um zehn Uhr gibt es eine <hw>Besprechung</hw>. Luis versteht nicht alles, aber er lernt schnell.</p> <p>Um zwölf macht Luis <hw>Pause</hw> und isst ein Sandwich. „Schmeckt das gut?\" fragt Maria.</p> <p>Am Abend <hw>bleibt</hw> Luis bis sechs Uhr. Er macht nur einen kleinen <hw>Fehler</hw>, aber das ist normal!</p>"},
-  {id:4,emoji:"🏠",title:"Meine Familie",desc:"Julia presenta a su familia. Vocabulario L3.",lection:3,words:["Bruder","Schwester","Sohn","Tochter","Arzt","Wochenende","arbeiten"],
+  {id:4,emoji:"🏠",title:"Meine Familie",desc:"Julia presenta a su familia.",words:["Bruder","Schwester","Sohn","Tochter","Arzt","Wochenende","arbeiten"],
   text:"<p>Ich heiße Julia und habe eine große Familie.</p> <p>Mein <hw>Bruder</hw> heißt Tom. Er ist 25 Jahre alt und <hw>arbeitet</hw> als <hw>Arzt</hw>.</p> <p>Meine <hw>Schwester</hw> heißt Anna. Sie ist Lehrerin und hat eine <hw>Tochter</hw>, die kleine Sophie.</p> <p>Am <hw>Wochenende</hw> treffen wir uns immer. Wir essen zusammen und spielen Spiele.</p> <p>Ich liebe meine Familie sehr!</p>"},
-  {id:6,emoji:"💼",title:"Das Vorstellungsgespräch",desc:"Ana busca trabajo. Vocabulario L9 — Perfekt.",lection:9,words:["Stelle","Anzeige","Job","studieren","treffen","verdienen"],
+  {id:6,emoji:"💼",title:"Das Vorstellungsgespräch",desc:"Ana busca trabajo y participa en una entrevista.",words:["Stelle","Anzeige","Job","studieren","treffen","verdienen"],
   text:"<p>Ana sucht eine neue <hw>Stelle</hw>. Sie hat eine <hw>Anzeige</hw> in der Zeitung gesehen.</p> <p>\"Guten Tag! Mein Name ist Ana Müller. Ich habe Ihre <hw>Anzeige</hw> gelesen und möchte mich für den <hw>Job</hw> bewerben.\", sagt sie am Telefon.</p> <p>Dann hat Ana eine Chefin <hw>getroffen</hw>. \"Wo haben Sie <hw>studiert</hw>?\" fragt die Chefin. \"Ich habe in Barcelona Wirtschaft <hw>studiert</hw>\", antwortet Ana.</p> <p>Am Ende fragt Ana: \"Wie viel <hw>verdient</hw> man in dieser Position?\"</p> <p>Drei Tage später hat Ana ein E-Mail bekommen: Sie hat den Job!</p>"},
-  {id:5,emoji:"🏥",title:"Beim Arzt",desc:"Tom tiene fiebre y va al médico. Vocabulario L8.",lection:8,words:["Fieber","Kopf","Bein","Salbe","Tablette","dürfen","sollen"],
+  {id:5,emoji:"🏥",title:"Beim Arzt",desc:"Tom tiene fiebre y va al médico.",words:["Fieber","Kopf","Bein","Salbe","Tablette","dürfen","sollen"],
   text:"<p>Tom fühlt sich heute nicht gut. Er hat <hw>Fieber</hw> und sein <hw>Kopf</hw> tut sehr weh.</p> <p>Er geht zur Ärztin. \"Wie geht es Ihnen?\" fragt sie. \"Mir ist schlecht. Mein Kopf tut weh und ich habe Bauchschmerzen\", sagt Tom.</p> <p>\"Ich schreibe Ihnen ein Rezept für <hw>Tabletten</hw>. Nehmen Sie die Tabletten morgens und abends.\", sagt die Ärztin.</p> <p>\"Sie <hw>dürfen</hw> heute nicht zur Arbeit gehen. Sie <hw>sollen</hw> zu Hause bleiben und viel trinken. Hier ist auch eine <hw>Salbe</hw> für das <hw>Bein</hw>.\", erklärt sie.</p> <p>Tom geht nach Hause. Gute Besserung!</p>"},
 ];
 
 // ── DIALOGS ──
 const DIALOGS=[
-  {id:0,emoji:"🍽️",title:"Im Restaurant",desc:"Pide comida y paga la cuenta",
-   role:"Kellner/in (camarero/a)",
-   hint:"Eres el cliente. Pide algo de comer y beber, pregunta el precio y pide la cuenta al final. Frases útiles: <strong>Ich möchte… · Was kostet…? · Die Rechnung, bitte.</strong>",
-   botResponses: [
-     "Guten Abend! Was möchten Sie?",
-     "Möchten Sie auch etwas trinken?",
-     "Die Pizza kostet 8 Euro. Das Bier kostet 3 Euro.",
-     "Alles zusammen macht 11 Euro.",
-     "Vielen Dank! Auf Wiedersehen!"
-   ]},
-  {id:1,emoji:"🛍️",title:"Im Geschäft",desc:"Compra ropa o artículos en una tienda",
-   role:"Verkäufer/in (dependiente/a)",
-   hint:"Eres el cliente. Pregunta por productos, precios y tallas. Frases útiles: <strong>Ich suche… · Was kostet…? · Haben Sie das in…?</strong>",
-   botResponses: [
-     "Guten Tag! Wie kann ich Ihnen helfen?",
-     "Wir haben das Hemd in Größe M und L.",
-     "Das Hemd kostet 25 Euro.",
-     "Möchten Sie es kaufen?",
-     "Vielen Dank für Ihren Einkauf!"
-   ]},
-  {id:2,emoji:"🗺️",title:"Nach dem Weg fragen",desc:"Pregunta y da direcciones por la ciudad",
-   role:"Passant (transeúnte)",
-   hint:"Pregunta cómo llegar a un lugar. Frases útiles: <strong>Entschuldigung, wo ist…? · Wie komme ich zu…? · Gehen Sie rechts/links/geradeaus.</strong>",
-   botResponses: [
-     "Entschuldigung, wohin möchten Sie?",
-     "Gehen Sie geradeaus, dann rechts.",
-     "Das Museum ist neben der Kirche.",
-     "Es ist nicht weit, etwa 5 Minuten.",
-     "Gern geschehen!"
-   ]},
-  {id:3,emoji:"📅",title:"Einen Termin vereinbaren",desc:"Pide y confirma una cita",
-   role:"Arzt-Rezeption (recepción médica)",
-   hint:"Llama para pedir cita al médico. Frases útiles: <strong>Ich hätte gern einen Termin. · Geht es am…? · Um wie viel Uhr?</strong>",
-   botResponses: [
-     "Praxis Dr. Müller, guten Tag!",
-     "Wann passt es Ihnen? Am Donnerstag um 10 Uhr?",
-     "Ja, der Termin ist frei.",
-     "Ihr Name bitte?",
-     "Auf Wiederhören!"
-   ]},
-  {id:4,emoji:"🏠",title:"Sich vorstellen",desc:"Preséntate y habla de ti",
-   role:"Neuer Nachbar (nuevo vecino)",
-   hint:"Preséntate a tu nuevo vecino. Frases útiles: <strong>Ich heiße… · Ich komme aus… · Ich wohne in… · Ich arbeite als…</strong>",
-   botResponses: [
-     "Hallo! Ich bin Ihr neuer Nachbar.",
-     "Wie heißen Sie?",
-     "Woher kommen Sie?",
-     "Was machen Sie beruflich?",
-     "Schön, Sie kennenzulernen!"
-   ]},
-  {id:5,emoji:"🏨",title:"Im Hotel einchecken",desc:"Reserva una habitación y pide servicios",
-   role:"Rezeptionist/in (recepcionista de hotel)",
-   hint:"Eres el huésped. Di que tienes una reserva, pregunta por la habitación y los servicios. Frases útiles: <strong>Ich habe eine Reservierung. · Haben Sie ein Zimmer frei? · Ist Frühstück inklusive? · Gibt es WLAN?</strong>",
-   system:"Eres un recepcionista de hotel en Alemania. Responde en alemán A1 con frases cortas y amables.",
-   botResponses: [
-     "Guten Tag! Haben Sie eine Reservierung?",
-     "Ihr Zimmer ist im dritten Stock.",
-     "Das Frühstück gibt es von 7 bis 10 Uhr.",
-     "Ja, WLAN ist im ganzen Hotel verfügbar.",
-     "Hier ist Ihre Schlüsselkarte."
-   ]},
-  {id:6,emoji:"🚕",title:"Ein Taxi zum Flughafen bestellen",desc:"Pide un taxi para ir al aeropuerto",
-   role:"Taxifahrer/in",
-   hint:"Necesitas un taxi. Di desde dónde sales, a qué aeropuerto vas y pregunta el precio. Frases útiles: <strong>Ich brauche ein Taxi. · Zum Flughafen bitte. · Wie viel kostet es?</strong>",
-   system:"Eres un taxista en Alemania. Responde en alemán A1, ofrece la ruta y el precio.",
-   botResponses: [
-     "Guten Tag! Wohin möchten Sie fahren?",
-     "Zum Flughafen bitte. Wir fahren in 30 Minuten los.",
-     "Das kostet ungefähr 40 Euro.",
-     "Bitte steig ein. Deine Adresse?",
-     "Wir sind in 25 Minuten da."
-   ]},
-  {id:7,emoji:"🎫",title:"Am Bahnhof ein Ticket kaufen",desc:"Compra un billete de tren o autobús",
-   role:"Schalterbeamte/r (taquillero/a)",
-   hint:"Pregunta por una conexión y compra un billete sencillo o de ida y vuelta. Frases útiles: <strong>Ein Ticket nach … bitte. · Wann fährt der nächste Zug? · Ist das Platzreservierung?</strong>",
-   system:"Eres el empleado de la estación. Responde en alemán A1 y ayuda a comprar un ticket.",
-   botResponses: [
-     "Guten Tag! Wohin möchten Sie fahren?",
-     "Der nächste Zug fährt in 15 Minuten.",
-     "Ein Ticket kostet 12 Euro.",
-     "Möchten Sie eine Sitzplatzreservierung?",
-     "Der Zug fährt von Gleis 3 ab."
-   ]},
-  {id:8,emoji:"☁️",title:"Über das Wetter sprechen",desc:"Habla del clima y cómo te sientes",
-   role:"Freund/in oder Bekannte/r",
-   hint:"Comenta el tiempo y tu opinión. Frases útiles: <strong>Es ist heute sonnig/regnerisch. · Mir ist kalt/warm. · Ich mag das Wetter nicht.</strong>",
-   system:"Eres un amigo/a hablando sobre el tiempo. Responde en alemán A1 con frases claras y sencillas.",
-   botResponses: [
-     "Heute ist es sehr sonnig.",
-     "Es regnet und ist kalt.",
-     "Ich mag diesen Herbst.",
-     "Bist du warm genug gekleidet?",
-     "Morgen soll es besser werden."
-   ]},
-  {id:9,emoji:"🤒",title:"Ich bin krank",desc:"Explica que te sientes mal y pide ayuda",
-   role:"Arzt/in oder Apotheker/in",
-   hint:"Diles que no te sientes bien y describe tus síntomas. Frases útiles: <strong>Ich habe Kopfschmerzen. · Mir ist übel. · Ich brauche Medikamente.</strong>",
-   system:"Eres un médico o farmacéutico que escucha a un paciente. Responde en alemán A1 y ofrece ayuda.",
-   botResponses: [
-     "Was fehlt Ihnen?",
-     "Haben Sie Fieber?",
-     "Nehmen Sie diese Tabletten zweimal am Tag.",
-     "Ruhe dich aus und trinke viel Wasser.",
-     "Wenn es nicht besser wird, kommen Sie bitte wieder."
-   ]},
-  {id:10,emoji:"✈️",title:"Am Flughafen einchecken",desc:"Check-in y pregunta por el equipaje",
-   role:"Check-in-Mitarbeiter/in",
-   hint:"Eres pasajero. Di tu destino, pregunta por el mostrador y el equipaje. Frases útiles: <strong>Ich habe einen Flug nach … · Wo ist der Check-in? · Ich habe Gepäck.</strong>",
-   system:"Eres un agente de check-in en el aeropuerto. Responde en alemán A1 y da instrucciones claras.",
-   botResponses: [
-     "Guten Tag! Wohin fliegen Sie?",
-     "Bitte zeigen Sie Ihren Reisepass.",
-     "Ihr Gepäck darf 23 kg wiegen.",
-     "Hier ist Ihre Bordkarte.",
-     "Das Gate ist A12, bitte seien Sie rechtzeitig da."
-   ]},
-  {id:11,emoji:"🍽️",title:"Im Café etwas bestellen",desc:"Pide comida o bebida en un café",
-   role:"Kellner/in",
-   hint:"Pide algo para beber o comer y pregunta por recomendaciones. Frases útiles: <strong>Ich möchte einen Kaffee. · Haben Sie Kuchen? · Was empfehlen Sie?</strong>",
-   system:"Eres un camarero de café. Responde en alemán A1 y describe el menú brevemente.",
-   botResponses: [
-     "Guten Morgen! Was darf es sein?",
-     "Wir haben Kaffee, Tee und Kuchen.",
-     "Der Apfelkuchen ist sehr beliebt.",
-     "Möchten Sie auch etwas trinken?",
-     "Das macht 6 Euro bitte."
-   ]},
-  {id:12,emoji:"📍",title:"Nach dem Weg zum Museum fragen",desc:"Pregunta cómo llegar a un lugar turístico",
-   role:"Passant/in (transeúnte)",
-   hint:"Pide indicaciones precisas en la ciudad. Frases útiles: <strong>Entschuldigung, wo ist das Museum? · Gehen Sie geradeaus, dann links. · Ist es weit?</strong>",
-   system:"Eres un transeúnte que da direcciones. Responde en alemán A1 con instrucciones claras.",
-   botResponses: [
-     "Gehen Sie geradeaus und dann links.",
-     "Es ist nur 5 Minuten entfernt.",
-     "Das Museum ist neben dem Rathaus.",
-     "Auf der rechten Seite sehen Sie ein großes Hotel.",
-     "Sie können es nicht verfehlen."
-   ]},
-  {id:13,emoji:"☀️",title:"Dein Morgen",desc:"Lee un diálogo sobre la rutina matutina",
-   role:"Conversación A/B",
-   hint:"Lee los turnos A y B en alemán y reconoce la rutina de la mañana.",
+  {id:0,emoji:"🍽️",title:"Im Restaurant",desc:"Reservar, pedir comida y solicitar la cuenta",
+   hint:"En el examen: haz una reserva, pide comida y bebida, pregunta por un plato y paga. Expresiones útiles: <strong>Ich hätte gern einen Tisch für zwei. · Was können Sie empfehlen? · Könnte ich bitte die Rechnung haben?</strong>",
    script:[
-     {speaker:"A",text:"Hallo! Wie geht’s dir heute?"},
-     {speaker:"B",text:"Hallo! Mir geht’s gut, und dir?"},
-     {speaker:"A",text:"Auch gut, aber ich bin ein bisschen müde."},
-     {speaker:"B",text:"Warum bist du müde?"},
-     {speaker:"A",text:"Ich habe gestern lange gearbeitet, dann bin ich spät ins Bett gegangen."},
-     {speaker:"B",text:"Ah! Was machst du normalerweise am Morgen?"},
-     {speaker:"A",text:"Zuerst stehe ich um 7 Uhr auf, dann dusche ich und putze meine Zähne. Danach frühstücke ich."},
-     {speaker:"B",text:"Was hast du heute gefrühstückt?"},
-     {speaker:"A",text:"Ich habe Brot mit Käse gegessen und Kaffee getrunken. Und du?"},
-     {speaker:"B",text:"Ich habe nur Kaffee getrunken, dann hatte ich keine Zeit."},
-     {speaker:"A",text:"Was ziehst du morgens an?"},
-     {speaker:"B",text:"Das Wetter ist kalt, deshalb trage ich eine Jeans, einen Pullover und eine Jacke."},
-     {speaker:"A",text:"Ich auch. Danach gehe ich zur Arbeit und nehme den Bus."},
-     {speaker:"B",text:"Ich fahre mit der U-Bahn, dann komme ich um 8:30 Uhr an."},
-     {speaker:"A",text:"Was magst du gern am Wochenende?"},
-     {speaker:"B",text:"Am Wochenende schlafe ich länger, danach treffe ich meine Freunde oder gehe spazieren."},
-     {speaker:"A",text:"Ich auch, aber manchmal arbeite ich, dann bin ich sehr müde."}
+     {speaker:"Gast",text:"Guten Abend. Haben Sie heute Abend noch einen Tisch für zwei Personen frei?"},
+     {speaker:"Kellnerin",text:"Guten Abend. Ja, gern. Möchten Sie lieber am Fenster oder im Garten sitzen?"},
+     {speaker:"Gast",text:"Am Fenster wäre schön, wenn das möglich ist."},
+     {speaker:"Kellnerin",text:"Natürlich. Bitte kommen Sie mit. Hier ist die Speisekarte."},
+     {speaker:"Gast",text:"Danke. Was können Sie heute empfehlen?"},
+     {speaker:"Kellnerin",text:"Unser Fisch mit Kartoffeln ist sehr beliebt. Dazu gibt es einen kleinen Salat."},
+     {speaker:"Gast",text:"Das klingt gut. Ist das Gericht sehr scharf?"},
+     {speaker:"Kellnerin",text:"Nein, es ist mild. Möchten Sie zuerst etwas trinken?"},
+     {speaker:"Gast",text:"Ja, bitte ein Mineralwasser. Und ich nehme den Fisch."},
+     {speaker:"Kellnerin",text:"Sehr gern. Möchten Sie noch eine Vorspeise oder ein Dessert?"},
+     {speaker:"Gast",text:"Nein, danke. Vielleicht später einen Kaffee."},
+     {speaker:"Kellnerin",text:"War alles in Ordnung? Darf ich Ihnen die Rechnung bringen?"},
+     {speaker:"Gast",text:"Ja, bitte. Könnte ich mit Karte bezahlen?"},
+     {speaker:"Kellnerin",text:"Natürlich. Das macht zusammen 22 Euro 50."},
+     {speaker:"Gast",text:"Hier ist meine Karte. Vielen Dank, das Essen war sehr lecker."},
+     {speaker:"Kellnerin",text:"Vielen Dank für Ihren Besuch. Auf Wiedersehen!"}
    ]},
-  {id:14,emoji:"💼",title:"Dein Arbeitstag",desc:"Lee un diálogo sobre el trabajo diario",
-   role:"Conversación A/B",
-   hint:"Lee las preguntas y respuestas sobre trabajo, transporte y vestimenta.",
+  {id:1,emoji:"🚆",title:"Einen Ausflug planen",desc:"Concretar juntos una excursión de un día",
+   hint:"Tarea típica A2: propón una actividad y acuerda destino, día, hora, transporte y qué llevar. Expresiones útiles: <strong>Hättest du Lust auf …? · Wie wäre es mit …? · Das passt mir gut. · Ich kümmere mich um …</strong>",
    script:[
-     {speaker:"A",text:"Hallo! Ich habe gehört, du hast einen neuen Job."},
-     {speaker:"B",text:"Ja, stimmt! Ich habe letzte Woche angefangen."},
-     {speaker:"A",text:"Super! Wo arbeitest du?"},
-     {speaker:"B",text:"Ich arbeite in einem Büro, und ich finde den Job interessant."},
-     {speaker:"A",text:"Was ist für dich wichtig im Beruf?"},
-     {speaker:"B",text:"Für mich sind gute Kollegen wichtig, und auch ein gutes Gehalt. Auch möchte ich kein Stress haben."},
-     {speaker:"A",text:"Ja, das finde ich auch. Für mich ist Freizeit auch wichtig."},
-     {speaker:"B",text:"Was machst du bei der Arbeit?"},
-     {speaker:"A",text:"Ich arbeite am Computer, ich schreibe viele E-Mails und telefoniere mit Kunden."},
-     {speaker:"B",text:"Ich habe gestern viele E-Mails geschrieben, dann hatte ich Kopfschmerzen."},
-     {speaker:"A",text:"Ja, das passiert oft, der Kopf ist müde."},
-     {speaker:"B",text:"Wie kommst du zur Arbeit?"},
-     {speaker:"A",text:"Ich fahre mit dem Bus, danach gehe ich ein bisschen zu Fuß."},
-     {speaker:"B",text:"Ich bin gestern mit dem Zug gefahren, und ich bin pünktlich angekommen."},
-     {speaker:"A",text:"Was trägst du bei der Arbeit?"},
-     {speaker:"B",text:"Ich trage eine Hose, ein Hemd und manchmal eine Jacke. Und du?"},
-     {speaker:"A",text:"Ich trage oft bequeme Kleidung, dann fühle ich mich besser."}
+     {speaker:"Anna",text:"Wir wollten doch am Wochenende zusammen etwas unternehmen. Hast du schon eine Idee?"},
+     {speaker:"Ben",text:"Wie wäre es mit einem Ausflug an den See? Dort kann man spazieren gehen und schwimmen."},
+     {speaker:"Anna",text:"Das klingt toll. Am Samstag soll das Wetter aber regnerisch sein."},
+     {speaker:"Ben",text:"Dann fahren wir lieber am Sonntag. Da soll es sonnig werden."},
+     {speaker:"Anna",text:"Einverstanden. Wann wollen wir losfahren?"},
+     {speaker:"Ben",text:"Der Zug fährt um halb neun. Wir könnten uns um acht Uhr am Bahnhof treffen."},
+     {speaker:"Anna",text:"Das passt mir gut. Wie lange dauert die Fahrt?"},
+     {speaker:"Ben",text:"Ungefähr eine Stunde. Ich kaufe die Fahrkarten online."},
+     {speaker:"Anna",text:"Prima. Was sollen wir zu essen mitnehmen?"},
+     {speaker:"Ben",text:"Ich mache Sandwiches und bringe Wasser mit. Kannst du etwas Obst mitbringen?"},
+     {speaker:"Anna",text:"Ja, gern. Ich nehme Äpfel und Bananen. Sollen wir auch eine Decke einpacken?"},
+     {speaker:"Ben",text:"Gute Idee. Ich bringe eine Decke und Sonnencreme mit."},
+     {speaker:"Anna",text:"Wie viel kostet die Fahrt ungefähr?"},
+     {speaker:"Ben",text:"Mit dem Gruppenticket kostet sie zehn Euro pro Person."},
+     {speaker:"Anna",text:"Das ist nicht teuer. Dann treffen wir uns am Sonntag um acht am Bahnhof."},
+     {speaker:"Ben",text:"Abgemacht! Ich schicke dir später noch die Zugverbindung."}
    ]},
-  {id:15,emoji:"🍎",title:"Gesund leben",desc:"Lee un diálogo sobre hábitos saludables",
-   role:"Conversación A/B",
-   hint:"Lee cómo hablan sobre dieta, ejercicio y planes para pasear.",
+  {id:2,emoji:"🎂",title:"Eine Geburtstagsparty organisieren",desc:"Invitar a alguien y repartir las tareas",
+   hint:"Tarea típica A2: organiza una celebración y acuerda lugar, hora, comida y ayuda. Expresiones útiles: <strong>Ich möchte dich gern einladen. · Was hältst du davon? · Kannst du mir dabei helfen? · Ich bringe … mit.</strong>",
    script:[
-     {speaker:"A",text:"Hallo! Wie geht’s dir heute?"},
-     {speaker:"B",text:"Gut, danke! Und dir?"},
-     {speaker:"A",text:"Auch gut, danke."},
-     {speaker:"B",text:"Sag mal, lebst du gesund?"},
-     {speaker:"A",text:"Ja, ich versuche gesund zu leben. Ich esse viel Obst und Gemüse und trinke viel Wasser."},
-     {speaker:"B",text:"Das ist gut! Machst du auch Sport?"},
-     {speaker:"A",text:"Ja, ich gehe zweimal pro Woche joggen und manchmal mache ich Yoga. Und du?"},
-     {speaker:"B",text:"Ich mache auch Sport, aber nicht so oft. Ich gehe einmal pro Woche ins Fitnessstudio."},
-     {speaker:"A",text:"Das ist auch gut. Was machst du am Wochenende?"},
-     {speaker:"B",text:"Am Wochenende gehe ich oft spazieren oder fahre Fahrrad."},
-     {speaker:"A",text:"Super! Ich gehe auch gern spazieren."},
-     {speaker:"B",text:"Wir können zusammen etwas machen."},
-     {speaker:"A",text:"Gute Idee! Wollen wir morgen nach der Arbeit spazieren gehen?"},
-     {speaker:"B",text:"Ja, gern! Um wie viel Uhr?"},
-     {speaker:"A",text:"Um 18 Uhr?"},
-     {speaker:"B",text:"Perfekt! Dann treffen wir uns im Park."},
-     {speaker:"A",text:"Super, bis morgen!"},
-     {speaker:"B",text:"Bis morgen! Tschüss!"}
+     {speaker:"Mia",text:"Hallo Luis! Ich feiere nächsten Samstag meinen Geburtstag. Möchtest du kommen?"},
+     {speaker:"Luis",text:"Sehr gern. Wann beginnt die Party?"},
+     {speaker:"Mia",text:"Um 18 Uhr bei mir zu Hause. Ich hoffe, du hast Zeit."},
+     {speaker:"Luis",text:"Ja, das passt. Soll ich etwas mitbringen?"},
+     {speaker:"Mia",text:"Das wäre sehr nett. Könntest du einen Salat machen?"},
+     {speaker:"Luis",text:"Natürlich. Magst du lieber Kartoffelsalat oder Nudelsalat?"},
+     {speaker:"Mia",text:"Nudelsalat wäre super. Ich kümmere mich um die Getränke."},
+     {speaker:"Luis",text:"Gut. Wie viele Gäste kommen ungefähr?"},
+     {speaker:"Mia",text:"Etwa zwölf. Zwei Freunde essen kein Fleisch, deshalb mache ich auch eine vegetarische Pizza."},
+     {speaker:"Luis",text:"Kein Problem. Soll ich früher kommen und dir helfen?"},
+     {speaker:"Mia",text:"Ja, bitte. Wenn du um halb sechs kommen könntest, wäre das toll."},
+     {speaker:"Luis",text:"Gern. Brauchst du noch Musik oder Spiele?"},
+     {speaker:"Mia",text:"Bring bitte deine kleine Musikbox mit. Dann können wir später tanzen."},
+     {speaker:"Luis",text:"Mache ich. Soll ich auch meine Schwester fragen?"},
+     {speaker:"Mia",text:"Ja, sie ist herzlich eingeladen. Sag ihr bitte Bescheid."},
+     {speaker:"Luis",text:"Mach ich. Danke für die Einladung. Bis Samstag!"},
+     {speaker:"Mia",text:"Ich freue mich! Bis dann und schönen Abend noch."}
    ]},
-  {id:16,emoji:"🩺",title:"Beim Arzt",desc:"Lee el diálogo entre médico y paciente",
-   role:"Arzt/Patient",
-   hint:"Lee el diálogo médico exacto con preguntas de síntomas y consejos.",
+  {id:3,emoji:"🩺",title:"Einen Arzttermin vereinbaren",desc:"Llamar a la consulta y explicar síntomas",
+   hint:"En el examen: pide una cita, describe desde cuándo tienes síntomas y pregunta qué debes hacer. Expresiones útiles: <strong>Ich hätte gern einen Termin. · Seit wann haben Sie …? · Ich habe seit … Schmerzen. · Was kann ich dagegen tun?</strong>",
    script:[
-     {speaker:"Arzt",text:"Guten Tag! Wie kann ich Ihnen helfen?"},
-     {speaker:"Patient",text:"Guten Tag, Herr Doktor."},
-     {speaker:"Arzt",text:"Was ist Ihr Problem?"},
-     {speaker:"Patient",text:"Ich habe hart Kopfschmerzen, und mein Bauch tut weh. Auch habe ich Fieber."},
-     {speaker:"Arzt",text:"Seit wann haben Sie das?"},
-     {speaker:"Patient",text:"Seit drei Tagen, und gestern habe ich nicht gearbeitet."},
-     {speaker:"Arzt",text:"Was haben Sie gemacht?"},
-     {speaker:"Patient",text:"Ich bin zu Hause geblieben, dann habe ich viel geschlafen."},
-     {speaker:"Arzt",text:"Haben Sie Medikamente genommen?"},
-     {speaker:"Patient",text:"Ja, ich habe Tabletten genommen, aber es war nicht besser."},
-     {speaker:"Arzt",text:"Trinken Sie genug Wasser?"},
-     {speaker:"Patient",text:"Nein, nicht viel."},
-     {speaker:"Arzt",text:"Sie müssen viel Wasser trinken, dann bleiben Sie zu Hause und ruhen Sie sich aus."},
-     {speaker:"Patient",text:"Muss ich im Bett bleiben?"},
-     {speaker:"Arzt",text:"Ja, ein paar Tage. Danach können Sie spazieren gehen."},
-     {speaker:"Patient",text:"Kann ich arbeiten?"},
-     {speaker:"Arzt",text:"Nein, Ihr Körper ist müde, deshalb brauchen Sie Ruhe."},
-     {speaker:"Patient",text:"Danke schön für Ihre Hilfe."},
-     {speaker:"Arzt",text:"Gern. Gute Besserung!"}
+     {speaker:"Patient",text:"Guten Tag. Mein Name ist Elena Ruiz. Ich hätte gern einen Termin bei Frau Dr. Weber."},
+     {speaker:"Rezeption",text:"Guten Tag, Frau Ruiz. Was fehlt Ihnen denn?"},
+     {speaker:"Patient",text:"Ich habe starke Halsschmerzen und seit gestern auch Fieber."},
+     {speaker:"Rezeption",text:"Das tut mir leid. Seit wann genau haben Sie die Halsschmerzen?"},
+     {speaker:"Patient",text:"Seit drei Tagen. Heute ist es schlimmer geworden."},
+     {speaker:"Rezeption",text:"Können Sie heute um 15 Uhr kommen?"},
+     {speaker:"Patient",text:"Leider arbeite ich bis 16 Uhr. Gibt es morgen früh einen Termin?"},
+     {speaker:"Rezeption",text:"Ja, morgen um 8.30 Uhr wäre noch etwas frei."},
+     {speaker:"Patient",text:"Das passt gut. Muss ich meine Versicherungskarte mitbringen?"},
+     {speaker:"Rezeption",text:"Ja, bitte bringen Sie die Karte und, wenn möglich, eine Liste Ihrer Medikamente mit."},
+     {speaker:"Patient",text:"In Ordnung. Soll ich bis dahin etwas Besonderes machen?"},
+     {speaker:"Rezeption",text:"Trinken Sie viel Wasser und ruhen Sie sich aus. Bei starken Beschwerden rufen Sie bitte wieder an."},
+     {speaker:"Patient",text:"Vielen Dank. Können Sie den Termin bitte wiederholen?"},
+     {speaker:"Rezeption",text:"Natürlich: morgen, Dienstag, um 8.30 Uhr bei Frau Dr. Weber."},
+     {speaker:"Patient",text:"Alles klar. Vielen Dank für Ihre Hilfe. Auf Wiederhören!"},
+     {speaker:"Rezeption",text:"Gern geschehen. Gute Besserung und auf Wiederhören!"}
    ]},
-  {id:17,emoji:"🏠",title:"Die neue Wohnung",desc:"Lee un diálogo de presentación del hogar",
-   role:"Conversación A/B",
-   hint:"Lee cómo se muestra y se describe una nueva casa.",
+  {id:4,emoji:"🚉",title:"Eine Fahrkarte kaufen",desc:"Preguntar horarios, precio y cambiar de tren",
+   hint:"En el examen: pregunta por horarios, duración, precio y tipo de billete. Expresiones útiles: <strong>Wann fährt der nächste Zug nach …? · Wie lange dauert die Fahrt? · Einmal hin und zurück, bitte. · Muss ich umsteigen?</strong>",
    script:[
-     {speaker:"A",text:"Hallo! Willkommen in meiner neuen Wohnung!"},
-     {speaker:"B",text:"Danke! Sie ist wirklich schön."},
-     {speaker:"A",text:"Komm, zuerst zeige ich dir das Wohnzimmer."},
-     {speaker:"B",text:"Oh, das ist groß und hell!"},
-     {speaker:"A",text:"Hier gibt es ein Sofa, einen Tisch und eine Lampe. Ich habe gestern hier mit Freunden gegessen."},
-     {speaker:"B",text:"Sehr gemütlich!"},
-     {speaker:"A",text:"Danach gehen wir in die Küche."},
-     {speaker:"B",text:"Die Küche ist modern, und sie gefällt mir sehr."},
-     {speaker:"A",text:"Ich koche hier oft, und ich esse hier jeden Tag."},
-     {speaker:"B",text:"Super!"},
-     {speaker:"A",text:"Das ist mein Schlafzimmer."},
-     {speaker:"B",text:"Sehr ruhig. Was machst du hier gern?"},
-     {speaker:"A",text:"Ich schlafe hier und lese Bücher, dann entspanne ich mich."},
-     {speaker:"B",text:"Was ist dein Lieblingszimmer?"},
-     {speaker:"A",text:"Das Wohnzimmer, deshalb bleibe ich viel Zeit hier."},
-     {speaker:"B",text:"Ich verstehe, es ist sehr komfortabel."}
+     {speaker:"Reisende",text:"Guten Morgen. Ich möchte heute nach Heidelberg fahren."},
+     {speaker:"Mitarbeiter",text:"Guten Morgen. Möchten Sie eine einfache Fahrt oder hin und zurück?"},
+     {speaker:"Reisende",text:"Hin und zurück, bitte. Wann fährt der nächste Zug?"},
+     {speaker:"Mitarbeiter",text:"Der schnellste Zug fährt um 9.12 Uhr von Gleis 4."},
+     {speaker:"Reisende",text:"Muss ich unterwegs umsteigen?"},
+     {speaker:"Mitarbeiter",text:"Ja, einmal in Mannheim. Dort haben Sie zehn Minuten Zeit."},
+     {speaker:"Reisende",text:"Wie lange dauert die Fahrt insgesamt?"},
+     {speaker:"Mitarbeiter",text:"Ungefähr eine Stunde und vierzig Minuten."},
+     {speaker:"Reisende",text:"Was kostet die Fahrkarte? Gibt es eine günstigere Verbindung?"},
+     {speaker:"Mitarbeiter",text:"Die schnelle Verbindung kostet 38 Euro. Mit dem Regionalzug um 9.30 Uhr zahlen Sie 26 Euro, aber die Fahrt dauert länger."},
+     {speaker:"Reisende",text:"Dann nehme ich bitte die günstigere Verbindung. Ich habe Zeit."},
+     {speaker:"Mitarbeiter",text:"Möchten Sie einen Sitzplatz reservieren? Das kostet drei Euro extra."},
+     {speaker:"Reisende",text:"Nein, danke. Kann ich mit Karte bezahlen?"},
+     {speaker:"Mitarbeiter",text:"Ja, natürlich. Hier ist Ihre Fahrkarte. Der Zug fährt von Gleis 6."},
+     {speaker:"Reisende",text:"Entschuldigung, Sie sagten Gleis 6?"},
+     {speaker:"Mitarbeiter",text:"Ja, der Regionalzug um 9.30 Uhr fährt von Gleis 6. Gute Fahrt!"},
+     {speaker:"Reisende",text:"Vielen Dank. Auf Wiedersehen!"}
    ]},
-  {id:18,emoji:"🌴",title:"Dein letzter Urlaub",desc:"Lee un diálogo sobre las vacaciones recientes",
-   role:"Conversación A/B",
-   hint:"Lee el relato de viaje, clima y compras durante las vacaciones.",
+  {id:5,emoji:"🏨",title:"Ein Problem im Hotel lösen",desc:"Explicar un problema y pedir una solución",
+   hint:"En el examen: explica el problema con educación, pide una solución y confirma los detalles. Expresiones útiles: <strong>Ich habe ein Problem mit … · Leider funktioniert … nicht. · Könnten Sie bitte …? · Vielen Dank für Ihre Hilfe.</strong>",
    script:[
-     {speaker:"A",text:"Hallo! Schön dich zu sehen! Wie geht’s dir?"},
-     {speaker:"B",text:"Hallo! Mir geht’s gut, danke. Ich bin letzte Woche aus dem Urlaub zurückgekommen."},
-     {speaker:"A",text:"Oh, super! Wohin bist du gefahren?"},
-     {speaker:"B",text:"Ich bin nach Deutschland gefahren, und ich habe dort eine Woche verbracht."},
-     {speaker:"A",text:"Mit wem bist du gefahren?"},
-     {speaker:"B",text:"Ich bin mit meiner Familie gefahren, und wir hatten viel Spaß."},
-     {speaker:"A",text:"Was hast du im Urlaub gemacht?"},
-     {speaker:"B",text:"Zuerst habe ich die Stadt besucht, dann bin ich jeden Tag schwimmen gegangen. Danach habe ich oft im Restaurant gegessen."},
-     {speaker:"A",text:"Das klingt sehr gut! Wie war das Wetter?"},
-     {speaker:"B",text:"Das Wetter war sehr schön, es war sonnig und warm, deshalb habe ich oft T-Shirts und Shorts getragen."},
-     {speaker:"A",text:"Hast du auch etwas gekauft?"},
-     {speaker:"B",text:"Ja, ich habe ein Kleid und neue Schuhe gekauft, und ich habe auch Souvenirs für meine Freunde gekauft."},
-     {speaker:"A",text:"Sehr schön! Was hat dir am besten gefallen?"},
-     {speaker:"B",text:"Das Meer hat mir sehr gefallen, und auch das Essen war fantastisch."},
-     {speaker:"A",text:"Was dir nicht gefallen hat?"},
-     {speaker:"B",text:"Ja, es war manchmal sehr heiß, dann war ich müde."},
-     {speaker:"A",text:"Und am Ende vom Urlaub?"},
-     {speaker:"B",text:"Am Ende war ich sehr froh, aber auch ein bisschen traurig, weil der Urlaub zu kurz war."}
+     {speaker:"Gast",text:"Guten Abend. Entschuldigung, ich habe ein Problem mit meinem Zimmer."},
+     {speaker:"Rezeption",text:"Guten Abend. Was ist denn passiert?"},
+     {speaker:"Gast",text:"Das Zimmer ist sehr laut. Mein Fenster geht zur Straße und ich kann nicht schlafen."},
+     {speaker:"Rezeption",text:"Das tut mir leid. Möchten Sie vielleicht ein anderes Zimmer?"},
+     {speaker:"Gast",text:"Ja, wenn möglich. Haben Sie ein ruhigeres Zimmer frei?"},
+     {speaker:"Rezeption",text:"Einen Moment bitte. Wir haben noch ein Zimmer zum Innenhof."},
+     {speaker:"Gast",text:"Das wäre wunderbar. Funktioniert das WLAN dort auch?"},
+     {speaker:"Rezeption",text:"Ja, in allen Zimmern gibt es kostenloses WLAN."},
+     {speaker:"Gast",text:"Vielen Dank. Könnten Sie mir auch ein zusätzliches Handtuch geben?"},
+     {speaker:"Rezeption",text:"Natürlich. Ich lasse ein Handtuch auf Ihr neues Zimmer bringen."},
+     {speaker:"Gast",text:"Muss ich für den Zimmerwechsel etwas bezahlen?"},
+     {speaker:"Rezeption",text:"Nein, selbstverständlich nicht. Das ist unser Fehler."},
+     {speaker:"Gast",text:"Vielen Dank für Ihre Hilfe. Wo bekomme ich den neuen Schlüssel?"},
+     {speaker:"Rezeption",text:"Hier ist er. Ihr neues Zimmer ist Nummer 214, im zweiten Stock."},
+     {speaker:"Gast",text:"Alles klar. Dann hole ich meine Sachen. Gute Nacht!"},
+     {speaker:"Rezeption",text:"Gute Nacht, und entschuldigen Sie bitte die Umstände."}
    ]},
-  {id:19,emoji:"🛍️",title:"Shoppen",desc:"Lee un diálogo en una tienda",
-   role:"Verkäufer/Kunde",
-   hint:"Lee el diálogo de compra con talla, precio y probadores.",
+  {id:6,emoji:"🛍️",title:"Kleidung umtauschen",desc:"Devolver una compra y pedir otra talla",
+   hint:"En el examen: explica cuándo y dónde compraste el producto, qué problema tiene y qué solución prefieres. Expresiones útiles: <strong>Ich möchte … umtauschen. · Ich habe den Kassenbon dabei. · Gibt es diese Hose auch eine Nummer größer? · Kann ich mein Geld zurückbekommen?</strong>",
    script:[
-     {speaker:"Verkäufer",text:"Guten Tag! Kann ich Ihnen helfen?"},
-     {speaker:"Kunde",text:"Guten Tag! Ja, ich suche eine warme Jacke für den Winter."},
-     {speaker:"Verkäufer",text:"Welche Größe brauchen Sie?"},
-     {speaker:"Kunde",text:"Größe M, bitte."},
-     {speaker:"Verkäufer",text:"Hier ist eine Jacke, sie ist sehr warm."},
-     {speaker:"Kunde",text:"Danke. Ich probiere sie an."},
-     {speaker:"Verkäufer",text:"Und, wie ist sie?"},
-     {speaker:"Kunde",text:"Sie passt gut, und sie gefällt mir, aber sie ist ein bisschen teuer."},
-     {speaker:"Verkäufer",text:"Wir haben auch eine andere Jacke, sie ist nicht so teuer."},
-     {speaker:"Kunde",text:"Gut, dann probiere ich diese an."},
-     {speaker:"Verkäufer",text:"Wie finden Sie sie?"},
-     {speaker:"Kunde",text:"Diese Jacke ist auch gut, deshalb nehme ich sie."},
-     {speaker:"Verkäufer",text:"Perfekt!"},
-     {speaker:"Kunde",text:"Ich habe letzte Woche auch online Kleidung bestellt."},
-     {speaker:"Verkäufer",text:"Was haben Sie bestellt?"},
-     {speaker:"Kunde",text:"Ich habe Schuhe und ein T-Shirt bestellt, und sie sind gestern angekommen."},
-     {speaker:"Verkäufer",text:"Hier ist ihn."},
-     {speaker:"Kunde",text:"Vielen Dank."}
+     {speaker:"Kundin",text:"Guten Tag. Ich habe diese Hose vor zwei Tagen bei Ihnen gekauft und möchte sie umtauschen."},
+     {speaker:"Verkäufer",text:"Guten Tag. Was ist das Problem mit der Hose?"},
+     {speaker:"Kundin",text:"Sie ist leider zu klein. Gibt es diese Hose auch eine Nummer größer?"},
+     {speaker:"Verkäufer",text:"Einen Moment bitte. Welche Größe tragen Sie normalerweise?"},
+     {speaker:"Kundin",text:"Normalerweise trage ich Größe 40. Diese Hose ist Größe 38."},
+     {speaker:"Verkäufer",text:"Hier ist dieselbe Hose in Größe 40. Möchten Sie sie anprobieren?"},
+     {speaker:"Kundin",text:"Ja, gern. Wo sind die Umkleidekabinen?"},
+     {speaker:"Verkäufer",text:"Dort hinten, neben den Schuhen."},
+     {speaker:"Kundin",text:"Die Größe passt jetzt gut. Ich nehme diese Hose."},
+     {speaker:"Verkäufer",text:"Sehr schön. Haben Sie den Kassenbon noch?"},
+     {speaker:"Kundin",text:"Ja, hier ist der Bon. Muss ich etwas dazuzahlen?"},
+     {speaker:"Verkäufer",text:"Nein, beide Hosen kosten gleich viel."},
+     {speaker:"Kundin",text:"Prima. Kann ich die andere Hose hierlassen?"},
+     {speaker:"Verkäufer",text:"Ja, natürlich. Ich tausche die Hose für Sie um. Den Kassenbon bekommen Sie zurück."},
+     {speaker:"Kundin",text:"Vielen Dank für Ihre Hilfe. Auf Wiedersehen!"},
+     {speaker:"Verkäufer",text:"Gern geschehen. Viel Freude mit der Hose!"}
    ]},
-  {id:20,emoji:"☕",title:"Geburtstag + Café",desc:"Lee un diálogo sobre planear una fiesta de cumpleaños",
-   role:"A/B/Kellner",
-   hint:"Lee el diálogo en el café y la planificación del cumpleaños.",
+  {id:7,emoji:"🏠",title:"Eine Wohnung besichtigen",desc:"Preguntar por alquiler, habitaciones y condiciones",
+   hint:"En el examen: concierta una visita y pregunta por tamaño, alquiler, gastos y transporte. Expresiones útiles: <strong>Ich interessiere mich für … · Wie hoch ist die Miete? · Sind die Nebenkosten inklusive? · Wann kann ich die Wohnung besichtigen?</strong>",
    script:[
-     {speaker:"A",text:"Hallo B! Schön, dich zu sehen."},
-     {speaker:"B",text:"Hallo A! Mir geht’s gut, und dir?"},
-     {speaker:"A",text:"Gut, danke. Wollen wir ins Café gehen?"},
-     {speaker:"B",text:"Ja, gern!"},
-     {speaker:"Kellner",text:"Guten Tag! Was möchten Sie?"},
-     {speaker:"A",text:"Ich möchte einen Kaffee, bitte."},
-     {speaker:"B",text:"Ich nehme einen Cappuccino und ein Stück Kuchen."},
-     {speaker:"Kellner",text:"Möchten Sie noch etwas?"},
-     {speaker:"A",text:"Nein, danke."},
-     {speaker:"B",text:"Also, du hast bald Geburtstag, oder?"},
-     {speaker:"A",text:"Ja, am Samstag. Ich möchte eine Party machen."},
-     {speaker:"B",text:"Super! Wen lädst du ein?"},
-     {speaker:"A",text:"Ich lade meine Freunde, meine Familie und ein paar Kollegen ein."},
-     {speaker:"B",text:"Wie viele Leute kommen?"},
-     {speaker:"A",text:"Vielleicht 15 bis 20 Personen."},
-     {speaker:"B",text:"Wo ist die Party?"},
-     {speaker:"A",text:"Bei mir zu Hause. Ich habe genug Platz."},
-     {speaker:"B",text:"Wann beginnt die Party?"},
-     {speaker:"A",text:"Um 18 Uhr, aber die Leute können auch später kommen."},
-     {speaker:"B",text:"Was brauchst du für die Party?"},
-     {speaker:"A",text:"Ich brauche Essen, Getränke und Musik."},
-     {speaker:"B",text:"Was möchtest du essen?"},
-     {speaker:"A",text:"Ich denke: Pizza, Chips, Salat und Kuchen."},
-     {speaker:"B",text:"Und Getränke?"},
-     {speaker:"A",text:"Wasser, Saft, Cola und vielleicht etwas Bier."},
-     {speaker:"B",text:"Brauchst du Hilfe?"},
-     {speaker:"A",text:"Ja, bitte! Kannst du Musik bringen?"},
-     {speaker:"B",text:"Klar! Ich bringe eine Playlist und einen Lautsprecher."},
-     {speaker:"A",text:"Super!"},
-     {speaker:"B",text:"Möchtest du auch Spiele oder Aktivitäten machen?"},
-     {speaker:"A",text:"Ja, vielleicht ein paar Spiele oder wir tanzen zusammen."},
-     {speaker:"B",text:"Gute Idee!"},
-     {speaker:"Kellner",text:"Das macht 7 Euro."},
-     {speaker:"B",text:"Ich zahle heute."},
-     {speaker:"A",text:"Danke!"},
-     {speaker:"A",text:"Kommst du zur Party?"},
-     {speaker:"B",text:"Ja, natürlich! Ich freue mich schon!"},
-     {speaker:"A",text:"Ich auch! Bis Samstag!"},
-     {speaker:"B",text:"Bis Samstag! Tschüss!"}
+     {speaker:"Mieterin",text:"Guten Tag. Mein Name ist Laura Pérez. Ich rufe wegen Ihrer Wohnungsanzeige an."},
+     {speaker:"Vermieter",text:"Guten Tag, Frau Pérez. Die Wohnung ist noch frei. Was möchten Sie wissen?"},
+     {speaker:"Mieterin",text:"Wie groß ist die Wohnung und wie viele Zimmer hat sie?"},
+     {speaker:"Vermieter",text:"Sie ist 55 Quadratmeter groß und hat zwei Zimmer, eine Küche und ein Bad."},
+     {speaker:"Mieterin",text:"Wie hoch ist die Miete? Sind die Nebenkosten schon dabei?"},
+     {speaker:"Vermieter",text:"Die Miete beträgt 720 Euro. Dazu kommen ungefähr 150 Euro Nebenkosten."},
+     {speaker:"Mieterin",text:"Gibt es einen Balkon und einen Platz für mein Fahrrad?"},
+     {speaker:"Vermieter",text:"Ja, die Wohnung hat einen kleinen Balkon. Im Keller gibt es einen Fahrradraum."},
+     {speaker:"Mieterin",text:"Wie weit ist es bis zur nächsten Bushaltestelle?"},
+     {speaker:"Vermieter",text:"Die Haltestelle ist fünf Minuten zu Fuß entfernt. Der Bus fährt alle zehn Minuten."},
+     {speaker:"Mieterin",text:"Das klingt sehr gut. Wann kann ich die Wohnung besichtigen?"},
+     {speaker:"Vermieter",text:"Am Donnerstag um 17 Uhr hätte ich Zeit."},
+     {speaker:"Mieterin",text:"Am Donnerstag kann ich leider nicht. Wäre Freitag gegen 16 Uhr möglich?"},
+     {speaker:"Vermieter",text:"Ja, das passt. Die Adresse ist Gartenstraße 12."},
+     {speaker:"Mieterin",text:"Vielen Dank. Ich bringe meine Unterlagen mit. Auf Wiederhören!"},
+     {speaker:"Vermieter",text:"Gern. Dann bis Freitag. Auf Wiederhören!"}
+   ]},
+  {id:8,emoji:"📚",title:"Einen Deutschkurs finden",desc:"Informarse e inscribirse en un curso",
+   hint:"En el examen: explica tu nivel y tus objetivos, pregunta por horarios, precio y materiales. Expresiones útiles: <strong>Ich interessiere mich für … · Wie oft findet der Kurs statt? · Gibt es noch freie Plätze? · Was muss ich mitbringen?</strong>",
+   script:[
+     {speaker:"Teilnehmer",text:"Guten Tag. Ich interessiere mich für einen Deutschkurs auf dem Niveau A2."},
+     {speaker:"Mitarbeiterin",text:"Guten Tag. Haben Sie schon einen Deutschkurs besucht?"},
+     {speaker:"Teilnehmer",text:"Ja, ich habe letztes Jahr einen Deutschkurs besucht. Jetzt möchte ich besser sprechen."},
+     {speaker:"Mitarbeiterin",text:"Dann passt unser A2-Kurs gut. Er beginnt am 5. Mai."},
+     {speaker:"Teilnehmer",text:"Wie oft findet der Kurs statt und wie lange dauert eine Stunde?"},
+     {speaker:"Mitarbeiterin",text:"Der Kurs findet zweimal pro Woche statt. Jede Stunde dauert 90 Minuten."},
+     {speaker:"Teilnehmer",text:"An welchen Tagen ist der Unterricht?"},
+     {speaker:"Mitarbeiterin",text:"Dienstags und donnerstags von 18 bis 19.30 Uhr."},
+     {speaker:"Teilnehmer",text:"Das passt gut. Wie viel kostet der ganze Kurs?"},
+     {speaker:"Mitarbeiterin",text:"Der Kurs kostet 180 Euro für zwölf Wochen. Das Buch kostet extra."},
+     {speaker:"Teilnehmer",text:"Gibt es noch freie Plätze? Und kann ich eine Probestunde machen?"},
+     {speaker:"Mitarbeiterin",text:"Ja, es sind noch drei Plätze frei. Am Dienstag können Sie kostenlos mitmachen."},
+     {speaker:"Teilnehmer",text:"Sehr gut. Was muss ich zur Probestunde mitbringen?"},
+     {speaker:"Mitarbeiterin",text:"Bitte bringen Sie nur ein Heft und einen Stift mit."},
+     {speaker:"Teilnehmer",text:"Vielen Dank. Dann komme ich am Dienstag um 18 Uhr."},
+     {speaker:"Mitarbeiterin",text:"Wir freuen uns auf Sie. Auf Wiedersehen!"}
+   ]},
+  {id:9,emoji:"📞",title:"Einen Termin verschieben",desc:"Disculparse, explicar un imprevisto y proponer otra hora",
+   hint:"En el examen: llama cuanto antes, explica brevemente el motivo y acuerda una nueva fecha. Expresiones útiles: <strong>Es tut mir leid, aber … · Können wir den Termin verschieben? · Hätten Sie am … Zeit? · Dann bleibt es dabei.</strong>",
+   script:[
+     {speaker:"Nora",text:"Hallo Paul. Es tut mir leid, aber ich kann heute nicht zu unserem Treffen kommen."},
+     {speaker:"Paul",text:"Oh, das ist schade. Ist etwas passiert?"},
+     {speaker:"Nora",text:"Mein Sohn ist krank und ich muss mit ihm zum Arzt."},
+     {speaker:"Paul",text:"Das verstehe ich. Hoffentlich geht es ihm bald besser."},
+     {speaker:"Nora",text:"Danke. Können wir unser Treffen auf einen anderen Tag verschieben?"},
+     {speaker:"Paul",text:"Natürlich. Wie wäre es morgen Nachmittag?"},
+     {speaker:"Nora",text:"Morgen muss ich leider arbeiten. Hast du am Freitag Zeit?"},
+     {speaker:"Paul",text:"Am Freitag kann ich ab 16 Uhr. Passt dir 17 Uhr?"},
+     {speaker:"Nora",text:"Ja, das passt gut. Wo wollen wir uns treffen?"},
+     {speaker:"Paul",text:"Wir könnten uns wieder im Café am Bahnhof treffen."},
+     {speaker:"Nora",text:"Gute Idee. Soll ich einen Tisch reservieren?"},
+     {speaker:"Paul",text:"Nein, das ist nicht nötig. Am Freitagnachmittag ist es dort meistens ruhig."},
+     {speaker:"Nora",text:"Alles klar. Dann Freitag um 17 Uhr im Café am Bahnhof."},
+     {speaker:"Paul",text:"Genau. Gute Besserung für deinen Sohn und bis Freitag!"},
+     {speaker:"Nora",text:"Vielen Dank. Bis Freitag und entschuldige bitte noch einmal."},
+     {speaker:"Paul",text:"Kein Problem. Mach dir keine Sorgen. Tschüss!"}
    ]}
-];
-
-// ── WRITING PROMPTS ──
-const PROMPTS=[
-  {text:"Escribe una frase presentándote: nombre, de dónde eres y dónde vives.",hint:"Usa: Ich heiße… / Ich komme aus… / Ich wohne in…"},
-  {text:"Describe lo que comes normalmente en el desayuno.",hint:"Usa: Zum Frühstück esse/trinke ich… / Ich mag… / Ich möchte…"},
-  {text:"Escribe 3 frases sobre tu familia (nombre, profesión, dónde vive).",hint:"Usa: Mein Bruder / Meine Schwester heißt… / Er/Sie arbeitet als… / Er/Sie wohnt in…"},
-  {text:"¿Qué haces los fines de semana? Escribe al menos 3 actividades.",hint:"Usa: Am Wochenende… / Ich gehe… / Ich treffe… / Ich spiele…"},
-  {text:"Describe tu ciudad: qué hay, qué te gusta, cómo es.",hint:"Usa: In meiner Stadt gibt es… / Die Stadt ist… / Ich mag… weil…"},
-  {text:"Escribe lo que hiciste ayer (usa Präteritum de sein/haben + Perfekt si puedes).",hint:"Usa: Ich war… / Ich hatte… / Ich bin… gegangen / Ich habe… gegessen"},
-  {text:"Invita a un amigo a tu cumpleaños por escrito.",hint:"Usa: Ich lade dich ein… / Am… um… Uhr / Ich freue mich auf dich!"},
-  {text:"Describe tu trabajo o estudios: qué haces, cuándo, dónde.",hint:"Usa: Ich arbeite als… / Ich studiere… / Ich arbeite von … bis … Uhr"},
-  {text:"¿Qué puedes, debes o quieres hacer esta semana?",hint:"Usa: Ich muss… / Ich kann… / Ich will… + infinitivo al final"},
-  {text:"Describe el camino de tu casa al supermercado.",hint:"Usa: Gehen Sie… / Zuerst… dann… / Es ist neben / gegenüber von…"},
 ];
 
 // ── CONJUGATIONS ──
@@ -2169,38 +1804,9 @@ const PRON_DATA=[
 // ════════════════════════════════════════════
 // STATE
 // ════════════════════════════════════════════
-let currentLek='all';
-let chatHistory=[];
-let dialHistory=[];
 let currentDial=null;
 let currentStory=null;
-let currentPromptIdx=0;
 let quizQs=[], quizIdx=0, qOk=0, qKo=0, wrongQs=[];
-
-// ════════════════════════════════════════════
-// SYSTEM PROMPTS
-// ════════════════════════════════════════════
-const SYS_CHAT=`Eres un tutor de alemán para hispanohablantes nivel A1-A2. El alumno estudia con estas 7 lecciones:
-L1:Orte/Verkehr — artículos der/die/das/kein — imperativo con Sie
-L2:Comida/bebida — compras — Akkusativ — verbos kochen/essen/kaufen/mögen/möchten/wollen
-L3:Familia — hora — Possessivartikel — Modalverben (müssen/können/wollen) — citas
-L4:Tiempo libre — Ordinalzahlen — trennbare Verben — Präteritum sein/haben — restaurante
-L5:Profesiones — números grandes — conjugación completa — plurales
-L6:Países/nacionalidades — saludos — presentaciones
-L7:Vida laboral — Dativ con mit — konnektoren und/oder/aber
-L8:Salud y cuerpo — partes del cuerpo (Kopf/Arm/Bein...) — beim Arzt — Imperativ mit du/ihr/Sie — Modalverben dürfen/sollen
-L9:Estudios y trabajo — Perfekt (han/sein+Partizip II) — verbos irregulares — hablar por teléfono — profesiones
-L10:Mi piso — muebles — Wechselpräpositionen (Wohin? Akkusativ/Wo? Dativ) — describir una habitación
-L11:Ropa y moda — prendas (Hose/Kleid/Hemd...) — gefallen/passen/stehen — colores
-REGLAS: Responde siempre en español. Usa alemán solo para ejemplos. Usa **negrita** para palabras alemanas clave. Respuestas concisas.`;
-
-const SYS_WRITE=`Eres un corrector de alemán A1. El alumno escribe en alemán y tú corriges sus errores.
-FORMATO DE RESPUESTA (siempre en español):
-1. ✅ **Versión corregida:** (muestra la frase/texto corregido en alemán)
-2. 📝 **Errores encontrados:** lista los errores numerados con explicación breve
-3. 💡 **Tip:** un consejo gramatical relacionado
-Si no hay errores, felicítale y añade una variante más avanzada.
-Sé amable y constructivo. Vocabulario y estructuras solo A1-A2.`;
 
 // ════════════════════════════════════════════
 // GLOSARIO DATA
@@ -2690,9 +2296,7 @@ function init(){
   renderPron();
   renderStories();
   renderDialogs();
-  loadPrompt();
   startQuiz();
-  addChatMsg('bot','¡Hallo! Soy tu tutor de alemán A1 🇩🇪\n\nPuedo ayudarte con **gramática**, **vocabulario**, **corrección** y mucho más. También tienes **Cuentos**, **Diálogos** y **Escritura** en el menú.\n\n¿Por dónde empezamos?');
 }
 
 // ════════════════════════════════════════════
@@ -2718,29 +2322,12 @@ function setMode(mode,btn){
   if(mode==='quiz') startQuiz();
 }
 
-function setLek(n,btn){
-  currentLek=n;
-  document.querySelectorAll('.lek-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  const sel=document.getElementById('vl-fil');
-  if(sel) sel.value=(n==='all')?'all':String(n);
-  renderVocab();
-  startQuiz();
-}
-
 // ════════════════════════════════════════════
 // GLOSARIO
 // ════════════════════════════════════════════
 function renderGlosario(){
   const search=(document.getElementById('glos-search')||{value:''}).value.toLowerCase().trim();
-  const filter=(document.getElementById('glos-filter')||{value:'all'}).value;
-  
   let filtered=GLOSARIO;
-  
-  if(filter!=='all'){
-    filtered=filtered.filter(g=>g.c===parseInt(filter));
-  }
-  
   if(search){
     filtered=filtered.filter(g=>
       g.de.toLowerCase().includes(search) || g.es.toLowerCase().includes(search)
@@ -2756,7 +2343,6 @@ function renderGlosario(){
   
   grid.innerHTML=filtered.map(g=>`
     <div class="glos-entry">
-      <div class="glos-entry-art">Capítulo ${g.c}</div>
       <div class="glos-entry-de">${g.de}</div>
       <div class="glos-entry-es">${g.es}</div>
     </div>
@@ -2767,62 +2353,12 @@ function filterGlosario(){
   renderGlosario();
 }
 
-// ════════════════════════════════════════════
-// CHAT
-// ════════════════════════════════════════════
-function addChatMsg(role,text){
-  const c=document.getElementById('chat-msgs');
-  const d=document.createElement('div');
-  d.className='msg '+role;
-  d.innerHTML=`<div class="av">${role==='bot'?'🇩🇪':'👤'}</div><div class="bubble">${fmt(text)}</div>`;
-  c.appendChild(d); c.scrollTop=c.scrollHeight;
-}
 function fmt(t){
   return t.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
     .replace(/\*(.*?)\*/g,'<em>$1</em>')
     .replace(/`(.*?)`/g,'<code>$1</code>')
     .replace(/\n/g,'<br>');
 }
-function showTyping(id='typing'){
-  const c=document.getElementById(id==='typing'?'chat-msgs':'dial-msgs');
-  const d=document.createElement('div');
-  d.className='msg bot'; d.id='t-'+id;
-  d.innerHTML=`<div class="av">🇩🇪</div><div class="bubble"><span class="tdot"></span><span class="tdot"></span><span class="tdot"></span></div>`;
-  c.appendChild(d); c.scrollTop=c.scrollHeight;
-}
-function removeTyping(id='typing'){ document.getElementById('t-'+id)?.remove(); }
-
-async function callAPI(system,messages,max=900){
-  // Calls our Vercel proxy (/api/chat) to avoid CORS issues
-  const r=await fetch('/api/chat',{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({model:'claude-3-5-sonnet-20241022',max_tokens:max,system,messages})
-  });
-  const d=await r.json();
-  if(!r.ok||d.error) throw new Error(d.error?.message||'HTTP '+r.status);
-  return d.content?.[0]?.text||'Sin respuesta.';
-}
-
-async function sendChat(){
-  const inp=document.getElementById('chat-inp');
-  const text=inp.value.trim(); if(!text) return;
-  inp.value='';
-  document.getElementById('chips').style.display='none';
-  addChatMsg('user',text);
-  chatHistory.push({role:'user',content:text});
-  document.getElementById('send-btn').disabled=true;
-  showTyping('typing');
-  try{
-    const reply=await callAPI(SYS_CHAT,chatHistory);
-    removeTyping('typing');
-    chatHistory.push({role:'assistant',content:reply});
-    addChatMsg('bot',reply);
-  }catch(e){removeTyping('typing');addChatMsg('bot','Error de conexión.');}
-  document.getElementById('send-btn').disabled=false;
-}
-function sc(t){document.getElementById('chat-inp').value=t;sendChat();}
-function chatKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendChat();}}
 
 // ════════════════════════════════════════════
 // VOCAB
@@ -2842,14 +2378,12 @@ function buildConjHTML(verb){
 }
 
 function renderVocab(){
-  const lf=document.getElementById('vl-fil').value;
   const gf=document.getElementById('vg-fil').value;
   const s=document.getElementById('vsearch').value.toLowerCase();
   const filtered=VOCAB.filter(v=>{
-    const lm=lf==='all'||v.l==lf;
     const gm=gf==='all'||v.art===gf;
     const sm=!s||v.w.toLowerCase().includes(s)||(v.t&&v.t.toLowerCase().includes(s));
-    return lm&&gm&&sm;
+    return gm&&sm;
   });
   document.getElementById('vcount').textContent=filtered.length+' palabras';
   document.getElementById('vgrid').innerHTML=filtered.map(v=>{
@@ -2857,7 +2391,6 @@ function renderVocab(){
     if(v.art==='verb'){
       var cj=buildConjHTML(v.w);
       return '<div class="vc is-verb" data-g="verb" onclick="flipV(this)">'
-        +'<div class="vc-lk">L'+v.l+'</div>'
         +'<div class="vc-inner">'
         +'<div class="vc-front">'
         +'<div class="vc-art">Verb</div>'
@@ -2872,7 +2405,6 @@ function renderVocab(){
     }
     var artLabel = v.art==='–' ? '—' : v.art;
     return '<div class="vc" data-g="'+v.art+'">'
-      +'<div class="vc-lk">L'+v.l+'</div>'
       +'<div class="vc-inner">'
       +'<div class="vc-art">'+artLabel+'</div>'
       +'<div class="vc-w">'+v.w+'</div>'
@@ -2923,7 +2455,7 @@ function renderStories(){
       <div class="story-emoji">${s.emoji}</div>
       <div class="story-title">${s.title}</div>
       <div class="story-desc">${s.desc}</div>
-      <div class="story-pills"><span class="spill a1">A1</span><span class="spill words">${s.words.length} palabras</span></div>
+      <div class="story-pills"><span class="spill words">${s.words.length} palabras</span></div>
     </div>`).join('');
 }
 
@@ -2934,7 +2466,7 @@ function openStory(id){
   const reader=document.getElementById('story-reader');
   reader.classList.add('open');
   document.getElementById('sr-title').textContent=s.emoji+' '+s.title;
-  document.getElementById('sr-sub').textContent='Lektion '+s.lection+' · A1 · '+s.words.length+' palabras clave';
+  document.getElementById('sr-sub').textContent=s.words.length+' palabras clave';
   // build vocab map
   const vmap={};
   VOCAB.filter(v=>s.words.includes(v.w)).forEach(v=>{vmap[v.w]=v.t;});
@@ -2978,39 +2510,21 @@ function renderDialogs(){
       <div class="dc-emoji">${d.emoji}</div>
       <div class="dc-title">${d.title}</div>
       <div class="dc-desc">${d.desc}</div>
+      <div class="dial-level">A2 · PRÜFUNG</div>
     </div>`).join('');
 }
 
 function openDial(id){
   currentDial=DIALOGS.find(x=>x.id===id);
-  dialHistory=[];
   document.getElementById('dial-list-view').style.display='none';
   const cv=document.getElementById('dial-chat-view');
   cv.classList.add('open');
   document.getElementById('dh-emoji').textContent=currentDial.emoji;
   document.getElementById('dh-title').textContent=currentDial.title;
-  document.getElementById('dh-sub').textContent='Rol de Claude: '+currentDial.role;
+  document.getElementById('dh-sub').textContent='Diálogo completo · Nivel A2';
   document.getElementById('dial-hint').innerHTML=currentDial.hint;
   document.getElementById('dial-msgs').innerHTML='';
-  const footer=document.querySelector('#dial-chat-view .dial-footer');
-  if(currentDial.script && currentDial.script.length){
-    footer.style.display='none';
-    currentDial.script.forEach(line=>addDialLine(line.speaker,line.text));
-    return;
-  }
-  footer.style.display='flex';
-  // bot opens the dialog
-  addDialMsg('bot','…');
-  setTimeout(async()=>{
-    document.getElementById('dial-msgs').lastChild.remove();
-    showTyping('dial');
-    try{
-      const opening=await callAPI(currentDial.system,[{role:'user',content:'Empieza el diálogo. Saluda al cliente/alumno en alemán A1.'}]);
-      removeTyping('dial');
-      dialHistory.push({role:'assistant',content:opening});
-      addDialMsg('bot',opening);
-    }catch(e){removeTyping('dial');addDialMsg('bot','Hallo!');}
-  },300);
+  currentDial.script.forEach((line,index)=>addDialLine(line.speaker,line.text,index));
 }
 
 function closeDial(){
@@ -3018,76 +2532,12 @@ function closeDial(){
   document.getElementById('dial-chat-view').classList.remove('open');
 }
 
-function addDialMsg(role,text){
+function addDialLine(speaker,text,index){
   const c=document.getElementById('dial-msgs');
   const d=document.createElement('div');
-  d.className='msg '+role;
-  d.innerHTML=`<div class="av">${role==='bot'?'🎭':'👤'}</div><div class="bubble">${fmt(text)}</div>`;
-  c.appendChild(d); c.scrollTop=c.scrollHeight;
-}
-
-function addDialLine(speaker,text){
-  const c=document.getElementById('dial-msgs');
-  const d=document.createElement('div');
-  const cls=speaker.replace(/\W/g,'');
-  d.className='dial-line '+cls;
+  d.className='dial-line '+(index%2?'turn-b':'turn-a');
   d.innerHTML=`<div class="line-tag">${fmt(speaker)}</div><div class="line-text">${fmt(text)}</div>`;
   c.appendChild(d); c.scrollTop=c.scrollHeight;
-}
-
-async function sendDial(){
-  const inp=document.getElementById('dial-inp');
-  const text=inp.value.trim(); if(!text||!currentDial) return;
-  inp.value='';
-  addDialMsg('user',text);
-  dialHistory.push({role:'user',content:text});
-  document.getElementById('dial-send-btn').disabled=true;
-  showTyping('dial');
-  try{
-    const reply=await callAPI(currentDial.system,dialHistory);
-    removeTyping('dial');
-    dialHistory.push({role:'assistant',content:reply});
-    addDialMsg('bot',reply);
-  }catch(e){removeTyping('dial');addDialMsg('bot','Error de conexión.');}
-  document.getElementById('dial-send-btn').disabled=false;
-}
-function dialKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendDial();}}
-
-// ════════════════════════════════════════════
-// WRITING
-// ════════════════════════════════════════════
-function loadPrompt(){
-  const p=PROMPTS[currentPromptIdx];
-  document.getElementById('wp-text').textContent=p.text;
-  document.getElementById('wp-hint').textContent='💡 '+p.hint;
-  document.getElementById('pn-count').textContent=(currentPromptIdx+1)+' / '+PROMPTS.length;
-  document.getElementById('write-ta').value='';
-  document.getElementById('write-fb').className='write-fb';
-  document.getElementById('write-fb').innerHTML='';
-}
-function prevPrompt(){currentPromptIdx=(currentPromptIdx-1+PROMPTS.length)%PROMPTS.length;loadPrompt();}
-function nextPrompt(){currentPromptIdx=(currentPromptIdx+1)%PROMPTS.length;loadPrompt();}
-function randPrompt(){currentPromptIdx=Math.floor(Math.random()*PROMPTS.length);loadPrompt();}
-function clearWrite(){document.getElementById('write-ta').value='';document.getElementById('write-fb').className='write-fb';document.getElementById('write-fb').innerHTML='';}
-
-async function checkWriting(){
-  const text=document.getElementById('write-ta').value.trim();
-  if(!text){alert('Escribe algo primero');return;}
-  const btn=document.getElementById('w-check-btn');
-  btn.disabled=true; btn.textContent='Corrigiendo…';
-  const ejercicio=PROMPTS[currentPromptIdx].text;
-  const prompt='Ejercicio: "'+ejercicio+'"\nRespuesta del alumno: "'+text+'"\nCorrige y explica.';
-  const fb=document.getElementById('write-fb');
-  fb.className='write-fb show';
-  fb.innerHTML='<span style="color:var(--muted)">Analizando…</span>';
-  try{
-    const reply=await callAPI(SYS_WRITE,[{role:'user',content:prompt}]);
-    fb.innerHTML=fmt(reply);
-  }catch(e){
-    console.error('Writing error:',e);
-    fb.innerHTML='<span style="color:var(--red)">❌ '+e.message+'</span><br><small style="color:var(--muted)">Inténtalo de nuevo.</small>';
-  }
-  btn.disabled=false; btn.textContent='✓ Corregir';
 }
 
 // ════════════════════════════════════════════
@@ -3099,8 +2549,6 @@ function startQuiz(){
   quizQs=buildQs(type);
   quizIdx=0; qOk=0; qKo=0;
   updScore();
-  const lbl=document.getElementById('q-lek-lbl');
-  if(lbl) lbl.textContent=currentLek==='all'?'Todas las lecciones':'Lektion '+currentLek;
   document.getElementById('quiz-playing').style.display='block';
   document.getElementById('quiz-results').style.display='none';
   document.getElementById('qnext-btn').style.display='none';
@@ -3120,15 +2568,11 @@ function retryWrong(){
 }
 
 function buildQs(type){
-  const lf=v=>currentLek==='all'||v.l==currentLek;
-  const pool=VOCAB.filter(v=>v.t&&lf(v));
-  const fallback=VOCAB.filter(v=>v.t);
-  const source=pool.length>=15?pool:fallback;
+  const source=VOCAB.filter(v=>v.t);
   if(type==='vocab') return shuf(source.slice()).slice(0,15).map(v=>({type:'mc',q:v.w,tag:'ALEMÁN → ESPAÑOL',hint:(v.art?'('+v.art+') ':'')+v.w,correct:v.t,options:shuf([v.t,...rndT(v.t,3)])}));
   if(type==='vocabDE') return shuf(source.slice()).slice(0,15).map(v=>({type:'mc',q:v.t,tag:'ESPAÑOL → ALEMÁN',hint:(v.art?'('+v.art+') ':'')+v.t,correct:v.w,options:shuf([v.w,...rndW(v.w,3)])}));
   if(type==='article'){
-    const ap=VOCAB.filter(v=>['der','die','das'].includes(v.art)&&lf(v));
-    const af=ap.length>=15?ap:VOCAB.filter(v=>['der','die','das'].includes(v.art));
+    const af=VOCAB.filter(v=>['der','die','das'].includes(v.art));
     return shuf(af.slice()).slice(0,15).map(v=>({type:'mc',q:'___ '+v.w,tag:'ARTÍCULO',hint:'('+v.t+')',correct:v.art,options:['der','die','das','ein']}));
   }
   if(type==='fill') return shuf(FILL_INS.slice()).slice(0,10).map(f=>({type:'fill',q:f.q,tag:'COMPLETA LA FRASE',hint:f.hint,correct:f.ans}));
@@ -3278,10 +2722,10 @@ const FIB_BANK = [
   // Präteritum
   {s:"Gestern ___ ich krank.",ans:"war",hint:"Präteritum von sein: war",cat:"Präteritum"},
   {s:"Wir ___ keine Zeit.",ans:"hatten",hint:"Präteritum von haben: hatten",cat:"Präteritum"},
-  // L8 Körper
+  // Körper
   {s:"Mein ___ tut weh.",ans:"Kopf",hint:"der Kopf = la cabeza",cat:"Körper"},
   {s:"Sie hat ___ im Bein.",ans:"Schmerzen",hint:"Schmerzen haben = tener dolor",cat:"Körper"},
-  {s:"Nehmen Sie die ___ morgens.",ans:"Tabletten",hint:"die Tablette Pl. = Tabletten",cat:"L8"},
+  {s:"Nehmen Sie die ___ morgens.",ans:"Tabletten",hint:"die Tablette Pl. = Tabletten",cat:"Salud"},
 ];
 
 const SB_BANK = [
@@ -3631,11 +3075,10 @@ function initEjercicios(){
 // ════════════════════════════════════════════
 // VERBOS
 // ════════════════════════════════════════════
-var verbLekFilter = 'all';
 var openVerbId = null;
 
 var EXTRA_VERBS = [
-  // Common A1 verbs not in VOCAB but useful to show
+  // Common verbs not in VOCAB but useful to show
   {w:'sein',     art:'verb', l:1, t:'ser / estar',   special:{ich:'bin',du:'bist',er:'ist',wir:'sind',ihr:'seid',sie:'sind',note:'Unregelmäßig — sehr wichtig!'}},
   {w:'haben',    art:'verb', l:1, t:'tener',          special:{ich:'habe',du:'hast',er:'hat',wir:'haben',ihr:'habt',sie:'haben',note:'Unregelmäßig — sehr wichtig!'}},
   {w:'werden',   art:'verb', l:1, t:'llegar a ser / se va a',  special:{ich:'werde',du:'wirst',er:'wird',wir:'werden',ihr:'werdet',sie:'werden',note:'Unregelmäßig'}},
@@ -3852,7 +3295,6 @@ function getVerbConj(verbName) {
 
 function buildVerbCardHTML(verb, idx) {
   var conj = getVerbConj(verb.w);
-  var lkClass = verb.l <= 3 ? 'var(--blue)' : verb.l <= 6 ? 'var(--accent2)' : 'var(--purple)';
 
   var conjHTML = '';
   if (conj) {
@@ -3897,7 +3339,6 @@ function buildVerbCardHTML(verb, idx) {
     + '<div class="vc-trans">' + verb.t + '</div>'
     + '</div>'
     + '<div style="display:flex;align-items:center;gap:8px;">'
-    + '<span class="vc-lk2">L' + verb.l + '</span>'
     + '<span class="vc-arrow">▼</span>'
     + '</div>'
     + '</div>'
@@ -3932,11 +3373,6 @@ function renderVerbs() {
   // Sort alphabetically
   allVerbs.sort(function(a,b){ return a.w.localeCompare(b.w, 'de'); });
   
-  // Filter by lektion
-  if (verbLekFilter !== 'all') {
-    allVerbs = allVerbs.filter(function(v){ return v.l == verbLekFilter; });
-  }
-  
   // Filter by search
   if (search) {
     allVerbs = allVerbs.filter(function(v){
@@ -3959,18 +3395,10 @@ function filterVerbs() {
   renderVerbs();
 }
 
-function filterVerbLek(lek, btn) {
-  verbLekFilter = lek;
-  document.querySelectorAll('.verb-filter-btn').forEach(function(b){ b.classList.remove('active'); });
-  if (btn) btn.classList.add('active');
-  renderVerbs();
-}
-
 function buildPastCardHTML(verb, idx) {
   return '<div class="past-card" id="past-card-' + idx + '">'
     + '<div class="past-head">'
-    + '<div class="past-inf">' + verb.w + '</div>'
-    + '<span class="past-lvl">L' + (verb.l || 1) + '</span>'
+    + '<div class="past-title"><div class="past-inf">' + escapeHtml(verb.w) + '</div><div class="past-translation">' + escapeHtml(verb.t || '—') + '</div></div>'
     + '</div>'
     + '<div class="past-row">'
     + '<div class="past-box"><span class="past-label">Infinitiv</span><div class="past-value">' + verb.w + '</div></div>'
@@ -3987,7 +3415,7 @@ function renderPastVerbs() {
   grid.innerHTML = list.map(function(verb, idx){ return buildPastCardHTML(verb, idx); }).join('');
 }
 
-var pastPracticeState = { verbs: [], index: 0, score: 0, streak: 0, bestStreak: 0, current: { pr: '', pp: '' } };
+var pastPracticeState = { verbs: [], index: 0, score: 0, streak: 0, bestStreak: 0, current: { pr: '', pp: '' }, answered: false, advanceTimer: null };
 
 function shuffleArray(arr) {
   var a = arr.slice();
@@ -4014,6 +3442,7 @@ function escapeHtml(value) {
 }
 
 function startPastPractice() {
+  clearTimeout(pastPracticeState.advanceTimer);
   var pool = IRREGULAR_VERBS.filter(function(v){ return v && v.pr && v.pp; });
   pastPracticeState.verbs = shuffleArray(pool).slice(0, Math.min(10, pool.length));
   pastPracticeState.index = 0;
@@ -4021,6 +3450,7 @@ function startPastPractice() {
   pastPracticeState.streak = 0;
   pastPracticeState.bestStreak = 0;
   pastPracticeState.current = { pr: '', pp: '' };
+  pastPracticeState.answered = false;
   renderPastPractice();
 }
 
@@ -4043,12 +3473,14 @@ function buildPracticeOptions(verb, field) {
 }
 
 function pickPastPracticeOption(field, value) {
+  if (pastPracticeState.answered) return;
   pastPracticeState.current[field] = value;
   var buttons = document.querySelectorAll('[data-field="' + field + '"]');
   buttons.forEach(function(btn){
     var isSelected = btn.getAttribute('data-value') === value;
     btn.classList.toggle('selected', isSelected);
   });
+  if (pastPracticeState.current.pr && pastPracticeState.current.pp) checkPastPractice();
 }
 
 function renderPastPractice() {
@@ -4069,11 +3501,12 @@ function renderPastPractice() {
   var prOptions = buildPracticeOptions(verb, 'pr');
   var ppOptions = buildPracticeOptions(verb, 'pp');
   pastPracticeState.current = { pr: '', pp: '' };
+  pastPracticeState.answered = false;
 
   status.innerHTML = '<span class="practice-badge">Pregunta ' + (pastPracticeState.index + 1) + '/' + pastPracticeState.verbs.length + '</span><span>Puntuación: ' + pastPracticeState.score + '</span>';
   card.innerHTML =
     '<div class="practice-top">' +
-    '<div class="practice-level">Reto rápido</div>' +
+    '<div class="practice-level">' + escapeHtml(verb.t || '—') + '</div>' +
     '<div class="practice-streak">Racha: ' + pastPracticeState.streak + '</div>' +
     '</div>' +
     '<div class="practice-verb-bubble"><div class="practice-verb">' + escapeHtml(verb.w) + '</div></div>' +
@@ -4086,11 +3519,13 @@ function renderPastPractice() {
     '<div class="practice-label">Partizip II</div>' +
     ppOptions.map(function(opt){ return '<button class="practice-choice" data-field="pp" data-value="' + escapeHtml(opt) + '" onclick="pickPastPracticeOption(\'pp\', this.getAttribute(\'data-value\'))">' + escapeHtml(opt) + '</button>'; }).join('') +
     '</div>' +
-    '</div>';
-  actions.innerHTML = '<button class="practice-btn pri" onclick="checkPastPractice()">Comprobar</button><button class="practice-btn sec" onclick="skipPastPractice()">Saltar</button>';
+    '</div>' +
+    '<div id="practice-feedback-slot"></div>';
+  actions.innerHTML = '<button class="practice-btn sec" onclick="skipPastPractice()">Saltar</button>';
 }
 
 function checkPastPractice() {
+  if (pastPracticeState.answered) return;
   var verb = pastPracticeState.verbs[pastPracticeState.index];
   if (!pastPracticeState.current.pr || !pastPracticeState.current.pp) {
     var status = document.getElementById('practice-status');
@@ -4101,6 +3536,7 @@ function checkPastPractice() {
   var prOk = normalizeAnswer(pastPracticeState.current.pr) === normalizeAnswer(verb.pr);
   var ppOk = normalizeAnswer(pastPracticeState.current.pp) === normalizeAnswer(verb.pp);
   var roundOk = prOk && ppOk;
+  pastPracticeState.answered = true;
 
   if (roundOk) {
     pastPracticeState.score += 1;
@@ -4117,6 +3553,7 @@ function checkPastPractice() {
     btn.classList.remove('selected');
     btn.classList.toggle('correct', normalizeAnswer(val) === normalizeAnswer(answer));
     btn.classList.toggle('wrong', normalizeAnswer(val) === normalizeAnswer(pastPracticeState.current[field]) && normalizeAnswer(val) !== normalizeAnswer(answer));
+    btn.disabled = true;
   });
 
   var answerText = '<div class="practice-feedback ' + (roundOk ? 'ok' : 'ko') + '">';
@@ -4128,14 +3565,15 @@ function checkPastPractice() {
   if (status) {
     status.innerHTML = '<span class="practice-badge">Resultado</span><span>Puntuación: ' + pastPracticeState.score + '</span>';
   }
-  var card = document.getElementById('practice-card');
-  if (card) {
-    card.innerHTML = answerText;
+  var feedback = document.getElementById('practice-feedback-slot');
+  if (feedback) {
+    feedback.innerHTML = answerText;
   }
   var actions = document.getElementById('practice-actions');
   if (actions) {
     actions.innerHTML = '<button class="practice-btn pri" onclick="nextPastPractice()">Siguiente</button>';
   }
+  pastPracticeState.advanceTimer = setTimeout(nextPastPractice, 1500);
 }
 
 function skipPastPractice() {
@@ -4144,6 +3582,8 @@ function skipPastPractice() {
 }
 
 function nextPastPractice() {
+  clearTimeout(pastPracticeState.advanceTimer);
+  pastPracticeState.advanceTimer = null;
   pastPracticeState.index += 1;
   renderPastPractice();
 }
