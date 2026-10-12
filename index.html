@@ -1806,7 +1806,7 @@ const PRON_DATA=[
 // ════════════════════════════════════════════
 let currentDial=null;
 let currentStory=null;
-let quizQs=[], quizIdx=0, qOk=0, qKo=0, wrongQs=[];
+let quizQs=[], quizIdx=0, qOk=0, qKo=0, wrongQs=[], quizAdvanceTimer=null;
 
 // ════════════════════════════════════════════
 // GLOSARIO DATA
@@ -2544,6 +2544,7 @@ function addDialLine(speaker,text,index){
 // QUIZ
 // ════════════════════════════════════════════
 function startQuiz(){
+  clearQuizAdvanceTimer();
   wrongQs=[];
   const type=document.getElementById('qtype').value;
   quizQs=buildQs(type);
@@ -2557,6 +2558,7 @@ function startQuiz(){
 
 function retryWrong(){
   if(!wrongQs.length) return;
+  clearQuizAdvanceTimer();
   quizQs=shuf(wrongQs.slice());
   wrongQs=[];
   quizIdx=0; qOk=0; qKo=0;
@@ -2605,7 +2607,13 @@ function showQ(){
     window._qCorrect = q.correct;
     area.innerHTML=`<input class="qfill" id="qfill-inp" placeholder="Escribe la respuesta…"><button class="qsubmit" id="qsub-btn">Comprobar</button>`;
     const inp=document.getElementById('qfill-inp');
-    inp.addEventListener('keydown',e=>{if(e.key==='Enter')checkFill();});
+    inp.addEventListener('keydown',e=>{
+      if(e.key==='Enter'){
+        e.preventDefault();
+        e.stopPropagation();
+        checkFill();
+      }
+    });
     document.getElementById('qsub-btn').addEventListener('click',checkFill);
     setTimeout(()=>inp.focus(),50);
   }
@@ -2630,7 +2638,7 @@ function checkMC(btn, optIdx){
     wrongQs.push(quizQs[quizIdx]);
   }
   updScore();
-  document.getElementById('qnext-btn').style.display='block';
+  scheduleQuizAdvance();
 }
 
 function checkFill(){
@@ -2655,10 +2663,39 @@ function checkFill(){
   const sub=document.getElementById('qsub-btn');
   if(sub) sub.disabled=true;
   updScore();
-  document.getElementById('qnext-btn').style.display='block';
+  scheduleQuizAdvance();
 }
 
-function advanceQuiz(){quizIdx++;showQ();}
+function clearQuizAdvanceTimer(){
+  if(quizAdvanceTimer!==null){
+    clearTimeout(quizAdvanceTimer);
+    quizAdvanceTimer=null;
+  }
+}
+
+function scheduleQuizAdvance(){
+  document.getElementById('qnext-btn').style.display='block';
+  clearQuizAdvanceTimer();
+  quizAdvanceTimer=setTimeout(()=>{
+    quizAdvanceTimer=null;
+    advanceQuiz();
+  },2000);
+}
+
+document.addEventListener('keydown',e=>{
+  if(e.key!=='Enter'||e.isComposing) return;
+  const panel=document.getElementById('panel-quiz');
+  const next=document.getElementById('qnext-btn');
+  if(!panel.classList.contains('active')||next.style.display==='none') return;
+  e.preventDefault();
+  advanceQuiz();
+});
+
+function advanceQuiz(){
+  clearQuizAdvanceTimer();
+  quizIdx++;
+  showQ();
+}
 
 function showResults(){
   document.getElementById('quiz-playing').style.display='none';
