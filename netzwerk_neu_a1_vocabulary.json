@@ -1,0 +1,1366 @@
+{
+  "source": "Netzwerk neu A1 - Glossar Deutsch-Spanisch",
+  "total_words": 340,
+  "vocabulary": [
+    {
+      "german": "Bulgarisch",
+      "spanish": "búlgaro (idioma)"
+    },
+    {
+      "german": "Deutsch",
+      "spanish": "alemán (idioma)"
+    },
+    {
+      "german": "Englisch",
+      "spanish": "inglés (idioma)"
+    },
+    {
+      "german": "gut",
+      "spanish": "bueno/a, bien"
+    },
+    {
+      "german": "guten Tag",
+      "spanish": "buenos días"
+    },
+    {
+      "german": "Indonesisch",
+      "spanish": "indonesio (idioma)"
+    },
+    {
+      "german": "international",
+      "spanish": "internacional"
+    },
+    {
+      "german": "Italienisch",
+      "spanish": "italiano (idioma)"
+    },
+    {
+      "german": "Japanisch",
+      "spanish": "japonés (idioma)"
+    },
+    {
+      "german": "Russisch",
+      "spanish": "ruso (idioma)"
+    },
+    {
+      "german": "Serbisch",
+      "spanish": "serbio (idioma)"
+    },
+    {
+      "german": "Sie",
+      "spanish": "usted(es)"
+    },
+    {
+      "german": "Türkisch",
+      "spanish": "turco (idioma)"
+    },
+    {
+      "german": "Ungarisch",
+      "spanish": "húngaro (idioma)"
+    },
+    {
+      "german": "was",
+      "spanish": "¿qué?"
+    },
+    {
+      "german": "zuordnen",
+      "spanish": "clasificar"
+    },
+    {
+      "german": "zusammen gehören",
+      "spanish": "hacer pareja, pertenecer al mismo grupo"
+    },
+    {
+      "german": "die Autobahn, -en",
+      "spanish": "la autopista"
+    },
+    {
+      "german": "das Butterbrot, -e",
+      "spanish": "la rebanada de pan, el montado"
+    },
+    {
+      "german": "die Flasche, -n",
+      "spanish": "la botella"
+    },
+    {
+      "german": "das Handtuch, \"-er",
+      "spanish": "la toalla"
+    },
+    {
+      "german": "der Kindergarten, \"-",
+      "spanish": "la guardería"
+    },
+    {
+      "german": "der Koffer, -",
+      "spanish": "la maleta"
+    },
+    {
+      "german": "der/die Kranke, -n",
+      "spanish": "el/la enfermo/a"
+    },
+    {
+      "german": "die Nudel, -n",
+      "spanish": "el fideo, la pasta"
+    },
+    {
+      "german": "das Würstchen, -",
+      "spanish": "la salchicha"
+    },
+    {
+      "german": "heißen",
+      "spanish": "llamarse"
+    },
+    {
+      "german": "Ihr, Ihre",
+      "spanish": "su (de usted/ustedes)"
+    },
+    {
+      "german": "in",
+      "spanish": "en"
+    },
+    {
+      "german": "Spanisch",
+      "spanish": "español (idioma)"
+    },
+    {
+      "german": "die Sprache, -n",
+      "spanish": "la lengua, el idioma"
+    },
+    {
+      "german": "wie",
+      "spanish": "como, cómo"
+    },
+    {
+      "german": "das Wort, \"-er",
+      "spanish": "la palabra"
+    },
+    {
+      "german": "andere",
+      "spanish": "otros/as"
+    },
+    {
+      "german": "deutsch",
+      "spanish": "alemán"
+    },
+    {
+      "german": "kennen",
+      "spanish": "conocer"
+    },
+    {
+      "german": "das Kursplakat, -e",
+      "spanish": "el póster"
+    },
+    {
+      "german": "machen",
+      "spanish": "hacer"
+    },
+    {
+      "german": "sammeln",
+      "spanish": "coleccionar, juntar"
+    },
+    {
+      "german": "und",
+      "spanish": "y"
+    },
+    {
+      "german": "auch",
+      "spanish": "también"
+    },
+    {
+      "german": "bis bald",
+      "spanish": "hasta pronto"
+    },
+    {
+      "german": "ciao",
+      "spanish": "hasta luego"
+    },
+    {
+      "german": "danke",
+      "spanish": "gracias"
+    },
+    {
+      "german": "du",
+      "spanish": "tú"
+    },
+    {
+      "german": "die Entschuldigung, -en",
+      "spanish": "la disculpa, el perdón"
+    },
+    {
+      "german": "gehen",
+      "spanish": "ir"
+    },
+    {
+      "german": "hallo",
+      "spanish": "hola"
+    },
+    {
+      "german": "hören",
+      "spanish": "escuchar, oír"
+    },
+    {
+      "german": "ich",
+      "spanish": "yo"
+    },
+    {
+      "german": "lesen",
+      "spanish": "leer"
+    },
+    {
+      "german": "die Person, -en",
+      "spanish": "la persona"
+    },
+    {
+      "german": "sehr",
+      "spanish": "muy, mucho"
+    },
+    {
+      "german": "sein",
+      "spanish": "ser, estar"
+    },
+    {
+      "german": "tschüs",
+      "spanish": "adiós, hasta luego"
+    },
+    {
+      "german": "wer",
+      "spanish": "¿quién?"
+    },
+    {
+      "german": "die Situation, -en",
+      "spanish": "la situación"
+    },
+    {
+      "german": "spielen",
+      "spanish": "jugar, interpretar"
+    },
+    {
+      "german": "bekannt",
+      "spanish": "conocido/a"
+    },
+    {
+      "german": "der Name, -n",
+      "spanish": "el nombre, el apellido"
+    },
+    {
+      "german": "oder",
+      "spanish": "o"
+    },
+    {
+      "german": "auf Wiedersehen",
+      "spanish": "adiós"
+    },
+    {
+      "german": "es",
+      "spanish": "lo, ello"
+    },
+    {
+      "german": "Frau",
+      "spanish": "la señora, la mujer"
+    },
+    {
+      "german": "gute Nacht",
+      "spanish": "buenas noches"
+    },
+    {
+      "german": "guten Abend",
+      "spanish": "buenas tardes"
+    },
+    {
+      "german": "guten Morgen",
+      "spanish": "buenos días"
+    },
+    {
+      "german": "Herr",
+      "spanish": "el señor"
+    },
+    {
+      "german": "mein, meine",
+      "spanish": "mi"
+    },
+    {
+      "german": "formell",
+      "spanish": "formal"
+    },
+    {
+      "german": "informell",
+      "spanish": "informal"
+    },
+    {
+      "german": "der Nachname, -n",
+      "spanish": "el apellido"
+    },
+    {
+      "german": "das Personalpronomen, -",
+      "spanish": "el pronombre personal"
+    },
+    {
+      "german": "das Verb, -en",
+      "spanish": "el verbo"
+    },
+    {
+      "german": "der Vorname, -n",
+      "spanish": "el nombre de pila"
+    },
+    {
+      "german": "die Antwort, -en",
+      "spanish": "la respuesta"
+    },
+    {
+      "german": "aus",
+      "spanish": "de"
+    },
+    {
+      "german": "Deutschland",
+      "spanish": "Alemania"
+    },
+    {
+      "german": "kommen",
+      "spanish": "venir/ser de"
+    },
+    {
+      "german": "der Reiseführer, -",
+      "spanish": "el guía turístico"
+    },
+    {
+      "german": "sprechen",
+      "spanish": "hablar"
+    },
+    {
+      "german": "das Telefon, -e",
+      "spanish": "el teléfono"
+    },
+    {
+      "german": "welche, welcher",
+      "spanish": "¿cuál?"
+    },
+    {
+      "german": "wo",
+      "spanish": "¿dónde?"
+    },
+    {
+      "german": "woher",
+      "spanish": "¿de dónde?"
+    },
+    {
+      "german": "wohnen",
+      "spanish": "vivir, residir"
+    },
+    {
+      "german": "er",
+      "spanish": "él"
+    },
+    {
+      "german": "ergänzen",
+      "spanish": "completar"
+    },
+    {
+      "german": "sie",
+      "spanish": "ella / ellos"
+    },
+    {
+      "german": "notieren",
+      "spanish": "apuntar, anotar"
+    },
+    {
+      "german": "zwei",
+      "spanish": "dos"
+    },
+    {
+      "german": "der Partner, -",
+      "spanish": "el compañero, la pareja"
+    },
+    {
+      "german": "die Partnerin, -nen",
+      "spanish": "la compañera, la pareja"
+    },
+    {
+      "german": "raten",
+      "spanish": "adivinar"
+    },
+    {
+      "german": "vorstellen",
+      "spanish": "presentar"
+    },
+    {
+      "german": "acht",
+      "spanish": "ocho"
+    },
+    {
+      "german": "achtzehn",
+      "spanish": "dieciocho"
+    },
+    {
+      "german": "der Buchstabe, -n",
+      "spanish": "la letra"
+    },
+    {
+      "german": "dann",
+      "spanish": "luego, después"
+    },
+    {
+      "german": "drei",
+      "spanish": "tres"
+    },
+    {
+      "german": "dreizehn",
+      "spanish": "trece"
+    },
+    {
+      "german": "eins",
+      "spanish": "uno"
+    },
+    {
+      "german": "elf",
+      "spanish": "once"
+    },
+    {
+      "german": "fünf",
+      "spanish": "cinco"
+    },
+    {
+      "german": "fünfzehn",
+      "spanish": "quince"
+    },
+    {
+      "german": "laut",
+      "spanish": "alto, en voz alta"
+    },
+    {
+      "german": "neun",
+      "spanish": "nueve"
+    },
+    {
+      "german": "neunzehn",
+      "spanish": "diecinueve"
+    },
+    {
+      "german": "null",
+      "spanish": "cero"
+    },
+    {
+      "german": "sechs",
+      "spanish": "seis"
+    },
+    {
+      "german": "sechzehn",
+      "spanish": "dieciséis"
+    },
+    {
+      "german": "sieben",
+      "spanish": "siete"
+    },
+    {
+      "german": "siebzehn",
+      "spanish": "diecisiete"
+    },
+    {
+      "german": "vier",
+      "spanish": "cuatro"
+    },
+    {
+      "german": "vierzehn",
+      "spanish": "catorce"
+    },
+    {
+      "german": "die Zahl, -en",
+      "spanish": "el número"
+    },
+    {
+      "german": "zehn",
+      "spanish": "diez"
+    },
+    {
+      "german": "zwanzig",
+      "spanish": "veinte"
+    },
+    {
+      "german": "zwölf",
+      "spanish": "doce"
+    },
+    {
+      "german": "die Handynummer, -n",
+      "spanish": "el número de móvil"
+    },
+    {
+      "german": "dein, deine",
+      "spanish": "tu"
+    },
+    {
+      "german": "fragen",
+      "spanish": "preguntar"
+    },
+    {
+      "german": "die Telefonnummer, -n",
+      "spanish": "el número de teléfono"
+    },
+    {
+      "german": "das Alphabet, -e",
+      "spanish": "el alfabeto"
+    },
+    {
+      "german": "zuerst",
+      "spanish": "primero"
+    },
+    {
+      "german": "die E-Mail-Adresse, -n",
+      "spanish": "la dirección de correo electrónico"
+    },
+    {
+      "german": "das Gespräch, -e",
+      "spanish": "la conversación"
+    },
+    {
+      "german": "minus",
+      "spanish": "menos"
+    },
+    {
+      "german": "der Punkt, -e",
+      "spanish": "el punto"
+    },
+    {
+      "german": "sagen",
+      "spanish": "decir"
+    },
+    {
+      "german": "schreiben",
+      "spanish": "escribir"
+    },
+    {
+      "german": "der Unterstrich, -e",
+      "spanish": "el subrayado"
+    },
+    {
+      "german": "bitte",
+      "spanish": "por favor"
+    },
+    {
+      "german": "buchstabieren",
+      "spanish": "deletrear"
+    },
+    {
+      "german": "der Dialog, -e",
+      "spanish": "el diálogo"
+    },
+    {
+      "german": "ein bisschen",
+      "spanish": "un poco"
+    },
+    {
+      "german": "langsam",
+      "spanish": "despacio, lento/a"
+    },
+    {
+      "german": "nicht",
+      "spanish": "no"
+    },
+    {
+      "german": "noch einmal",
+      "spanish": "otra vez, de nuevo"
+    },
+    {
+      "german": "verstehen",
+      "spanish": "entender"
+    },
+    {
+      "german": "Algerien",
+      "spanish": "Argelia"
+    },
+    {
+      "german": "Arabisch",
+      "spanish": "árabe (idioma)"
+    },
+    {
+      "german": "Brasilien",
+      "spanish": "Brasil"
+    },
+    {
+      "german": "Französisch",
+      "spanish": "francés (idioma)"
+    },
+    {
+      "german": "Japan",
+      "spanish": "Japón"
+    },
+    {
+      "german": "das Land, \"-er",
+      "spanish": "el país"
+    },
+    {
+      "german": "lernen",
+      "spanish": "aprender, estudiar"
+    },
+    {
+      "german": "Österreich",
+      "spanish": "Austria"
+    },
+    {
+      "german": "Portugiesisch",
+      "spanish": "portugués (idioma)"
+    },
+    {
+      "german": "die Schweiz",
+      "spanish": "Suiza"
+    },
+    {
+      "german": "die Tabelle, -n",
+      "spanish": "la tabla, el cuadro"
+    },
+    {
+      "german": "die USA",
+      "spanish": "EEUU"
+    },
+    {
+      "german": "Frankreich",
+      "spanish": "Francia"
+    },
+    {
+      "german": "Griechenland",
+      "spanish": "Grecia"
+    },
+    {
+      "german": "Italien",
+      "spanish": "Italia"
+    },
+    {
+      "german": "Mexiko",
+      "spanish": "México"
+    },
+    {
+      "german": "Polen",
+      "spanish": "Polonia"
+    },
+    {
+      "german": "Polnisch",
+      "spanish": "polaco (idioma)"
+    },
+    {
+      "german": "Russland",
+      "spanish": "Rusia"
+    },
+    {
+      "german": "Spanien",
+      "spanish": "España"
+    },
+    {
+      "german": "die Türkei",
+      "spanish": "Turquía"
+    },
+    {
+      "german": "die Ukraine",
+      "spanish": "Ucrania"
+    },
+    {
+      "german": "die Stadt, \"-e",
+      "spanish": "la ciudad"
+    },
+    {
+      "german": "der Text, -e",
+      "spanish": "el texto"
+    },
+    {
+      "german": "die Grammatik, -en",
+      "spanish": "la gramática"
+    },
+    {
+      "german": "grüßen",
+      "spanish": "saludar"
+    },
+    {
+      "german": "reagieren",
+      "spanish": "reaccionar, responder"
+    },
+    {
+      "german": "das Subjekt, -e",
+      "spanish": "el sujeto"
+    },
+    {
+      "german": "verabschieden",
+      "spanish": "despedir"
+    },
+    {
+      "german": "gern",
+      "spanish": "con gusto"
+    },
+    {
+      "german": "die Leute",
+      "spanish": "la gente"
+    },
+    {
+      "german": "fotografieren",
+      "spanish": "hacer fotos"
+    },
+    {
+      "german": "der Freund, -e",
+      "spanish": "el amigo"
+    },
+    {
+      "german": "die Freundin, -nen",
+      "spanish": "la amiga"
+    },
+    {
+      "german": "joggen",
+      "spanish": "hacer footing"
+    },
+    {
+      "german": "der Kollege, -n",
+      "spanish": "el compañero (de trabajo)"
+    },
+    {
+      "german": "die Kollegin, -nen",
+      "spanish": "la compañera (de trabajo)"
+    },
+    {
+      "german": "die Musik",
+      "spanish": "la música"
+    },
+    {
+      "german": "singen",
+      "spanish": "cantar"
+    },
+    {
+      "german": "tanzen",
+      "spanish": "bailar"
+    },
+    {
+      "german": "das Kino, -s",
+      "spanish": "el cine"
+    },
+    {
+      "german": "kochen",
+      "spanish": "cocinar"
+    },
+    {
+      "german": "reisen",
+      "spanish": "viajar"
+    },
+    {
+      "german": "schwimmen",
+      "spanish": "nadar"
+    },
+    {
+      "german": "antworten",
+      "spanish": "responder"
+    },
+    {
+      "german": "arbeiten",
+      "spanish": "trabajar"
+    },
+    {
+      "german": "ja",
+      "spanish": "sí"
+    },
+    {
+      "german": "nein",
+      "spanish": "no"
+    },
+    {
+      "german": "das Buch, \"-er",
+      "spanish": "el libro"
+    },
+    {
+      "german": "Fußball",
+      "spanish": "el fútbol"
+    },
+    {
+      "german": "lieben",
+      "spanish": "querer, amar"
+    },
+    {
+      "german": "super",
+      "spanish": "fantástico/a, genial"
+    },
+    {
+      "german": "toll",
+      "spanish": "estupendo, genial"
+    },
+    {
+      "german": "wir",
+      "spanish": "nosotros/as"
+    },
+    {
+      "german": "morgen",
+      "spanish": "mañana"
+    },
+    {
+      "german": "die Spaghetti",
+      "spanish": "los espaguetis"
+    },
+    {
+      "german": "wirklich",
+      "spanish": "de verdad, realmente"
+    },
+    {
+      "german": "das Wochenende, -n",
+      "spanish": "el fin de semana"
+    },
+    {
+      "german": "das Hobby, -s",
+      "spanish": "el hobby, la afición"
+    },
+    {
+      "german": "mit",
+      "spanish": "con"
+    },
+    {
+      "german": "der Dienstag, -e",
+      "spanish": "el martes"
+    },
+    {
+      "german": "der Donnerstag, -e",
+      "spanish": "el jueves"
+    },
+    {
+      "german": "der Freitag, -e",
+      "spanish": "el viernes"
+    },
+    {
+      "german": "der Mittwoch, -e",
+      "spanish": "el miércoles"
+    },
+    {
+      "german": "der Montag, -e",
+      "spanish": "el lunes"
+    },
+    {
+      "german": "der Samstag, -e",
+      "spanish": "el sábado"
+    },
+    {
+      "german": "der Sonntag, -e",
+      "spanish": "el domingo"
+    },
+    {
+      "german": "wann",
+      "spanish": "¿cuándo?"
+    },
+    {
+      "german": "der Wochentag, -e",
+      "spanish": "el día de la semana"
+    },
+    {
+      "german": "die Frage, -n",
+      "spanish": "la pregunta"
+    },
+    {
+      "german": "leider",
+      "spanish": "desgraciadamente"
+    },
+    {
+      "german": "oft",
+      "spanish": "a menudo, frecuentemente"
+    },
+    {
+      "german": "das Café, -s",
+      "spanish": "el café, la cafetería"
+    },
+    {
+      "german": "jede, jeder",
+      "spanish": "cada"
+    },
+    {
+      "german": "der Kursraum, \"-e",
+      "spanish": "el aula, la clase"
+    },
+    {
+      "german": "das Museum, Museen",
+      "spanish": "el museo"
+    },
+    {
+      "german": "das Restaurant, -s",
+      "spanish": "el restaurante"
+    },
+    {
+      "german": "das Schwimmbad, \"-er",
+      "spanish": "la piscina"
+    },
+    {
+      "german": "das Stadion, Stadien",
+      "spanish": "el estadio"
+    },
+    {
+      "german": "der Tag, -e",
+      "spanish": "el día"
+    },
+    {
+      "german": "der Termin, -e",
+      "spanish": "la cita"
+    },
+    {
+      "german": "das Theater, -",
+      "spanish": "el teatro"
+    },
+    {
+      "german": "die Verabredung, -en",
+      "spanish": "la cita"
+    },
+    {
+      "german": "der Arzt, \"-e",
+      "spanish": "el médico"
+    },
+    {
+      "german": "die Ärztin, -nen",
+      "spanish": "la médica"
+    },
+    {
+      "german": "das Auto, -s",
+      "spanish": "el coche"
+    },
+    {
+      "german": "der Beruf, -e",
+      "spanish": "la profesión"
+    },
+    {
+      "german": "der Computer, -",
+      "spanish": "el ordenador"
+    },
+    {
+      "german": "das Geld, -er",
+      "spanish": "el dinero"
+    },
+    {
+      "german": "das Glas, \"-er",
+      "spanish": "la copa, el vaso"
+    },
+    {
+      "german": "der Kellner, -",
+      "spanish": "el camarero"
+    },
+    {
+      "german": "die Kellnerin, -nen",
+      "spanish": "la camarera"
+    },
+    {
+      "german": "das Medikament, -e",
+      "spanish": "el medicamento"
+    },
+    {
+      "german": "die Rechnung, -en",
+      "spanish": "la cuenta, la factura"
+    },
+    {
+      "german": "der Schlüssel, -",
+      "spanish": "la llave"
+    },
+    {
+      "german": "die Spritze, -n",
+      "spanish": "la jeringuilla"
+    },
+    {
+      "german": "der Stift, -e",
+      "spanish": "el boli, el rotulador, el lápiz"
+    },
+    {
+      "german": "die Straße, -n",
+      "spanish": "la calle"
+    },
+    {
+      "german": "der Student, -en",
+      "spanish": "el estudiante"
+    },
+    {
+      "german": "die Studentin, -nen",
+      "spanish": "la estudiante"
+    },
+    {
+      "german": "die Tablette, -n",
+      "spanish": "la pastilla"
+    },
+    {
+      "german": "der Taxifahrer, -",
+      "spanish": "el taxista"
+    },
+    {
+      "german": "die Taxifahrerin, -nen",
+      "spanish": "la taxista"
+    },
+    {
+      "german": "das Kapitel, -",
+      "spanish": "el capítulo"
+    },
+    {
+      "german": "der Kurs, -e",
+      "spanish": "el curso, la clase"
+    },
+    {
+      "german": "der Lernwortschatz, \"-e",
+      "spanish": "el vocabulario"
+    },
+    {
+      "german": "die Seite, -n",
+      "spanish": "la página"
+    },
+    {
+      "german": "suchen",
+      "spanish": "buscar"
+    },
+    {
+      "german": "vergleichen",
+      "spanish": "comparar"
+    },
+    {
+      "german": "der Abend, -e",
+      "spanish": "la tarde"
+    },
+    {
+      "german": "aber",
+      "spanish": "pero"
+    },
+    {
+      "german": "alt",
+      "spanish": "viejo, de edad"
+    },
+    {
+      "german": "fahren",
+      "spanish": "conducir"
+    },
+    {
+      "german": "groß",
+      "spanish": "grande"
+    },
+    {
+      "german": "haben",
+      "spanish": "tener"
+    },
+    {
+      "german": "hier",
+      "spanish": "aquí"
+    },
+    {
+      "german": "das Jahr, -e",
+      "spanish": "el año"
+    },
+    {
+      "german": "der Kilometer, -",
+      "spanish": "el kilómetro"
+    },
+    {
+      "german": "das Krankenhaus, \"-er",
+      "spanish": "el hospital"
+    },
+    {
+      "german": "der Krankenpfleger, -",
+      "spanish": "el enfermero"
+    },
+    {
+      "german": "die Krankenpflegerin, -nen",
+      "spanish": "la enfermera"
+    },
+    {
+      "german": "meistens",
+      "spanish": "la mayoría de las veces"
+    },
+    {
+      "german": "der Nachmittag, -e",
+      "spanish": "la tarde"
+    },
+    {
+      "german": "nachts",
+      "spanish": "de noche, por la noche"
+    },
+    {
+      "german": "der Patient, -en",
+      "spanish": "el paciente"
+    },
+    {
+      "german": "die Patientin, -nen",
+      "spanish": "la paciente"
+    },
+    {
+      "german": "das Seminar, -e",
+      "spanish": "el seminario"
+    },
+    {
+      "german": "die Stunde, -n",
+      "spanish": "la hora"
+    },
+    {
+      "german": "die Universität, -en",
+      "spanish": "la universidad"
+    },
+    {
+      "german": "viel, viele",
+      "spanish": "mucho"
+    },
+    {
+      "german": "warten",
+      "spanish": "esperar"
+    },
+    {
+      "german": "die Woche, -n",
+      "spanish": "la semana"
+    },
+    {
+      "german": "das Zimmer, -",
+      "spanish": "la habitación, el cuarto"
+    },
+    {
+      "german": "einhundert",
+      "spanish": "cien"
+    },
+    {
+      "german": "die Information, -en",
+      "spanish": "la información"
+    },
+    {
+      "german": "immer",
+      "spanish": "siempre"
+    },
+    {
+      "german": "der Architekt, -en",
+      "spanish": "el arquitecto"
+    },
+    {
+      "german": "die Architektin, -nen",
+      "spanish": "la arquitecta"
+    },
+    {
+      "german": "der Friseur, -e",
+      "spanish": "el peluquero"
+    },
+    {
+      "german": "die Friseurin, -nen",
+      "spanish": "la peluquera"
+    },
+    {
+      "german": "der Informatiker, -",
+      "spanish": "el informático"
+    },
+    {
+      "german": "die Informatikerin, -nen",
+      "spanish": "la informática"
+    },
+    {
+      "german": "der Ingenieur, -e",
+      "spanish": "el ingeniero"
+    },
+    {
+      "german": "die Ingenieurin, -nen",
+      "spanish": "la ingeniera"
+    },
+    {
+      "german": "der Lehrer, -",
+      "spanish": "el profesor"
+    },
+    {
+      "german": "die Lehrerin, -nen",
+      "spanish": "la profesora"
+    },
+    {
+      "german": "der Verkäufer, -",
+      "spanish": "el dependiente"
+    },
+    {
+      "german": "die Verkäuferin, -nen",
+      "spanish": "la dependienta"
+    },
+    {
+      "german": "der Elektriker, -",
+      "spanish": "el electricista"
+    },
+    {
+      "german": "die Elektrikerin, -nen",
+      "spanish": "la electricista"
+    },
+    {
+      "german": "der Erzieher, -",
+      "spanish": "el educador"
+    },
+    {
+      "german": "die Erzieherin, -nen",
+      "spanish": "la educadora"
+    },
+    {
+      "german": "der Handwerker, -",
+      "spanish": "el obrero"
+    },
+    {
+      "german": "die Handwerkerin, -nen",
+      "spanish": "la obrera"
+    },
+    {
+      "german": "der Journalist, -en",
+      "spanish": "el periodista"
+    },
+    {
+      "german": "die Journalistin, -nen",
+      "spanish": "la periodista"
+    },
+    {
+      "german": "der Jurist, -en",
+      "spanish": "el jurista"
+    },
+    {
+      "german": "die Juristin, -nen",
+      "spanish": "la jurista"
+    },
+    {
+      "german": "der Koch, \"-e",
+      "spanish": "el cocinero"
+    },
+    {
+      "german": "die Köchin, -nen",
+      "spanish": "la cocinera"
+    },
+    {
+      "german": "der Mechaniker, -",
+      "spanish": "el mecánico"
+    },
+    {
+      "german": "die Mechanikerin, -nen",
+      "spanish": "la mecánico"
+    },
+    {
+      "german": "der Polizist, -en",
+      "spanish": "el policía"
+    },
+    {
+      "german": "die Polizistin, -nen",
+      "spanish": "la policía"
+    },
+    {
+      "german": "studieren",
+      "spanish": "estudiar"
+    },
+    {
+      "german": "das Beispiel, -e",
+      "spanish": "el ejemplo"
+    },
+    {
+      "german": "die Farbe, -n",
+      "spanish": "el color"
+    },
+    {
+      "german": "das Wörterbuch, \"-er",
+      "spanish": "el diccionario"
+    },
+    {
+      "german": "blau",
+      "spanish": "azul"
+    },
+    {
+      "german": "grün",
+      "spanish": "verde"
+    },
+    {
+      "german": "rot",
+      "spanish": "rojo/a"
+    },
+    {
+      "german": "das Taxi, -s",
+      "spanish": "el taxi"
+    },
+    {
+      "german": "die Zeichnung, -en",
+      "spanish": "el dibujo"
+    },
+    {
+      "german": "die Adresse, -n",
+      "spanish": "la dirección"
+    },
+    {
+      "german": "der Club, -s",
+      "spanish": "el club"
+    },
+    {
+      "german": "der Familienname, -n",
+      "spanish": "el apellido"
+    },
+    {
+      "german": "das Geburtsdatum, -daten",
+      "spanish": "la fecha de nacimiento"
+    },
+    {
+      "german": "das Geburtsort, -e",
+      "spanish": "el lugar de nacimiento"
+    },
+    {
+      "german": "neu",
+      "spanish": "nuevo/a"
+    },
+    {
+      "german": "persönlich",
+      "spanish": "personal"
+    },
+    {
+      "german": "die E-Mail, -s",
+      "spanish": "el correo electrónico"
+    },
+    {
+      "german": "die Firma, Firmen",
+      "spanish": "la empresa"
+    },
+    {
+      "german": "das Formular, -e",
+      "spanish": "el formulario"
+    },
+    {
+      "german": "die Hausnummer, -n",
+      "spanish": "el número de casa"
+    },
+    {
+      "german": "die Postleitzahl, -en",
+      "spanish": "el código postal"
+    },
+    {
+      "german": "die Schule, -n",
+      "spanish": "la escuela, el colegio"
+    },
+    {
+      "german": "der Sportclub, -s",
+      "spanish": "el club deportivo"
+    },
+    {
+      "german": "Tennis",
+      "spanish": "el tenis"
+    },
+    {
+      "german": "wählen",
+      "spanish": "elegir"
+    },
+    {
+      "german": "der Wohnort, -e",
+      "spanish": "el lugar de residencia"
+    },
+    {
+      "german": "achtzig",
+      "spanish": "ochenta"
+    },
+    {
+      "german": "dreißig",
+      "spanish": "treinta"
+    },
+    {
+      "german": "eintausend",
+      "spanish": "mil"
+    },
+    {
+      "german": "fünfzig",
+      "spanish": "cincuenta"
+    },
+    {
+      "german": "die Million, -en",
+      "spanish": "el millón"
+    },
+    {
+      "german": "neunzig",
+      "spanish": "noventa"
+    },
+    {
+      "german": "sechzig",
+      "spanish": "sesenta"
+    },
+    {
+      "german": "siebzig",
+      "spanish": "setenta"
+    },
+    {
+      "german": "tausend",
+      "spanish": "mil"
+    },
+    {
+      "german": "vierzig",
+      "spanish": "cuarenta"
+    }
+  ]
+}

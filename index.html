@@ -241,6 +241,7 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
 .bubble code{background:rgba(245,200,66,.1);border:1px solid rgba(245,200,66,.2);padding:1px 5px;border-radius:4px;font-family:'DM Mono',monospace;font-size:.78rem;color:var(--accent);}
 /* ── VOCAB ── */
 .vocab-controls{display:flex;gap:14px;margin-bottom:28px;flex-wrap:wrap;align-items:center;}
+.vocab-load-error{color:var(--danger);margin:0 0 18px;}
 .fsel{background:var(--surface2);border:1.5px solid var(--border);color:var(--text);border-radius:10px;padding:12px 18px;font-family:'DM Sans',sans-serif;font-size:.9rem;outline:none;cursor:pointer;transition:all .2s;font-weight:500;}
 .fsel:hover{border-color:var(--accent);background:var(--surface);}
 .fsel:focus{border-color:var(--accent);box-shadow:0 0 0 2px rgba(245,200,66,.1);}
@@ -591,20 +592,23 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
 
 /* ── PASADO / PARTICIPIOS ── */
 .past-header-row{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:18px;}
+.past-practice-actions{display:flex;flex-direction:column;gap:9px;flex-shrink:0;}
 .past-practice-btn{background:linear-gradient(135deg,var(--accent),#f9d75b);border:none;border-radius:10px;padding:10px 16px;color:#111;font-weight:700;cursor:pointer;box-shadow:0 10px 18px rgba(245,200,66,.22);transition:transform .2s ease, box-shadow .2s ease;font-size:.8rem;letter-spacing:.2px;}
 .past-practice-btn:hover{transform:translateY(-2px);box-shadow:0 14px 22px rgba(245,200,66,.28);}
-.past-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;align-items:stretch;}
+.aux-practice-btn{background:linear-gradient(135deg,var(--purple),#c2aaff);box-shadow:0 10px 18px rgba(155,127,232,.2);}
+.aux-practice-btn:hover{box-shadow:0 14px 22px rgba(155,127,232,.28);}
+.past-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;align-items:stretch;}
 .past-card{background:linear-gradient(180deg,var(--surface2),rgba(17,17,21,.9));border:1px solid var(--border);border-radius:14px;padding:16px;position:relative;overflow:hidden;transition:all .25s ease;}
 .past-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--accent),var(--purple));}
 .past-card:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 12px 24px rgba(0,0,0,.25);}
 .past-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:12px;}
 .past-title{min-width:0;}
-.past-inf{font-size:1.15rem;font-weight:700;color:var(--text);line-height:1.2;}
-.past-translation{font-size:.78rem;color:var(--muted);margin-top:4px;line-height:1.4;}
+.past-inf{font-size:1.25rem;font-weight:700;color:var(--text);line-height:1.2;}
+.past-translation{font-size:.88rem;color:var(--muted);margin-top:4px;line-height:1.4;}
 .past-row{display:grid;grid-template-columns:1fr;gap:6px;}
 .past-box{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:8px 10px;}
-.past-label{display:block;font-family:'DM Mono',monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:1.4px;color:var(--muted);margin-bottom:4px;}
-.past-value{font-size:.97rem;font-weight:700;color:var(--accent);line-height:1.4;}
+.past-label{display:block;font-family:'DM Mono',monospace;font-size:.68rem;text-transform:uppercase;letter-spacing:1.4px;color:var(--muted);margin-bottom:4px;}
+.past-value{font-size:1.05rem;font-weight:700;color:var(--accent);line-height:1.4;}
 .past-value.part{color:var(--accent2);}
 .practice-wrap{max-width:780px;margin:20px auto 0;display:flex;flex-direction:column;gap:16px;}
 .practice-status{display:flex;justify-content:space-between;align-items:center;gap:12px;font-family:'DM Mono',monospace;font-size:.75rem;color:var(--muted);}
@@ -615,6 +619,7 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
 .practice-streak{padding:6px 10px;border-radius:999px;background:rgba(155,127,232,.12);color:var(--purple);border:1px solid rgba(155,127,232,.22);font-family:'DM Mono',monospace;font-size:.7rem;}
 .practice-verb{font-family:'DM Serif Display',serif;font-size:clamp(2.1rem,7vw,3.2rem);color:var(--text);margin:8px 0 18px;text-align:center;letter-spacing:.02em;}
 .practice-verb-bubble{padding:16px 18px;border-radius:18px;background:linear-gradient(135deg,rgba(245,200,66,.12),rgba(155,127,232,.10));border:1px solid rgba(245,200,66,.18);}
+.aux-practice-meaning{margin:-8px 0 18px;text-align:center;font-size:.82rem;color:var(--muted);}
 .practice-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px;}
 .practice-answer-group{display:flex;flex-direction:column;gap:10px;}
 .practice-label{font-size:.68rem;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:1.2px;color:var(--muted);}
@@ -635,14 +640,17 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
 .practice-feedback.ko{border-color:rgba(224,92,92,.35);color:var(--red);background:rgba(224,92,92,.08);}
 @media(max-width:700px){
   .past-header-row{flex-direction:column;align-items:stretch;}
+  .past-practice-actions{width:100%;}
   .past-practice-btn{width:100%;}
-  .past-grid{grid-template-columns:1fr 1fr;gap:10px;}
+  .past-grid{grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;}
   .past-inf{font-size:1rem;}
   .past-card{padding:12px;}
   .past-box{padding:7px 9px;}
   .practice-card{padding:14px;}
   .practice-grid{grid-template-columns:1fr;}
   .practice-choice{padding:11px 8px;}
+  #aux-practice-card .practice-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+  .practice-verb,.past-value{overflow-wrap:anywhere;}
 }
 
 /* ── PRONUNCIACIÓN ── */
@@ -753,6 +761,7 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
       </select>
       <input class="fsearch" id="vsearch" placeholder="Buscar…" oninput="renderVocab()">
     </div>
+    <p class="vocab-load-error" id="vocab-load-error" role="alert" hidden></p>
     <div class="vcount" id="vcount"></div>
     <div class="vgrid" id="vgrid"></div>
   </div>
@@ -1008,7 +1017,10 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
         <div class="section-title">Pasado y participios</div>
         <div class="section-sub">Infinitivo, Präteritum y Partizip II de los verbos irregulares más usados.</div>
       </div>
-      <button class="past-practice-btn" onclick="setMode('practice',this)">Practicar</button>
+      <div class="past-practice-actions">
+        <button class="past-practice-btn" onclick="setMode('practice',this)">Practicar</button>
+        <button class="past-practice-btn aux-practice-btn" onclick="setMode('aux-practice',this)">Practicar ist / hat</button>
+      </div>
     </div>
     <div class="past-grid" id="past-grid"></div>
   </div>
@@ -1023,6 +1035,19 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
       <div class="practice-status" id="practice-status"></div>
       <div class="practice-card" id="practice-card"></div>
       <div class="practice-actions" id="practice-actions"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PRÁCTICA DE AUXILIARES ══ -->
+<div class="panel" id="panel-aux-practice">
+  <div class="scroll-inner">
+    <div class="section-title">Juego: ¿ist o hat?</div>
+    <div class="section-sub">Elige el auxiliar correcto para cada Partizip II.</div>
+    <div class="practice-wrap">
+      <div class="practice-status" id="aux-practice-status"></div>
+      <div class="practice-card" id="aux-practice-card"></div>
+      <div class="practice-actions" id="aux-practice-actions"></div>
     </div>
   </div>
 </div>
@@ -2299,6 +2324,49 @@ function init(){
   startQuiz();
 }
 
+async function initializeApp(){
+  try{
+    const response=await fetch('./netzwerk_neu_a1_vocabulary.json');
+    if(!response.ok) throw new Error('HTTP '+response.status);
+    const data=await response.json();
+    if(!Array.isArray(data.vocabulary)||data.vocabulary.length!==data.total_words){
+      throw new Error('El archivo no contiene el número esperado de palabras.');
+    }
+
+    const imported=data.vocabulary.map(function(entry){
+      if(typeof entry.german!=='string'||typeof entry.spanish!=='string'){
+        throw new Error('Hay una entrada de vocabulario con un formato no válido.');
+      }
+      const articleMatch=entry.german.match(/^(der|die|das)\s+(.+)$/i);
+      const art=articleMatch?articleMatch[1].toLowerCase():'–';
+      let word=articleMatch?articleMatch[2].trim():entry.german.trim();
+      let plural='';
+      if(articleMatch){
+        const pluralMatch=word.match(/^(.*?),\s*(.+)$/);
+        if(pluralMatch){
+          word=pluralMatch[1].trim();
+          plural=pluralMatch[2].trim();
+        }
+      }
+      return {w:word,art:art,pl:plural,l:0,t:entry.spanish};
+    });
+    const existing=new Set(VOCAB.map(v=>v.w.toLowerCase()));
+    imported.forEach(function(entry){
+      const key=entry.w.toLowerCase();
+      if(existing.has(key)) return;
+      existing.add(key);
+      entry.imported=true;
+      VOCAB.push(entry);
+    });
+  }catch(error){
+    console.error('No se pudo cargar el vocabulario adicional.',error);
+    const message=document.getElementById('vocab-load-error');
+    message.textContent='No se pudo cargar el vocabulario adicional. Comprueba que el archivo JSON esté disponible y vuelve a cargar la página.';
+    message.hidden=false;
+  }
+  init();
+}
+
 // ════════════════════════════════════════════
 // MODES
 // ════════════════════════════════════════════
@@ -2318,6 +2386,7 @@ function setMode(mode,btn){
   if(mode==='verbs') renderVerbs();
   if(mode==='past') renderPastVerbs();
   if(mode==='practice') startPastPractice();
+  if(mode==='aux-practice') startAuxiliaryPractice();
   if(mode==='glosario') renderGlosario();
   if(mode==='quiz') startQuiz();
 }
@@ -3008,7 +3077,17 @@ var matchDone = new Set();
 var matchErrors = 0;
 
 function newMatch(){
-  matchPairs = shuf(MATCH_BANK.slice()).slice(0, 8);
+  var importedPairs=VOCAB.filter(function(v){return v.imported&&v.t;}).map(function(v){
+    return {de:(v.art==='–'?'':v.art+' ')+v.w,es:v.t};
+  });
+  var known=new Set(MATCH_BANK.map(function(p){return p.de.toLowerCase();}));
+  importedPairs=importedPairs.filter(function(p){
+    var key=p.de.toLowerCase();
+    if(known.has(key)) return false;
+    known.add(key);
+    return true;
+  });
+  matchPairs = shuf(MATCH_BANK.concat(importedPairs)).slice(0, 8);
   matchSelected = null;
   matchDone = new Set();
   matchErrors = 0;
@@ -3453,6 +3532,7 @@ function renderPastVerbs() {
 }
 
 var pastPracticeState = { verbs: [], index: 0, score: 0, streak: 0, bestStreak: 0, current: { pr: '', pp: '' }, answered: false, advanceTimer: null };
+var auxiliaryPracticeState = { verbs: [], index: 0, score: 0, streak: 0, bestStreak: 0, answered: false, advanceTimer: null };
 
 function shuffleArray(arr) {
   var a = arr.slice();
@@ -3616,6 +3696,7 @@ function checkPastPractice() {
 function skipPastPractice() {
   pastPracticeState.index += 1;
   renderPastPractice();
+  scrollPastPracticeToTop();
 }
 
 function nextPastPractice() {
@@ -3623,10 +3704,109 @@ function nextPastPractice() {
   pastPracticeState.advanceTimer = null;
   pastPracticeState.index += 1;
   renderPastPractice();
+  scrollPastPracticeToTop();
+}
+
+function scrollPastPracticeToTop() {
+  var practiceScroll = document.querySelector('#panel-practice .scroll-inner');
+  if (practiceScroll) practiceScroll.scrollTop = 0;
+}
+
+function getAuxiliaryPracticeVerb(verb) {
+  var match = verb && typeof verb.pp === 'string' ? verb.pp.match(/^(ist|hat)\s+(.+)$/) : null;
+  if (!match || match[2].indexOf('/') !== -1) return null;
+  return { verb: verb, auxiliary: match[1], participle: match[2] };
+}
+
+function startAuxiliaryPractice() {
+  clearTimeout(auxiliaryPracticeState.advanceTimer);
+  var pool = IRREGULAR_VERBS.map(getAuxiliaryPracticeVerb).filter(Boolean);
+  auxiliaryPracticeState.verbs = shuffleArray(pool).slice(0, Math.min(10, pool.length));
+  auxiliaryPracticeState.index = 0;
+  auxiliaryPracticeState.score = 0;
+  auxiliaryPracticeState.streak = 0;
+  auxiliaryPracticeState.bestStreak = 0;
+  auxiliaryPracticeState.answered = false;
+  renderAuxiliaryPractice();
+}
+
+function renderAuxiliaryPractice() {
+  var status = document.getElementById('aux-practice-status');
+  var card = document.getElementById('aux-practice-card');
+  var actions = document.getElementById('aux-practice-actions');
+  if (!status || !card || !actions) return;
+
+  if (auxiliaryPracticeState.index >= auxiliaryPracticeState.verbs.length) {
+    var accuracy = auxiliaryPracticeState.verbs.length
+      ? Math.round((auxiliaryPracticeState.score / auxiliaryPracticeState.verbs.length) * 100)
+      : 0;
+    status.innerHTML = '<span class="practice-badge">Fin</span><span>Puntuación: ' + auxiliaryPracticeState.score + '</span>';
+    card.innerHTML = '<div class="practice-feedback ok">¡Buen trabajo! Has terminado la sesión. <strong>' + accuracy + '%</strong> de acierto y racha máxima: <strong>' + auxiliaryPracticeState.bestStreak + '</strong>.</div>';
+    actions.innerHTML = '<button class="practice-btn pri" onclick="startAuxiliaryPractice()">Repetir</button><button class="practice-btn sec" onclick="setMode(\'past\',document.querySelector(\'.past-practice-btn\'))">Volver</button>';
+    return;
+  }
+
+  var item = auxiliaryPracticeState.verbs[auxiliaryPracticeState.index];
+  auxiliaryPracticeState.answered = false;
+  status.innerHTML = '<span class="practice-badge">Pregunta ' + (auxiliaryPracticeState.index + 1) + '/' + auxiliaryPracticeState.verbs.length + '</span><span>Puntuación: ' + auxiliaryPracticeState.score + ' · Racha: ' + auxiliaryPracticeState.streak + '</span>';
+  card.innerHTML =
+    '<div class="practice-verb-bubble"><div class="practice-verb">' + escapeHtml(item.participle) + '</div></div>' +
+    '<div class="aux-practice-meaning">' + escapeHtml(item.verb.t || '—') + '</div>' +
+    '<div class="practice-grid">' +
+    ['ist', 'hat'].map(function(option) {
+      return '<button class="practice-choice" data-auxiliary="' + option + '" onclick="checkAuxiliaryPractice(this.getAttribute(\'data-auxiliary\'))">' + option + '</button>';
+    }).join('') +
+    '</div>' +
+    '<div id="aux-practice-feedback-slot"></div>';
+  actions.innerHTML = '<button class="practice-btn sec" onclick="skipAuxiliaryPractice()">Saltar</button>';
+}
+
+function checkAuxiliaryPractice(answer) {
+  if (auxiliaryPracticeState.answered) return;
+  var item = auxiliaryPracticeState.verbs[auxiliaryPracticeState.index];
+  var correct = answer === item.auxiliary;
+  auxiliaryPracticeState.answered = true;
+  if (correct) {
+    auxiliaryPracticeState.score += 1;
+    auxiliaryPracticeState.streak += 1;
+    auxiliaryPracticeState.bestStreak = Math.max(auxiliaryPracticeState.bestStreak, auxiliaryPracticeState.streak);
+  } else {
+    auxiliaryPracticeState.streak = 0;
+  }
+
+  document.querySelectorAll('#aux-practice-card [data-auxiliary]').forEach(function(button) {
+    var option = button.getAttribute('data-auxiliary');
+    button.classList.toggle('correct', option === item.auxiliary);
+    button.classList.toggle('wrong', option === answer && !correct);
+    button.disabled = true;
+  });
+  var feedback = document.getElementById('aux-practice-feedback-slot');
+  if (feedback) {
+    feedback.innerHTML = '<div class="practice-feedback ' + (correct ? 'ok' : 'ko') + '">' +
+      (correct ? '¡Perfecto! ' : 'Casi. ') + '<strong>' + item.auxiliary + ' ' + escapeHtml(item.participle) + '</strong></div>';
+  }
+  var status = document.getElementById('aux-practice-status');
+  if (status) status.innerHTML = '<span class="practice-badge">Resultado</span><span>Puntuación: ' + auxiliaryPracticeState.score + '</span>';
+  var actions = document.getElementById('aux-practice-actions');
+  if (actions) actions.innerHTML = '<button class="practice-btn pri" onclick="nextAuxiliaryPractice()">Siguiente</button>';
+  auxiliaryPracticeState.advanceTimer = setTimeout(nextAuxiliaryPractice, 1500);
+}
+
+function skipAuxiliaryPractice() {
+  clearTimeout(auxiliaryPracticeState.advanceTimer);
+  auxiliaryPracticeState.index += 1;
+  renderAuxiliaryPractice();
+}
+
+function nextAuxiliaryPractice() {
+  clearTimeout(auxiliaryPracticeState.advanceTimer);
+  auxiliaryPracticeState.advanceTimer = null;
+  auxiliaryPracticeState.index += 1;
+  renderAuxiliaryPractice();
 }
 
 // ════════════════════════════════════════════
-init();
+initializeApp();
 </script>
 </body>
 </html>
