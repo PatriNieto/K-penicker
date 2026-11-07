@@ -624,6 +624,7 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
 .practice-answer-group{display:flex;flex-direction:column;gap:10px;}
 .practice-label{font-size:.68rem;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:1.2px;color:var(--muted);}
 .practice-choice{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 10px;color:var(--text);font-weight:600;font-size:.88rem;text-align:center;cursor:pointer;transition:all .18s ease;}
+#practice-card .practice-choice{font-size:1.08rem;padding:15px 12px;}
 .practice-choice:hover:not(:disabled){border-color:var(--accent);transform:translateY(-1px);}
 .practice-choice:disabled{cursor:default;}
 .practice-choice.selected{border-color:var(--accent);background:rgba(245,200,66,.08);box-shadow:0 0 0 2px rgba(245,200,66,.08);}
@@ -649,6 +650,7 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
   .practice-card{padding:14px;}
   .practice-grid{grid-template-columns:1fr;}
   .practice-choice{padding:11px 8px;}
+  #practice-card .practice-choice{font-size:1.05rem;padding:14px 10px;}
   #aux-practice-card .practice-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
   .practice-verb,.past-value{overflow-wrap:anywhere;}
 }
@@ -1043,7 +1045,7 @@ header{border-bottom:1px solid var(--border);padding:12px 20px;display:flex;alig
 <div class="panel" id="panel-aux-practice">
   <div class="scroll-inner">
     <div class="section-title">Juego: ¿ist o hat?</div>
-    <div class="section-sub">Elige el auxiliar correcto para cada Partizip II.</div>
+    <div class="section-sub">Elige la forma correcta con ist o hat para cada infinitivo.</div>
     <div class="practice-wrap">
       <div class="practice-status" id="aux-practice-status"></div>
       <div class="practice-card" id="aux-practice-card"></div>
@@ -3750,11 +3752,12 @@ function renderAuxiliaryPractice() {
   auxiliaryPracticeState.answered = false;
   status.innerHTML = '<span class="practice-badge">Pregunta ' + (auxiliaryPracticeState.index + 1) + '/' + auxiliaryPracticeState.verbs.length + '</span><span>Puntuación: ' + auxiliaryPracticeState.score + ' · Racha: ' + auxiliaryPracticeState.streak + '</span>';
   card.innerHTML =
-    '<div class="practice-verb-bubble"><div class="practice-verb">' + escapeHtml(item.participle) + '</div></div>' +
+    '<div class="practice-verb-bubble"><div class="practice-verb">' + escapeHtml(item.verb.w) + '</div></div>' +
     '<div class="aux-practice-meaning">' + escapeHtml(item.verb.t || '—') + '</div>' +
     '<div class="practice-grid">' +
     ['ist', 'hat'].map(function(option) {
-      return '<button class="practice-choice" data-auxiliary="' + option + '" onclick="checkAuxiliaryPractice(this.getAttribute(\'data-auxiliary\'))">' + option + '</button>';
+      var answer = option + ' ' + item.participle;
+      return '<button class="practice-choice" data-answer="' + escapeHtml(answer) + '" onclick="checkAuxiliaryPractice(this.getAttribute(\'data-answer\'))">' + escapeHtml(answer) + '</button>';
     }).join('') +
     '</div>' +
     '<div id="aux-practice-feedback-slot"></div>';
@@ -3764,7 +3767,8 @@ function renderAuxiliaryPractice() {
 function checkAuxiliaryPractice(answer) {
   if (auxiliaryPracticeState.answered) return;
   var item = auxiliaryPracticeState.verbs[auxiliaryPracticeState.index];
-  var correct = answer === item.auxiliary;
+  var correctAnswer = item.auxiliary + ' ' + item.participle;
+  var correct = answer === correctAnswer;
   auxiliaryPracticeState.answered = true;
   if (correct) {
     auxiliaryPracticeState.score += 1;
@@ -3774,16 +3778,16 @@ function checkAuxiliaryPractice(answer) {
     auxiliaryPracticeState.streak = 0;
   }
 
-  document.querySelectorAll('#aux-practice-card [data-auxiliary]').forEach(function(button) {
-    var option = button.getAttribute('data-auxiliary');
-    button.classList.toggle('correct', option === item.auxiliary);
+  document.querySelectorAll('#aux-practice-card [data-answer]').forEach(function(button) {
+    var option = button.getAttribute('data-answer');
+    button.classList.toggle('correct', option === correctAnswer);
     button.classList.toggle('wrong', option === answer && !correct);
     button.disabled = true;
   });
   var feedback = document.getElementById('aux-practice-feedback-slot');
   if (feedback) {
     feedback.innerHTML = '<div class="practice-feedback ' + (correct ? 'ok' : 'ko') + '">' +
-      (correct ? '¡Perfecto! ' : 'Casi. ') + '<strong>' + item.auxiliary + ' ' + escapeHtml(item.participle) + '</strong></div>';
+      (correct ? '¡Perfecto! ' : 'Casi. ') + '<strong>' + escapeHtml(correctAnswer) + '</strong></div>';
   }
   var status = document.getElementById('aux-practice-status');
   if (status) status.innerHTML = '<span class="practice-badge">Resultado</span><span>Puntuación: ' + auxiliaryPracticeState.score + '</span>';
